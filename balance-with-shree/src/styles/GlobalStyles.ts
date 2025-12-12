@@ -13,7 +13,7 @@ const GlobalStyles = createGlobalStyle`
 
   body {
     font-family: Arial, Helvetica, sans-serif;
-    background-color: #ffffff;
+    background-color: #7FFFD4; /* aquamarine */
     color: #333;
   }
 `;
