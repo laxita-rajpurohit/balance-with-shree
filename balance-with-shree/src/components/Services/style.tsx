@@ -15,7 +15,13 @@ export const Card = styled.article`
   width: 230px;
   height: 210px;
   border-radius: 24px;
-  background: linear-gradient(145deg, #e9f8f3, #d7efe7);
+  border: 2px solid transparent;
+
+  /* solid fill + gradient border */
+  background:
+    linear-gradient(#e9f8f3, #d7efe7) padding-box,
+    linear-gradient(135deg, #9ed6c3, #7fb6d4) border-box;
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -24,19 +30,23 @@ export const Card = styled.article`
   text-align: center;
   color: #284b43;
 
-  /* base 3d look */
   box-shadow:
-    0 16px 30px rgba(15, 60, 40, 0.16),
+    0 14px 26px rgba(15, 60, 40, 0.16),
     0 0 0 1px rgba(255, 255, 255, 0.7) inset;
   transform: translate3d(0, 0, 0);
   transition:
     transform 200ms ease,
     box-shadow 200ms ease,
-    background 200ms ease; [web:81][web:95]
-
+    background 200ms ease;
+  
   &:hover {
     transform: translate3d(0, -10px, 0) scale(1.04);
-    background: linear-gradient(145deg, #f2fbf7, #cbe7dd);
+
+    /* brighter gradient border + fill on hover */
+    background:
+      linear-gradient(#f4fbf8, #e4f6f0) padding-box,
+      linear-gradient(135deg, #b0f0d2, #9cc7ff) border-box;
+
     box-shadow:
       0 26px 45px rgba(10, 40, 30, 0.25),
       0 0 0 1px rgba(255, 255, 255, 0.9) inset;
