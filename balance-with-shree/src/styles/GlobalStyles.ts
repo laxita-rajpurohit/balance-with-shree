@@ -1,21 +1,20 @@
 import { createGlobalStyle } from "styled-components";
 
-const GlobalStyles = createGlobalStyle`
+export const GlobalStyles = createGlobalStyle`
   * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
   }
 
-  html {
-    scroll-behavior: smooth;
+  body {
+    font-family: 'Cormorant Garamond', serif;
+   background: ${({ theme }) => theme.colors.bg};
+   color: ${({ theme }) => theme.colors.dark};
   }
 
-  body {
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: #7FFFD4; /* aquamarine */
-    color: #333;
+  p {
+    font-family: 'Inter', sans-serif;
+   color: ${({ theme }) => theme.colors.muted};
   }
 `;
-
-export default GlobalStyles;

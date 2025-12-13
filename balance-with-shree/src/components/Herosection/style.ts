@@ -1,44 +1,43 @@
 import styled from "styled-components";
 
-export const HeroContainer = styled.section`
-  width: 100%;
-  height: 90vh;
-  background-image: url("/hero.jpg"); /* Replace with your image */
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-
-  position: relative;
-  color: white;
-`;
-
-export const Overlay = styled.div`
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.45);
-`;
-
-export const HeroContent = styled.div`
-  position: relative;
-  max-width: 800px;
-  padding: 20px;
-`;
-
-export const Title = styled.h1`
-  font-size: 3.5rem;
-  font-weight: 700;
-  margin-bottom: 20px;
-  letter-spacing: -1px;
-`;
-
-export const Subtitle = styled.p`
-  font-size: 1.3rem;
-  line-height: 1.8;
-  max-width: 650px;
+export const Wrapper = styled.section`
+  background: white;
+  max-width: 1100px;
   margin: 0 auto;
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+`;
+
+export const Img = styled.img`
+  width: 100%;
+  height: 460px;
+  object-fit: cover;
+`;
+
+export const Content = styled.div`
+  text-align: center;
+      position: absolute;
+top: 10%;
+left: 12%;
+
+  h1 {
+    font-size: 42px;
+    margin-bottom: 16px;
+
+  }
+
+  button {
+    
+    padding: 12px 26px;
+    border-radius: 40px;
+    border: none;
+    background: #2f4f4f;
+    color: white;
+  }
+`;
+
+export const ButtonDiv = styled.div`
+display: flex;
+gap: 20px;
 `;

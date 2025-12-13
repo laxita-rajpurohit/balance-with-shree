@@ -1,7 +1,8 @@
-import Home from "./pages/Home";
+// src/App.tsx
+import { Home } from "./pages/HomePage";
 
-function App() {
+const App = () => {
   return <Home />;
-}
+};
 
 export default App;

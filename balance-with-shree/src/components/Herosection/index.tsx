@@ -1,25 +1,16 @@
-import { HeroContainer, HeroContent, Overlay, Subtitle, Title } from "./style";
+// src/components/Herosection/index.tsx
+import { ButtonDiv, Content, Img, Wrapper } from "./style";
+import heroImg from "../../assets/hero.jpeg";
 
-
-
-
-export default function HeroSection() {
-  return (
-    <HeroContainer>
-      <Overlay />
-      <HeroContent>
-        <Title>Find Balance. Find Yourself.</Title>
-        <Subtitle>
-          A holistic wellness space helping you connect with your mind, body and
-          breath through yoga, meditation & mindful living.
-        </Subtitle>
-      </HeroContent>
-    </HeroContainer>
-  );
-}
-
-
-
-
-
-
+export const Hero = () => (
+  <Wrapper>
+    <Img src={heroImg} alt="Hero" />
+    <Content>
+      <h1>BALANCE<br />WITH SHREE</h1>
+      <ButtonDiv>
+      <button>Explore Packages</button>
+      <button>Book a Session</button>
+      </ButtonDiv>
+    </Content>
+  </Wrapper>
+);
