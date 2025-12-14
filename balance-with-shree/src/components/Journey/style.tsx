@@ -6,26 +6,24 @@ export const Section = styled.section`
   padding: 120px 0;
   display: flex;
   justify-content: center;
+
+  @media (max-width: 768px) {
+    padding: 80px 0;
+  }
 `;
 
 export const Inner = styled.div`
   max-width: 1100px;
   width: 100%;
-  // border-radius: 24px;
-  overflow: hidden;
   display: grid;
   grid-template-columns: 1.2fr 1fr;
-  // background: linear-gradient(
-  //   to right,
-  //   #f7f3f7 0%,
-  //   #f7f3f7 50%,
-  //   #fdfdfd 50%,
-  //   #fdfdfd 100%
-  // );
+  background: #f7f3f7;
+  border-radius: 24px;
+  overflow: hidden;
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
-    background: #f7f3f7;
+    border-radius: 0;
   }
 `;
 
@@ -58,7 +56,16 @@ export const Text = styled.div`
   }
 
   @media (max-width: 768px) {
-    padding: 40px 24px;
+    padding: 32px 24px 28px;
+    text-align: left;
+
+    h3 {
+      font-size: 24px;
+    }
+
+    p {
+      max-width: none;
+    }
   }
 `;
 
@@ -66,5 +73,10 @@ export const Image = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
-  // filter: grayscale(100%);
+
+  @media (max-width: 768px) {
+    height: 260px;
+    object-fit: contain;
+
+  }
 `;

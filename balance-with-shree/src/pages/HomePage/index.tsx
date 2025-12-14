@@ -12,7 +12,8 @@ import { Services } from "../../components/Services";
 
 export const Home = () => (
   <>
-    <Navbar />
+   {/* <Header /> */}
+   <Navbar/>
     <Hero />
     <Journey />
     <Services/>
