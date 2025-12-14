@@ -23,7 +23,7 @@ export const Inner = styled.div`
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
-    border-radius: 0;
+    // border-radius: 0;
   }
 `;
 
@@ -46,13 +46,12 @@ export const Text = styled.div`
   }
 
   button {
-    margin-top: 12px;
     border: none;
-    background: none;
-    color: #5a4762;
-    letter-spacing: 0.18em;
-    text-transform: lowercase;
-    cursor: pointer;
+background: none;
+color: #18775e;
+letter-spacing: 0.18em;
+cursor: pointer;
+font-size: 14px;
   }
 
   @media (max-width: 768px) {

@@ -14,8 +14,10 @@ export const Journey = () => (
         <p>
           Through mindful movement and breath, I support you in slowing down,
           reconnecting, and feeling at home in your body.
+          {/* <br/> */}
+          <button>...Read more</button>
         </p>
-        <button>Read more</button>
+        
       </Text>
 
       <Image src={portrait} alt="Yoga teacher" />
