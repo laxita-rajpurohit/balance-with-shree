@@ -18,6 +18,7 @@ const baseStyles = css`
   @media (max-width: 480px) {
     width: 100%;
     text-align: center;
+    font-size: 12px;
   }
 
   &:active {

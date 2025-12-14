@@ -141,7 +141,7 @@ export const Overlay = styled.div<{ $open: boolean }>`
   display: flex;
   opacity: ${({ $open }) => ($open ? 1 : 0)};
   pointer-events: ${({ $open }) => ($open ? "auto" : "none")};
-  transition: opacity 220ms ease-out;
+  transition: opacity 600ms ease-out;
 
   @media (min-width: 768px) {
     display: none;
@@ -158,7 +158,8 @@ export const Drawer = styled.aside<{ $open: boolean }>`
   display: flex;
   flex-direction: column;
   transform: translateX(${({ $open }) => ($open ? "0" : "-100%")});
-  transition: transform 260ms cubic-bezier(0.16, 1, 0.3, 1);
+ transition: transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+
 `;
 
 export const DrawerHeader = styled.div`
