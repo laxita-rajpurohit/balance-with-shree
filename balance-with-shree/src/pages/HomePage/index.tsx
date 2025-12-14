@@ -12,8 +12,6 @@ import { Services } from "../../components/Services";
 export const HomePage = () => (
   <div style={{margin: '0 20px'}
   }>
-   {/* <Header /> */}
-   {/* <Navbar/> */}
     <Hero />
     <Journey />
     <Services/>
