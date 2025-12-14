@@ -1,8 +1,14 @@
-// src/App.tsx
-import { Home } from "./pages/HomePage";
+import { Navbar } from "./components/Navbar";
+import AppRoutes from "./Routes/AppRoutes";
 
 const App = () => {
-  return <Home />;
+  return (
+    <>
+      <Navbar />
+      <AppRoutes />
+    </>
+  );
 };
 
 export default App;
+

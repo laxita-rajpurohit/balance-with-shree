@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { NavLink } from "react-router-dom";
 
 /* desktop navbar */
 export const NavbarContainer = styled.header`
@@ -10,7 +11,7 @@ export const NavbarContainer = styled.header`
   gap: 18px;
 
   @media (max-width: 767px) {
-    display: none; /* hide desktop on mobile */
+    display: none;
   }
 `;
 
@@ -34,7 +35,8 @@ export const Nav = styled.nav`
   gap: 36px;
 `;
 
-export const Item = styled.a`
+/* IMPORTANT: NavLink instead of <a> */
+export const Item = styled(NavLink)`
   position: relative;
   font-size: 13px;
   letter-spacing: 0.26em;
@@ -44,6 +46,7 @@ export const Item = styled.a`
   padding-bottom: 6px;
   transition: color 200ms ease, transform 200ms ease, opacity 200ms ease;
   opacity: 0.8;
+  text-decoration: none;
 
   &::after {
     content: "";
@@ -67,6 +70,16 @@ export const Item = styled.a`
   &:hover::after {
     width: 70%;
   }
+
+  /* active route */
+  &.active {
+    color: #1f6b57;
+    opacity: 1;
+  }
+
+  &.active::after {
+    width: 70%;
+  }
 `;
 
 /* mobile navbar + drawer */
@@ -80,7 +93,7 @@ export const MobileBar = styled.header`
   background: #e1f1eb;
 
   @media (min-width: 768px) {
-    display: none; /* hide mobile bar on desktop */
+    display: none;
   }
 `;
 
@@ -88,8 +101,6 @@ export const MobileLogo = styled.img`
   width: 52px;
   height: 52px;
   border-radius: 50%;
-  object-fit: contain;
-   border-radius: 50%;
   object-fit: contain;
   box-shadow:
     0 14px 30px rgba(0, 0, 0, 0.22),
@@ -163,8 +174,7 @@ export const Drawer = styled.aside<{ $open: boolean }>`
   display: flex;
   flex-direction: column;
   transform: translateX(${({ $open }) => ($open ? "0" : "-100%")});
- transition: transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
-
+  transition: transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
 `;
 
 export const DrawerHeader = styled.div`
@@ -172,6 +182,12 @@ export const DrawerHeader = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 28px;
+
+  h1 {
+    font-size: 18px;
+    line-height: 1.05;
+    margin-right: 35px;
+  }
 `;
 
 export const CloseButton = styled.button`
@@ -188,7 +204,38 @@ export const DrawerNav = styled.nav`
   gap: 22px;
 `;
 
-export const DrawerItem = styled.button`
+export const ItemLink = styled.span`
+  position: relative;
+  font-size: 13px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  cursor: pointer;
+  color: #264139;
+  padding-bottom: 6px;
+  transition: color 200ms ease, transform 200ms ease, opacity 200ms ease;
+  opacity: 0.8;
+  &::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #1f6b57, #52a08a);
+    transform: translateX(-50%);
+    transition: width 220ms ease;
+  }
+  &:hover {
+    color: #1f6b57;
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+  &:hover::after {
+    width: 70%;
+  }
+`;
+export const DrawerItemButton = styled.span`
   border: none;
   background: transparent;
   text-align: left;
@@ -198,4 +245,25 @@ export const DrawerItem = styled.button`
   color: #264139;
   padding: 4px 0;
   cursor: pointer;
+`;
+
+export const LinkReset = styled.div`
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  a.active ${ItemLink} {
+    color: #1f6b57;
+    opacity: 1;
+  }
+
+  a.active ${ItemLink}::after {
+    width: 70%;
+  }
+
+  a.active ${DrawerItemButton} {
+    color: #1f6b57;
+    font-weight: 600;
+  }
 `;
