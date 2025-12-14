@@ -11,7 +11,8 @@ import { Services } from "../../components/Services";
 
 
 export const Home = () => (
-  <>
+  <div style={{margin: '0 20px'}
+  }>
    {/* <Header /> */}
    <Navbar/>
     <Hero />
@@ -22,5 +23,5 @@ export const Home = () => (
     <Nutrition />
     <Retreats />
     <Contact />
-  </>
+  </div>
 );

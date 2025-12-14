@@ -17,7 +17,6 @@ export const Wrapper = styled.section`
 
   @media (max-width: 768px) {
     max-width: 100%;
-    margin: 24px 20px;
     border-radius: 10px;
   }
 `;
@@ -103,7 +102,7 @@ export const ButtonsRow = styled.div`
     width: 100%;
     justify-content: space-between;
     gap: 95px;
-
+padding: 0 20px;
     /* let your shared Button take half width instead of full */
     & > button {
       width: 48%;

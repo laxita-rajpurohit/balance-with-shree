@@ -89,6 +89,11 @@ export const MobileLogo = styled.img`
   height: 52px;
   border-radius: 50%;
   object-fit: contain;
+   border-radius: 50%;
+  object-fit: contain;
+  box-shadow:
+    0 14px 30px rgba(0, 0, 0, 0.22),
+    0 0 0 4px rgba(244, 255, 252, 0.9);
 `;
 
 export const BurgerButton = styled.button`
