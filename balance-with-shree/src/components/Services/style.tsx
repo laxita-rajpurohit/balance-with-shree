@@ -12,7 +12,7 @@ export const CardsRow = styled.section`
 
 // style.ts
 export const Card = styled.article`
-  width: 230px;
+  width: 400px;
   height: 210px;
   border-radius: 24px;
   border: 2px solid transparent;
