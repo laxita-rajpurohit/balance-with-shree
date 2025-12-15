@@ -56,7 +56,10 @@ export const Navbar = () => {
             <DrawerHeader>
               <MobileLogo src="/logo.png" alt="Logo" />
               <h1>Balance with Shree</h1>
-              <CloseButton onClick={() => setOpen(false)} aria-label="Close menu">
+              <CloseButton
+                onClick={() => setOpen(false)}
+                aria-label="Close menu"
+              >
                 ✕
               </CloseButton>
             </DrawerHeader>

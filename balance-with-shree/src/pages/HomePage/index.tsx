@@ -7,17 +7,14 @@ import { Packages } from "../../components/Packages";
 import { Retreats } from "../../components/Retreats";
 import { Services } from "../../components/Services";
 
-
-
 export const HomePage = () => (
-  <div style={{margin: '0 20px'}
-  }>
+  <div style={{ margin: "0 20px" }}>
     <Hero />
     <Journey />
-    <Services/>
+    <Services />
+    <Nutrition />
     <Holistic />
     <Packages />
-    <Nutrition />
     <Retreats />
     <Contact />
   </div>
