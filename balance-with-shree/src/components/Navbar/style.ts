@@ -264,4 +264,9 @@ export const LinkReset = styled.div`
     color: #1f6b57;
     font-weight: 600;
   }
+  @media (max-width: 768px) {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
 `;
