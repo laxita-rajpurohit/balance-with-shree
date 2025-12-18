@@ -36,7 +36,6 @@ export const GlobalStyles = createGlobalStyle`
 
   background-repeat: no-repeat;
   // background-size: 520px auto;
-
   opacity: 0.40;
   pointer-events: none;
   z-index: 0;
@@ -60,6 +59,29 @@ export const GlobalStyles = createGlobalStyle`
 .content{
 position: relative;
 z-index:1;
+}
+@media (max-width: 768px) {
+  .leaf-background {
+    height: 100vh;
+    opacity: 0.60;               /* more visible on mobile */
+  }
+
+  .leaf-right {
+    background-size: 500px auto; /* 👈 smaller leaf */
+    background-position: right -40px top 120px;
+    top: -8%;
+  }
+
+  .leaf-left {
+    background-size: 500px auto;
+    background-position: left -40px bottom 160px;
+     top: 21%;
+  }
+   
+  .leaf-inner {
+    animation-duration: 20s;
+  }
+
 }
 
 `;
