@@ -47,11 +47,11 @@ export const Text = styled.div`
 
   button {
     border: none;
-background: none;
-color: #18775e;
-letter-spacing: 0.18em;
-cursor: pointer;
-font-size: 14px;
+    background: none;
+    color: #18775e;
+    letter-spacing: 0.18em;
+    cursor: pointer;
+    font-size: 14px;
   }
 
   @media (max-width: 768px) {
@@ -76,6 +76,5 @@ export const Image = styled.img`
   @media (max-width: 768px) {
     height: 260px;
     object-fit: contain;
-
   }
 `;

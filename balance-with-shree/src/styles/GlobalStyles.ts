@@ -1,5 +1,5 @@
 import { createGlobalStyle } from "styled-components";
-import leafRight from "../assets/leaf.svg";
+import leafRight from "../assets/left leaf.svg";
 import leafLeft from "../assets/right leaf.svg";
 
 export const GlobalStyles = createGlobalStyle`
@@ -57,5 +57,9 @@ export const GlobalStyles = createGlobalStyle`
   background-position: left -10px center;
 }
 
+.content{
+position: relative;
+z-index:1;
+}
 
 `;

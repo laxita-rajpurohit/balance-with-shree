@@ -10,7 +10,7 @@ const App = () => {
     if (window.innerWidth < 768) return;
 
     const onScroll = () => {
-      const offset = window.scrollY * 0.25;
+      const offset = window.scrollY * 0.1;
 
       if (leafRightRef.current) {
         leafRightRef.current.style.transform = `translateY(${offset}px)`;
