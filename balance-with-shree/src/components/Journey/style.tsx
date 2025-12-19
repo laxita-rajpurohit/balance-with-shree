@@ -1,5 +1,5 @@
 // Journey/style.ts
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 export const Section = styled.section`
   width: 100%;
@@ -23,10 +23,10 @@ export const Inner = styled.div`
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
-    // border-radius: 0;
   }
 `;
 
+// base text styles
 export const Text = styled.div`
   padding: 72px 80px;
   display: flex;
@@ -66,6 +66,21 @@ export const Text = styled.div`
       max-width: none;
     }
   }
+`;
+
+const fadeInRight = keyframes`
+  from { opacity: 0; transform: translateX(-40px); }
+  to   { opacity: 1; transform: translateX(0); }
+`;
+
+// animated version of Text
+export const AnimatedText = styled(Text)<{ visible: boolean }>`
+  opacity: ${({ visible }) => (visible ? 1 : 0)};
+  transform: ${({ visible }) =>
+    visible ? "translateX(0)" : "translateX(-40px)"};
+  animation: ${({ visible }) => (visible ? fadeInRight : "none")} 0.8s
+    cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 `;
 
 export const Image = styled.img`

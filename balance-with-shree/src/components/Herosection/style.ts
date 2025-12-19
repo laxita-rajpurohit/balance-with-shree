@@ -1,5 +1,10 @@
 // Hero/style.ts
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+
+const fadeUp = keyframes`
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: translateY(0); }
+`;
 
 export const Wrapper = styled.section`
   background: white;
@@ -10,18 +15,15 @@ export const Wrapper = styled.section`
   position: relative;
 
   /* static 3D look */
-  box-shadow:
-    0 26px 50px rgba(15, 40, 35, 0.22),   /* deep outer shadow */
-    0 0 0 1px rgba(255, 255, 255, 0.9);   /* subtle light edge */
-  transform: translateY(-4px);           /* tiny lift off background */
+  box-shadow: 0 26px 50px rgba(15, 40, 35, 0.22),
+    /* deep outer shadow */ 0 0 0 1px rgba(255, 255, 255, 0.9); /* subtle light edge */
+  transform: translateY(-4px); /* tiny lift off background */
 
   @media (max-width: 768px) {
     max-width: 100%;
     border-radius: 10px;
   }
 `;
-
-
 
 export const Img = styled.img`
   width: 100%;
@@ -40,11 +42,11 @@ export const Img = styled.img`
 /* absolute layer containing heading + buttons */
 export const Content = styled.div`
   position: absolute;
-  inset: 0; /* stretch over image */
+  inset: 0;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* top heading, lower buttons */
-  pointer-events: none; /* let buttons set their own pointer events */
+  justify-content: space-between;
+  pointer-events: none;
 
   @media (max-width: 768px) {
     justify-content: flex-start;
@@ -102,12 +104,21 @@ export const ButtonsRow = styled.div`
     width: 100%;
     justify-content: space-between;
     gap: 95px;
-padding: 0 20px;
+    padding: 0 20px;
     /* let your shared Button take half width instead of full */
     & > button {
       width: 48%;
-      padding
-      :5px;
+      padding: 5px;
     }
   }
+`;
+
+// NEW: animated version of Content
+export const AnimatedContent = styled(Content)<{ visible: boolean }>`
+  opacity: ${({ visible }) => (visible ? 1 : 0)};
+  transform: ${({ visible }) =>
+    visible ? "translateY(0)" : "translateY(40px)"};
+  animation: ${({ visible }) => (visible ? fadeUp : "none")} 0.8s
+    cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 `;
