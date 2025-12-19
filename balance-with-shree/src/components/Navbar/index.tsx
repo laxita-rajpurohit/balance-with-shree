@@ -20,11 +20,12 @@ import {
 
 const LINKS = [
   { label: "HOME", to: "/" },
-  { label: "ABOUT", to: "/about" },
-  { label: "RETREAT", to: "/retreat" },
-  { label: "PACKAGES", to: "/packages" },
   { label: "NUTRITION", to: "/nutrition" },
+  { label: "YOGA", to: "/yoga" },
+  { label: "AYURVEDA", to: "/ayurveda" },
+  { label: "PACKAGES", to: "/packages" },
   { label: "CONTACT", to: "/contact" },
+  { label: "ABOUT", to: "/about" },
 ];
 
 export const Navbar = () => {

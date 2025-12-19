@@ -4,8 +4,10 @@ import { Holistic } from "../../components/Holistic";
 import { Journey } from "../../components/Journey";
 import Nutrition from "../../components/NutritionSection";
 import { Packages } from "../../components/Packages";
-import { Retreats } from "../../components/Retreats";
+import { Yoga } from "../../components/Yoga";
+
 import { Services } from "../../components/Services";
+import { Ayurveda } from "../../components/Ayurveda";
 
 export const HomePage = () => (
   <div style={{ margin: "0 20px" }}>
@@ -15,7 +17,8 @@ export const HomePage = () => (
     <Nutrition />
     <Holistic />
     <Packages />
-    <Retreats />
+    <Yoga />
+    <Ayurveda />
     <Contact />
   </div>
 );

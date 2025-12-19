@@ -38,7 +38,7 @@ const App = () => {
 
     intro.to([right, left], {
       x: 0,
-      opacity: 1,
+      opacity: 0.4,
       duration: entranceDuration,
       ease: "power3.out",
       stagger: 0.12,

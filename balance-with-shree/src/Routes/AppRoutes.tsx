@@ -5,14 +5,16 @@ import AboutPage from "../pages/AboutPage";
 import ContactPage from "../pages/ContactPage";
 import NutritionPage from "../pages/NutritionPage";
 import PackagesPage from "../pages/PackagesPage";
-import RetreatPage from "../pages/RetreatPage";
+import YogaPage from "../pages/YogaPage";
+import AyurvedaPage from "../pages/AyurvedaPage";
 
 export default function AppRoutes() {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/about" element={<AboutPage />} />
-      <Route path="/retreat" element={<RetreatPage />} />
+      <Route path="/yoga" element={<YogaPage />} />
+      <Route path="/ayurveda" element={<AyurvedaPage />} />
       <Route path="/packages" element={<PackagesPage />} />
       <Route path="/nutrition" element={<NutritionPage />} />
       <Route path="/contact" element={<ContactPage />} />
