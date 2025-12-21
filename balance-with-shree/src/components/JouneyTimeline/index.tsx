@@ -1,10 +1,14 @@
 // JourneyTimeline.tsx
 import React from "react";
 import styled, { keyframes } from "styled-components";
-import { useInView } from "react-intersection-observer"; // <-- NEW
+import { useInView } from "react-intersection-observer";
 import self1 from "../../assets/self1.jpeg";
 import self2 from "../../assets/self2.jpeg";
 import self3 from "../../assets/self3.jpeg";
+
+/* =======================
+   STYLES
+======================= */
 
 const TimelineWrapper = styled.section`
   width: 100%;
@@ -20,16 +24,17 @@ const Heading = styled.h2`
   margin-bottom: 56px;
 `;
 
+const TimelineContainer = styled.div`
+  position: relative;
+`;
+
 const Line = styled.div`
   position: absolute;
   top: 0;
   bottom: 0;
   left: 50%;
-  //   width: 2px;
-  //   background: #dde6e9;
   transform: translateX(-50%);
-  border-style: dashed;
-  border-width: 1px;
+  border-left: 2px dashed #96c7b5;
 
   @media (max-width: 768px) {
     left: 24px;
@@ -37,11 +42,11 @@ const Line = styled.div`
   }
 `;
 
-const DotWrapper = styled.div`
+const FloatingDot = styled.div<{ y: number }>`
   position: absolute;
-  top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, ${({ y }) => y}px);
+  z-index: 10;
 
   @media (max-width: 768px) {
     left: 24px;
@@ -54,9 +59,6 @@ const Dot = styled.div`
   border-radius: 50%;
   background: #ffffff;
   border: 2px solid #96c7b5;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   box-shadow: 0 0 0 6px rgba(150, 199, 181, 0.25);
 `;
 
@@ -68,7 +70,6 @@ const CardRow = styled.div<{ align: "left" | "right" }>`
   margin-bottom: 80px;
   align-items: center;
 
-  /* DESKTOP left/right logic */
   & > div:nth-child(1) {
     order: ${({ align }) => (align === "left" ? 1 : 2)};
     margin-left: ${({ align }) => (align === "left" ? "25%" : 0)};
@@ -80,15 +81,16 @@ const CardRow = styled.div<{ align: "left" | "right" }>`
     margin-right: ${({ align }) => (align === "right" ? "0" : "25%")};
   }
 
-  /* ✅ MOBILE OVERRIDE */
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
     gap: 16px;
-    padding-left: 64px; /* space for timeline */
+    padding-left: 64px;
 
-    & > div:nth-child(1),
-    & > div:nth-child(2) {
-      order: unset; /* ⬅ reset desktop logic */
+    & > div {
+      order: unset;
+      margin: 0;
+    }
+    & > div:nth-child(1) {
       margin: 0;
     }
   }
@@ -128,6 +130,10 @@ const Strong = styled.span`
   font-weight: 700;
 `;
 
+/* =======================
+   ANIMATIONS
+======================= */
+
 const fadeInLeft = keyframes`
   from { opacity: 0; transform: translateX(-40px); }
   to   { opacity: 1; transform: translateX(0); }
@@ -138,7 +144,6 @@ const fadeInRight = keyframes`
   to   { opacity: 1; transform: translateX(0); }
 `;
 
-// now depends on "visible"
 const AnimatedSide = styled.div<{
   side: "left" | "right";
   visible: boolean;
@@ -147,14 +152,18 @@ const AnimatedSide = styled.div<{
   animation: ${({ visible, side }) =>
       visible ? (side === "left" ? fadeInLeft : fadeInRight) : "none"}
     700ms ease-out both;
-  transform: ${({ visible, side }) =>
-    visible
-      ? "translateX(0)"
-      : side === "left"
-      ? "translateX(-40px)"
-      : "translateX(40px)"};
-  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+
+  @media (max-width: 768px) {
+    animation: none;
+    transform: ${({ visible }) =>
+      visible ? "translateY(0)" : "translateY(24px)"};
+    transition: transform 0.6s ease-out;
+  }
 `;
+
+/* =======================
+   DATA
+======================= */
 
 type JourneyStep = {
   id: number;
@@ -173,9 +182,7 @@ const steps: JourneyStep[] = [
     text: (
       <>
         At the age of <Strong>13</Strong>, Subah was <Strong>diagnosed</Strong>{" "}
-        with multiple health issues and prescribed numerous medications. After
-        years of <Strong>taking medication</Strong>, the problems persisted and
-        she thought that this was how her life was going to be.
+        with multiple health issues and prescribed numerous medications.
       </>
     ),
   },
@@ -187,9 +194,7 @@ const steps: JourneyStep[] = [
     text: (
       <>
         At <Strong>17</Strong>, a <Strong>ray of hope appeared</Strong> when her
-        father took her to a 4‑day natural healing camp. Though the lifestyle
-        was unfamiliar, she decided to give it a try, as nothing else had
-        worked.
+        father took her to a natural healing camp.
       </>
     ),
   },
@@ -200,89 +205,117 @@ const steps: JourneyStep[] = [
     alt: "Journey step 3",
     text: (
       <>
-        Under the guidance of her father, she dropped out of school in class 11
-        and embarked on a journey to learn more about this{" "}
-        <Strong>natural healing science</Strong>. She immersed herself in books,
-        workshops and camps, determined to understand how food and lifestyle
-        could transform her health.
-      </>
-    ),
-  },
-  {
-    id: 4,
-    side: "right",
-    image: self2,
-    alt: "Journey step 4",
-    text: (
-      <>
-        Slowly, her confidence began to <Strong>return</Strong>. Friends and
-        family noticed the changes first – clearer skin, better energy and a
-        calm, grounded presence. For the first time in years, she felt hopeful
-        that a balanced lifestyle, rather than medication alone, could support
-        her body.
-      </>
-    ),
-  },
-  {
-    id: 5,
-    side: "left",
-    image: self1,
-    alt: "Journey step 5",
-    text: (
-      <>
-        As she continued to experiment with plant-based meals, daily movement
-        and simple mindfulness practices, her relationship with her body{" "}
-        <Strong>softened</Strong>. The focus shifted from fixing symptoms to
-        nurturing herself, one small conscious choice at a time, and that shift
-        changed everything.
+        She immersed herself in books, workshops and camps, determined to
+        understand how food and lifestyle could transform her health.
       </>
     ),
   },
 ];
 
-// row component that observes itself
+/* =======================
+   ROW
+======================= */
+
 const JourneyRow: React.FC<{ step: JourneyStep }> = ({ step }) => {
-  const { ref, inView } = useInView({
-    triggerOnce: true,
-    threshold: 0.2, // 20% of row visible before animating [web:23][web:29]
-  });
+  const { ref, inView } = useInView({ threshold: 0.2 });
 
   return (
     <CardRow ref={ref} align={step.side}>
-      {/* image side */}
       <AnimatedSide side={step.side} visible={inView}>
         <ImageContainer>
           <Image src={step.image} alt={step.alt} />
         </ImageContainer>
       </AnimatedSide>
 
-      {/* text side */}
       <AnimatedSide
         side={step.side === "left" ? "right" : "left"}
         visible={inView}
       >
         <TextBlock>{step.text}</TextBlock>
       </AnimatedSide>
-
-      <DotWrapper>
-        <Dot />
-      </DotWrapper>
     </CardRow>
   );
 };
 
+/* =======================
+   MAIN COMPONENT
+======================= */
+
 const JourneyTimeline: React.FC = () => {
+  const containerRef = React.useRef<HTMLDivElement>(null);
+  const rowRefs = React.useRef<(HTMLDivElement | null)[]>([]);
+
+  const [dotY, setDotY] = React.useState(0);
+
+  const dotYRef = React.useRef(0);
+  const targetYRef = React.useRef(0);
+  const rafRef = React.useRef<number | null>(null);
+
+  /* Observe rows to update target position */
+  React.useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const index = Number(entry.target.getAttribute("data-index"));
+            const row = rowRefs.current[index];
+            const container = containerRef.current;
+            if (!row || !container) return;
+
+            const rowRect = row.getBoundingClientRect();
+            const containerRect = container.getBoundingClientRect();
+
+            targetYRef.current =
+              rowRect.top - containerRect.top + rowRect.height / 2;
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    rowRefs.current.forEach((el) => el && observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
+  /* Smooth animation loop */
+  React.useEffect(() => {
+    const animate = () => {
+      dotYRef.current += (targetYRef.current - dotYRef.current) * 0.08;
+
+      setDotY(dotYRef.current);
+      rafRef.current = requestAnimationFrame(animate);
+    };
+
+    rafRef.current = requestAnimationFrame(animate);
+
+    return () => {
+      if (rafRef.current !== null) {
+        cancelAnimationFrame(rafRef.current);
+      }
+    };
+  }, []);
+
   return (
     <TimelineWrapper>
       <Heading>The journey through a timeline:</Heading>
 
-      <div style={{ position: "relative" }}>
+      <TimelineContainer ref={containerRef}>
         <Line />
 
-        {steps.map((step) => (
-          <JourneyRow key={step.id} step={step} />
+        <FloatingDot y={dotY}>
+          <Dot />
+        </FloatingDot>
+
+        {steps.map((step, index) => (
+          <div
+            key={step.id}
+            ref={(el) => (rowRefs.current[index] = el)}
+            data-index={index}
+          >
+            <JourneyRow step={step} />
+          </div>
         ))}
-      </div>
+      </TimelineContainer>
     </TimelineWrapper>
   );
 };
