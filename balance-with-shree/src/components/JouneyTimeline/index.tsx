@@ -25,9 +25,27 @@ const Line = styled.div`
   top: 0;
   bottom: 0;
   left: 50%;
-  width: 2px;
-  background: #dde6e9;
+  //   width: 2px;
+  //   background: #dde6e9;
   transform: translateX(-50%);
+  border-style: dashed;
+  border-width: 1px;
+
+  @media (max-width: 768px) {
+    left: 24px;
+    transform: none;
+  }
+`;
+
+const DotWrapper = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  @media (max-width: 768px) {
+    left: 24px;
+  }
 `;
 
 const Dot = styled.div`
@@ -42,13 +60,6 @@ const Dot = styled.div`
   box-shadow: 0 0 0 6px rgba(150, 199, 181, 0.25);
 `;
 
-const DotWrapper = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-`;
-
 const CardRow = styled.div<{ align: "left" | "right" }>`
   position: relative;
   display: grid;
@@ -57,19 +68,29 @@ const CardRow = styled.div<{ align: "left" | "right" }>`
   margin-bottom: 80px;
   align-items: center;
 
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-    text-align: left;
-  }
-
+  /* DESKTOP left/right logic */
   & > div:nth-child(1) {
     order: ${({ align }) => (align === "left" ? 1 : 2)};
     margin-left: ${({ align }) => (align === "left" ? "25%" : 0)};
     margin-right: ${({ align }) => (align === "left" ? "0" : "25%")};
   }
+
   & > div:nth-child(2) {
     order: ${({ align }) => (align === "left" ? 2 : 1)};
     margin-right: ${({ align }) => (align === "right" ? "0" : "25%")};
+  }
+
+  /* ✅ MOBILE OVERRIDE */
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding-left: 64px; /* space for timeline */
+
+    & > div:nth-child(1),
+    & > div:nth-child(2) {
+      order: unset; /* ⬅ reset desktop logic */
+      margin: 0;
+    }
   }
 `;
 
@@ -79,17 +100,10 @@ const ImageContainer = styled.div`
   border-radius: 18px;
   overflow: hidden;
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.18);
-  transform-origin: center;
-  transition: transform 300ms ease-out;
-  cursor: pointer;
-
-  &:hover {
-    transform: scale(1.03);
-  }
 
   @media (max-width: 768px) {
-    width: 280px;
-    height: 190px;
+    width: 100%;
+    height: 200px;
   }
 `;
 
@@ -103,7 +117,11 @@ const TextBlock = styled.div`
   max-width: 420px;
   color: #4a4a4a;
   line-height: 1.6;
-  font-size: 16px;
+
+  @media (max-width: 768px) {
+    max-width: 100%;
+    text-align: justify;
+  }
 `;
 
 const Strong = styled.span`
