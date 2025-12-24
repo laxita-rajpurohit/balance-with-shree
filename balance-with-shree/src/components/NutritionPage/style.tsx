@@ -45,6 +45,7 @@ export const HeroContent = styled.div`
   z-index: 2;
   max-width: 800px;
   padding: 0 20px;
+  color: #ffff;
 
   h1 {
     font-family: "Cormorant Garamond", serif;
@@ -53,6 +54,7 @@ export const HeroContent = styled.div`
 
   p {
     margin: 24px 0;
+    color: #ffff;
   }
 `;
 

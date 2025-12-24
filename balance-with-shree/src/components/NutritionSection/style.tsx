@@ -59,11 +59,9 @@ export const Button = styled.button`
  * Right image block – soft card look like image
  */
 export const ImageBox = styled.div`
-  background: linear-gradient(
-      rgba(0, 0, 0, 0.25),
-      rgba(0, 0, 0, 0.25)
-    ),
-    url("/assets/images/nutrition.jpg");
+  background-image: url("https://images.unsplash.com/photo-1490645935967-10de6ba17061");
+  background-size: cover;
+  background-position: center;
   background-size: cover;
   background-position: center;
   border-radius: 16px;
@@ -76,5 +74,10 @@ export const ImageBox = styled.div`
     color: white;
     font-size: 14px;
     max-width: 220px;
+  }
+  img {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
   }
 `;

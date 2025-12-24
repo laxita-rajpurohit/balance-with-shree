@@ -1,4 +1,5 @@
-import { Button, Heading, ImageBox, Text, Wrapper } from "./style";
+import { Button } from "../NutritionPage/style";
+import { Heading, ImageBox, Text, Wrapper } from "./style";
 
 const Nutrition = () => {
   return (
@@ -6,16 +7,14 @@ const Nutrition = () => {
       <div>
         <Heading>Nutrition</Heading>
         <Text>
-          Nutrition is not about restriction.
+          Nourish Your Body,
           <br />
-          Its about listening, nourishing, and healing.
+          Fuel Your Soul
         </Text>
-        <Button>Explore Nutrition Plans</Button>
+        <Button primary>Start Your Journey</Button>
       </div>
 
-      <ImageBox>
-        <p>Disconnect from noise. Reconnect with yourself.</p>
-      </ImageBox>
+      <ImageBox></ImageBox>
     </Wrapper>
   );
 };
