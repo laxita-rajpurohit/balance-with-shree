@@ -55,6 +55,24 @@ export const Dot = styled.div`
   background: #ffffff;
   border: 2px solid #96c7b5;
   box-shadow: 0 0 0 6px rgba(150, 199, 181, 0.25);
+  .active {
+    animation: pulse 1.2s ease-out;
+  }
+
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.4);
+      opacity: 0.6;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
 `;
 
 export const CardRow = styled.div<{ align: "left" | "right" }>`
@@ -80,7 +98,9 @@ export const CardRow = styled.div<{ align: "left" | "right" }>`
     grid-template-columns: 1fr;
     gap: 16px;
     padding-left: 64px;
-
+    div:nth-child(1) {
+      margin: 0;
+    }
     & > div {
       order: unset;
       margin: 0;
@@ -89,7 +109,7 @@ export const CardRow = styled.div<{ align: "left" | "right" }>`
 `;
 
 export const ImageContainer = styled.div`
-  width: 360px;
+  // width: 360px;
   height: 240px;
   border-radius: 18px;
   overflow: hidden;
@@ -111,7 +131,14 @@ export const TextBlock = styled.div`
   max-width: 420px;
   color: #4a4a4a;
   line-height: 1.6;
-
+  // background: linear-gradient(180deg, #9bb7a5 0%, #9bb7a5 100%);
+  // border-radius: 24px 0px 24px 24px;
+  // padding: 10px;
+  // &:nth-child(2) {
+  // }
+  // &:nth-child(1) {
+  //   border-radius: 0px 24px 24px 24px;
+  // }
   @media (max-width: 768px) {
     max-width: 100%;
     text-align: justify;

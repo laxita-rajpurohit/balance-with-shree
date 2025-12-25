@@ -21,28 +21,27 @@ export const Journey = ({ showFull = false }: JourneyProps) => {
         <AnimatedText visible={inView}>
           <h3>Hi, I am Dhanashree</h3>
 
-          <p>
-            I have been practicing yoga since 2015. What started as a short
-            break from routine became a lifelong journey of self-exploration and
-            healing.
-          </p>
+          <p>Movement has always been a part of who I am.</p>
 
           {showFull ? (
             <>
               <p>
-                Over the years, yoga taught me patience, balance, and deep
-                awareness of the body and mind. My approach blends traditional
-                yoga, mindful breathing, and holistic wellness practices.
+                From dance and acrobatics to yoga and mindful living, movement
+                has always been my way of connecting with myself. During a pause
+                in life, I found clarity through yoga and nutrition—building
+                strength, balance, and discipline from within.
               </p>
+
               <p>
-                My mission is to help you slow down, reconnect with yourself,
-                and build a sustainable, nourishing lifestyle.
+                Balance with Shree was born from this personal transformation—a
+                space where yoga, nutrition, and mindful living come together in
+                a practical, sustainable way.
               </p>
             </>
           ) : (
             <p>
-              Through mindful movement and breath, I support you in slowing
-              down, reconnecting, and feeling at home in your body.
+              Through yoga, nutrition, and mindful living, I help you find
+              balance that feels calm, sustainable, and deeply personal.
               <button onClick={() => navigate("/about")}>...Read more</button>
             </p>
           )}

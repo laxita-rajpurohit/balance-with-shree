@@ -35,11 +35,12 @@ const steps: JourneyStep[] = [
     id: 1,
     side: "left",
     image: self1,
-    alt: "Journey step 1",
+    alt: "Early journey",
     text: (
       <>
-        At the age of <strong>13</strong>, Subah was <strong>diagnosed</strong>{" "}
-        with multiple health issues and prescribed numerous medications.
+        In 2020, I found myself at a turning point—physically weak, mentally
+        unsettled, and disconnected from routine. I weighed just 39 kgs, with no
+        structure or discipline.
       </>
     ),
   },
@@ -47,11 +48,11 @@ const steps: JourneyStep[] = [
     id: 2,
     side: "right",
     image: self2,
-    alt: "Journey step 2",
+    alt: "Self transformation",
     text: (
       <>
-        At <strong>17</strong>, a <strong>ray of hope appeared</strong> when her
-        father took her to a natural healing camp.
+        Introducing yoga and mindful eating changed everything. Slowly, my body
+        grew stronger and my mind calmer. I moved from survival to stability.
       </>
     ),
   },
@@ -59,11 +60,11 @@ const steps: JourneyStep[] = [
     id: 3,
     side: "left",
     image: self3,
-    alt: "Journey step 3",
+    alt: "Purpose & vision",
     text: (
       <>
-        She immersed herself in books, workshops and camps, determined to
-        understand how food and lifestyle could transform her health.
+        That personal transformation revealed my purpose—to help others find
+        balance through movement, nutrition, and mindful living.
       </>
     ),
   },
@@ -88,7 +89,10 @@ const JourneyRow: React.FC<{ step: JourneyStep }> = ({ step }) => {
         side={step.side === "left" ? "right" : "left"}
         visible={inView}
       >
-        <TextBlock>{step.text}</TextBlock>
+        <TextBlock>
+          <span className="timeline-label"></span>
+          {step.text}
+        </TextBlock>
       </AnimatedSide>
     </CardRow>
   );
@@ -101,6 +105,7 @@ const JourneyRow: React.FC<{ step: JourneyStep }> = ({ step }) => {
 const JourneyTimeline: React.FC = () => {
   const containerRef = React.useRef<HTMLDivElement>(null);
   const rowRefs = React.useRef<(HTMLDivElement | null)[]>([]);
+  const [activeIndex] = React.useState(0);
 
   const dotYRef = React.useRef(0);
   const targetYRef = React.useRef(0);
@@ -129,7 +134,12 @@ const JourneyTimeline: React.FC = () => {
       { threshold: 0.5 }
     );
 
-    rowRefs.current.forEach((el) => el && observer.observe(el));
+    rowRefs.current.forEach((el) => {
+      if (el) {
+        observer.observe(el);
+      }
+    });
+
     return () => observer.disconnect();
   }, []);
 
@@ -155,7 +165,11 @@ const JourneyTimeline: React.FC = () => {
       <TimelineContainer ref={containerRef}>
         <Line />
         <FloatingDot y={dotY}>
-          <Dot />
+          <Dot
+            className={
+              activeIndex === undefined ? "" : activeIndex === 0 ? "active" : ""
+            }
+          />
         </FloatingDot>
 
         {steps.map((step, index) => (

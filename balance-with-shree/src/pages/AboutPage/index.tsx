@@ -1,11 +1,15 @@
 import JourneyTimeline from "../../components/JouneyTimeline";
 import { Journey } from "../../components/Journey";
+import Philosophy from "../../components/Philosophy";
+import WorkWithMeCTA from "../../components/WorkWithMeCTA";
 
 export default function AboutPage() {
   return (
-    <div>
+    <div style={{ margin: "0 20px" }}>
       <Journey showFull />
+      <Philosophy />
       <JourneyTimeline />
+      <WorkWithMeCTA />
     </div>
   );
 }
