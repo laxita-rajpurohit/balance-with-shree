@@ -129,16 +129,18 @@ export const Image = styled.img`
 
 export const TextBlock = styled.div`
   max-width: 420px;
-  color: #4a4a4a;
+  // color: #4a4a4a;
   line-height: 1.6;
-  // background: linear-gradient(180deg, #9bb7a5 0%, #9bb7a5 100%);
-  // border-radius: 24px 0px 24px 24px;
-  // padding: 10px;
-  // &:nth-child(2) {
-  // }
-  // &:nth-child(1) {
-  //   border-radius: 0px 24px 24px 24px;
-  // }
+  background: #2f4f4f;
+  color: #ffffff;
+  box-shadow: 0 14px 26px rgba(0, 0, 0, 0.2);
+  border-radius: 24px 0px 24px 24px;
+  padding: 10px;
+  &:nth-child(2) {
+  }
+  &:nth-child(1) {
+    border-radius: 0px 24px 24px 24px;
+  }
   @media (max-width: 768px) {
     max-width: 100%;
     text-align: justify;
