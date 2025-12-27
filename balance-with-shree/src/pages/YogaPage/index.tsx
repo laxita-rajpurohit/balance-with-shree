@@ -1,7 +1,18 @@
+import YogaCategories from "../../components/Yoga/yogaCategories";
+import YogaCTA from "../../components/Yoga/yogaCTA";
+import YogaGallery from "../../components/Yoga/yogaGallery";
+import YogaHero from "../../components/Yoga/yogaHero";
+import YogaVideoReviews from "../../components/Yoga/YogaVideoReviews";
+
 export default function YogaPage() {
   return (
-    <div style={{ padding: 24 }}>
-      <h1>Yoga Page</h1>
-    </div>
+    <>
+      <YogaHero />
+      <YogaCategories />
+      <YogaGallery />
+      <YogaVideoReviews />
+      {/* <YogaReviews /> */}
+      <YogaCTA />
+    </>
   );
 }

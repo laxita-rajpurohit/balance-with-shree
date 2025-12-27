@@ -3,11 +3,10 @@ import { Hero } from "../../components/Herosection";
 import { Holistic } from "../../components/Holistic";
 import { Journey } from "../../components/Journey";
 import Nutrition from "../../components/NutritionSection";
-import { Packages } from "../../components/Packages";
-import { Yoga } from "../../components/Yoga";
 
 import { Services } from "../../components/Services";
 import { Ayurveda } from "../../components/Ayurveda";
+import YogaPage from "../YogaPage";
 
 export const HomePage = () => (
   <div style={{ margin: "0 20px" }}>
@@ -16,8 +15,8 @@ export const HomePage = () => (
     <Services />
     <Nutrition />
     <Holistic />
-    <Packages />
-    <Yoga />
+
+    <YogaPage />
     <Ayurveda />
     <Contact />
   </div>

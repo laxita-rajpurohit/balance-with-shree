@@ -23,7 +23,6 @@ const LINKS = [
   { label: "NUTRITION", to: "/nutrition" },
   { label: "YOGA", to: "/yoga" },
   { label: "AYURVEDA", to: "/ayurveda" },
-  { label: "PACKAGES", to: "/packages" },
   { label: "CONTACT", to: "/contact" },
   { label: "ABOUT", to: "/about" },
 ];
