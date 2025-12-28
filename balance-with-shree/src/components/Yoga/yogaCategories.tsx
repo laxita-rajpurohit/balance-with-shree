@@ -1,37 +1,42 @@
 import { useNavigate } from "react-router-dom";
 import {
-  CategorySection,
-  CategoryGrid,
-  CategoryCard,
-  CategoryTitle,
-  CategoryDesc,
+  YogaSection,
+  YogaContainer,
+  YogaTitle,
+  YogaSubText,
+  YogaGrid,
+  YogaCard,
+  YogaCardTitle,
+  YogaCardDesc,
+  MobileStack,
+  DesktopOnly,
 } from "./style";
 
 const categories = [
   {
     slug: "prenatal",
     title: "Prenatal Yoga",
-    desc: "Safe, gentle support for mother and baby.",
+    desc: "Gentle, safe movement supporting the mother and baby.",
   },
   {
     slug: "postnatal",
     title: "Postnatal Yoga",
-    desc: "Rebuild strength and heal after childbirth.",
+    desc: "Restore strength, posture, and confidence after delivery.",
   },
   {
     slug: "fertility",
     title: "Yoga for Conceiving",
-    desc: "Balance hormones and reduce stress naturally.",
+    desc: "Reduce stress and balance hormones naturally.",
   },
   {
     slug: "weight-loss",
     title: "Weight Loss Yoga",
-    desc: "Mindful movement for metabolism and energy.",
+    desc: "Mindful fat loss without strain or extremes.",
   },
   {
     slug: "overall-health",
     title: "Overall Health",
-    desc: "Complete wellness for body and mind.",
+    desc: "A complete practice for strength, calm, and balance.",
   },
 ];
 
@@ -39,18 +44,36 @@ export default function YogaCategories() {
   const navigate = useNavigate();
 
   return (
-    <CategorySection>
-      <CategoryGrid>
-        {categories.map((c) => (
-          <CategoryCard
-            key={c.slug}
-            onClick={() => navigate(`/yoga/${c.slug}`)}
-          >
-            <CategoryTitle>{c.title}</CategoryTitle>
-            <CategoryDesc>{c.desc}</CategoryDesc>
-          </CategoryCard>
-        ))}
-      </CategoryGrid>
-    </CategorySection>
+    <YogaSection>
+      <YogaContainer>
+        <YogaTitle>Choose Your Yoga Path</YogaTitle>
+        <YogaSubText>
+          Each program is designed for a specific phase of life and wellness
+          need. Choose what resonates with your body right now.
+        </YogaSubText>
+        <MobileStack>
+          {categories.map((item) => (
+            <YogaCard key={item.slug}>
+              <YogaCardTitle>{item.title}</YogaCardTitle>
+              <YogaCardDesc>{item.desc}</YogaCardDesc>
+            </YogaCard>
+          ))}
+        </MobileStack>
+
+        <DesktopOnly>
+          <YogaGrid>
+            {categories.map((item) => (
+              <YogaCard
+                key={item.slug}
+                onClick={() => navigate(`/yoga/${item.slug}`)}
+              >
+                <YogaCardTitle>{item.title}</YogaCardTitle>
+                <YogaCardDesc>{item.desc}</YogaCardDesc>
+              </YogaCard>
+            ))}
+          </YogaGrid>
+        </DesktopOnly>
+      </YogaContainer>
+    </YogaSection>
   );
 }

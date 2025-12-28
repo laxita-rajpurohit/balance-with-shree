@@ -1,15 +1,21 @@
-import { HeroSection, Overlay, HeroContent, HeroTitle, HeroSub } from "./style";
+import {
+  YogaHeroSection,
+  YogaHeroOverlay,
+  YogaHeroContent,
+  YogaHeroTitle,
+  YogaHeroSub,
+} from "./style";
 
 export default function YogaHero() {
   return (
-    <HeroSection>
-      <Overlay />
-      <HeroContent>
-        <HeroSub>Yoga at Balance with Shree</HeroSub>
-        <HeroTitle>
+    <YogaHeroSection>
+      <YogaHeroOverlay />
+      <YogaHeroContent>
+        <YogaHeroSub>Yoga at Balance with Shree</YogaHeroSub>
+        <YogaHeroTitle>
           Yoga Designed for <br /> Every Phase of Life
-        </HeroTitle>
-      </HeroContent>
-    </HeroSection>
+        </YogaHeroTitle>
+      </YogaHeroContent>
+    </YogaHeroSection>
   );
 }

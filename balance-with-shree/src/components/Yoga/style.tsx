@@ -1,70 +1,59 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
-export const Section = styled.section`
-  height: 95vh;
-  background: url("/yoga-hero.jpg") center/cover no-repeat;
-  position: relative;
+/* ---------- Animations ---------- */
+
+const fadeUp = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 `;
 
-export const Overlay = styled.div`
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.45);
+/* ---------- Common ---------- */
+
+export const YogaSection = styled.section`
+  padding: 120px 20px;
 `;
 
-export const Content = styled.div`
-  position: relative;
-  z-index: 2;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+export const YogaContainer = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+`;
+
+export const YogaTitle = styled.h2`
+  font-size: 36px;
+  color: #1f2a24;
   text-align: center;
+  margin-bottom: 24px;
 `;
 
-export const Sub = styled.span`
-  color: #9bb7a5;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  font-size: 13px;
-`;
-
-export const Title = styled.h1`
-  color: white;
-  font-size: 54px;
-  font-weight: 500;
-  margin-top: 20px;
-
-  @media (max-width: 768px) {
-    font-size: 34px;
-  }
-`;
-
-export const Desc = styled.p`
-  margin-top: 14px;
+export const YogaSubText = styled.p`
+  max-width: 700px;
+  margin: 0 auto 60px;
+  text-align: center;
   color: #5f6f66;
-  line-height: 1.7;
+  line-height: 1.8;
 `;
 
-export const Grid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
+/* ---------- Hero ---------- */
 
-  video {
-    width: 100%;
-    border-radius: 20px;
-  }
-`;
-
-export const HeroSection = styled.section`
+export const YogaHeroSection = styled.section`
   height: 95vh;
   background: url("/yoga-hero.jpg") center / cover no-repeat;
   position: relative;
 `;
 
-export const HeroContent = styled.div`
+export const YogaHeroOverlay = styled.div`
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+`;
+
+export const YogaHeroContent = styled.div`
   position: relative;
   z-index: 2;
   height: 100%;
@@ -72,35 +61,30 @@ export const HeroContent = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  text-align: center;
+  animation: ${fadeUp} 1s ease;
 `;
 
-export const HeroSub = styled.span`
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  font-size: 13px;
-  color: #9bb7a5;
-`;
-
-export const HeroTitle = styled.h1`
-  margin-top: 20px;
+export const YogaHeroTitle = styled.h1`
+  color: white;
   font-size: 52px;
-  color: #ffffff;
   font-weight: 500;
+  text-align: center;
 
   @media (max-width: 768px) {
     font-size: 34px;
   }
 `;
 
-export const CategorySection = styled.section`
-  padding: 140px 20px;
-  background: #faf9f6;
+export const YogaHeroSub = styled.span`
+  color: #9bb7a5;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
 `;
 
-export const CategoryGrid = styled.div`
-  max-width: 1200px;
-  margin: auto;
+/* ---------- Category Cards ---------- */
+
+export const YogaGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 36px;
@@ -110,42 +94,57 @@ export const CategoryGrid = styled.div`
   }
 `;
 
-export const CategoryCard = styled.div`
+export const YogaCard = styled.div`
+  position: relative;
   padding: 42px;
   border-radius: 28px;
   cursor: pointer;
 
-  background: rgba(255, 255, 255, 0.4);
-  backdrop-filter: blur(22px);
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12);
+  /* 🌫 Glass base */
+  background: rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
 
-  transition: all 0.45s ease;
+  /* ✨ Glass border */
+  border: 1px solid rgba(255, 255, 255, 0.28);
 
+  /* 🧊 Depth */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12),
+    inset 0 1px 1px rgba(255, 255, 255, 0.35);
+
+  transition: transform 0.35s ease, box-shadow 0.35s ease, background 0.35s ease;
+
+  /* ✨ Hover lift */
   &:hover {
-    transform: translateY(-12px);
-    box-shadow: 0 45px 90px rgba(0, 0, 0, 0.18);
+    transform: translateY(-8px);
+    background: rgba(255, 255, 255, 0.18);
+
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.18),
+      inset 0 1px 1px rgba(255, 255, 255, 0.45);
+  }
+
+  /* 🫳 Pressed */
+  &:active {
+    transform: translateY(-2px) scale(0.98);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.16),
+      inset 0 2px 6px rgba(0, 0, 0, 0.12);
   }
 `;
 
-export const CategoryTitle = styled.h3`
+export const YogaCardTitle = styled.h3`
   font-size: 22px;
   color: #1f2a24;
 `;
 
-export const CategoryDesc = styled.p`
+export const YogaCardDesc = styled.p`
   margin-top: 14px;
-  font-size: 15px;
-  line-height: 1.7;
   color: #5f6f66;
+  line-height: 1.7;
 `;
 
-export const GallerySection = styled.section`
-  padding: 120px 20px;
-`;
+/* ---------- Gallery ---------- */
 
-export const GalleryGrid = styled.div`
-  max-width: 1100px;
-  margin: auto;
+export const YogaGalleryGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
@@ -155,58 +154,85 @@ export const GalleryGrid = styled.div`
   }
 `;
 
-export const GalleryImage = styled.img`
+export const YogaGalleryImg = styled.img`
   width: 100%;
   height: 360px;
   object-fit: cover;
   border-radius: 24px;
 `;
 
-export const VideoSection = styled.section`
-  padding: 140px 20px;
-  background: #faf9f6;
-  text-align: center;
-`;
+/* ---------- Video Reviews ---------- */
 
-export const VideoTitle = styled.h2`
-  font-size: 34px;
-  color: #1f2a24;
-  margin-bottom: 60px;
-`;
-
-export const VideoGrid = styled.div`
-  max-width: 1100px;
-  margin: auto;
+export const YogaVideoGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
+  gap: 28px;
 
   @media (max-width: 900px) {
     grid-template-columns: 1fr;
   }
 `;
 
-export const VideoCard = styled.video`
+export const YogaVideo = styled.video`
   width: 100%;
   border-radius: 24px;
   box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
 `;
 
-export const CTASection = styled.section`
+/* ---------- CTA ---------- */
+
+export const YogaCTASection = styled.section`
   padding: 140px 20px;
   text-align: center;
 `;
 
-export const CTATitle = styled.h2`
-  font-size: 36px;
-  color: #1f2a24;
-`;
-
-export const CTAButton = styled.button`
+export const YogaCTAButton = styled.button`
   margin-top: 28px;
   padding: 16px 42px;
   border-radius: 999px;
   background: #1f2a24;
   color: #ffffff;
   border: none;
+  cursor: pointer;
+  transition: 0.3s ease;
+
+  &:hover {
+    transform: translateY(-3px);
+  }
+`;
+
+/* ===== Scroll Reveal Animation ===== */
+
+export const revealUp = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
+export const Reveal = styled.div<{ visible: boolean }>`
+  opacity: ${({ visible }) => (visible ? 1 : 0)};
+  animation: ${({ visible }) => visible && revealUp} 0.8s ease forwards;
+`;
+
+export const MobileStack = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+
+  @media (min-width: 768px) {
+    display: none;
+  }
+`;
+
+export const DesktopOnly = styled.div`
+  display: none;
+
+  @media (min-width: 768px) {
+    display: block;
+  }
 `;

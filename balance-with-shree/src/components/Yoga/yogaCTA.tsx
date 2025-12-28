@@ -1,10 +1,13 @@
-import { CTASection, CTATitle, CTAButton } from "./style";
+import { YogaCTASection, YogaCTAButton, YogaTitle, YogaSubText } from "./style";
 
 export default function YogaCTA() {
   return (
-    <CTASection>
-      <CTATitle>Choose the Yoga That Fits Your Life</CTATitle>
-      <CTAButton>Enroll Now</CTAButton>
-    </CTASection>
+    <YogaCTASection>
+      <YogaTitle>Begin Your Yoga Journey</YogaTitle>
+      <YogaSubText>
+        Choose the practice that supports your body today.
+      </YogaSubText>
+      <YogaCTAButton>Enroll Now</YogaCTAButton>
+    </YogaCTASection>
   );
 }
