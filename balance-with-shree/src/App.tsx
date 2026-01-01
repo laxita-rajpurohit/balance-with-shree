@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { Navbar } from "./components/Navbar";
 import AppRoutes from "./Routes/AppRoutes";
 import gsap from "gsap";
+import WhatsAppFloating from "./components/WhatsupFloating";
 
 const App = () => {
   const leafRightRef = useRef<HTMLDivElement>(null);
@@ -79,6 +80,7 @@ const App = () => {
       <div className="content">
         <Navbar />
         <AppRoutes />
+        <WhatsAppFloating />
       </div>
     </div>
   );

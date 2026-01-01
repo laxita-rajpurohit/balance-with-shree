@@ -1,7 +1,5 @@
+import Ayurveda from "../../components/Ayurveda";
+
 export default function AyurvedaPage() {
-  return (
-    <div>
-      <h1>Ayurveda Page</h1>
-    </div>
-  );
+  return <Ayurveda />;
 }

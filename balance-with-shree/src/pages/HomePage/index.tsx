@@ -5,7 +5,6 @@ import { Journey } from "../../components/Journey";
 import Nutrition from "../../components/NutritionSection";
 
 import { Services } from "../../components/Services";
-import { Ayurveda } from "../../components/Ayurveda";
 import YogaPage from "../YogaPage";
 
 export const HomePage = () => (
@@ -15,9 +14,7 @@ export const HomePage = () => (
     <Services />
     <Nutrition />
     <Holistic />
-
     <YogaPage />
-    <Ayurveda />
     <Contact />
   </div>
 );
