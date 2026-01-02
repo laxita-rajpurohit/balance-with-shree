@@ -3,6 +3,9 @@ import { styled } from "styled-components";
 export const Section = styled.section`
   padding: 120px 20px;
   background: linear-gradient(180deg, #f6fbf8, #eef6f1);
+  opacity: 0.9;
+  margin: 0 16px 16px 16px;
+  border-radius: 24px;
 `;
 
 export const Container = styled.div`

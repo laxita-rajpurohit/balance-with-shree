@@ -4,6 +4,8 @@ export const Section = styled.section`
   padding: 120px 20px;
   background: linear-gradient(180deg, #f4faf6 0%, #eef6f1 100%);
   opacity: 0.9;
+  margin: 0 16px 16px 16px;
+  border-radius: 24px;
 `;
 
 export const Container = styled.div`
