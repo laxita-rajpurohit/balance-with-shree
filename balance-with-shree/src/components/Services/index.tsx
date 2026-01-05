@@ -1,5 +1,8 @@
 // src/components/Services/index.tsx
+import { useState } from "react";
 import { CardsRow, Card, Title, Divider, LinkText, Heading } from "./style";
+import { Modal } from "../Modal";
+import { PackageDetails } from "../PackageDetails";
 
 const SERVICES = [
   {
@@ -55,18 +58,27 @@ const SERVICES = [
   },
 ];
 
-export const Services = () => (
-  <>
-    <Heading>Packages</Heading>
-    <CardsRow>
-      {SERVICES.map((service) => (
-        <Card key={service.id}>
-          {/* <Icon aria-hidden>{service.icon}</Icon> */}
-          <Title>{service.title}</Title>
-          <Divider />
-          <LinkText>View Details +</LinkText>
-        </Card>
-      ))}
-    </CardsRow>
-  </>
-);
+export const Services = () => {
+  const [selected, setSelected] = useState<any>(null);
+
+  return (
+    <>
+      <Heading>Packages</Heading>
+      <CardsRow>
+        {SERVICES.map((service) => (
+          <Card key={service.id}>
+            <Title>{service.title}</Title>
+            <Divider />
+            <LinkText onClick={() => setSelected(service)}>
+              View Details +
+            </LinkText>
+          </Card>
+        ))}
+      </CardsRow>
+
+      <Modal isOpen={!!selected} onClose={() => setSelected(null)}>
+        {selected && <PackageDetails {...selected} />}
+      </Modal>
+    </>
+  );
+};
