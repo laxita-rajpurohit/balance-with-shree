@@ -28,6 +28,7 @@ type JourneyStep = {
   image: string;
   alt: string;
   text: React.ReactNode;
+  label: string;
 };
 
 const steps: JourneyStep[] = [
@@ -35,12 +36,14 @@ const steps: JourneyStep[] = [
     id: 1,
     side: "left",
     image: self1,
-    alt: "Early journey",
+    alt: "Where it all began (2019–2020)",
+    label: "The Beginning — Ignoring My Health",
     text: (
       <>
-        In 2020, I found myself at a turning point—physically weak, mentally
-        unsettled, and disconnected from routine. I weighed just 39 kgs, with no
-        structure or discipline.
+        Back in 2019–20, I was severely underweight, weighing just 39 kg. I was
+        into fitness or dance, and I wasn’t mindful about what or how I was
+        eating. My immunity was low, my digestion was constantly disturbed, and
+        I ignored my body’s signals for a long time.
       </>
     ),
   },
@@ -48,11 +51,15 @@ const steps: JourneyStep[] = [
     id: 2,
     side: "right",
     image: self2,
-    alt: "Self transformation",
+    alt: "The turning point – COVID & health breakdown",
+    label: "The Wake-Up Call — COVID & Hyperacidity",
     text: (
       <>
-        Introducing yoga and mindful eating changed everything. Slowly, my body
-        grew stronger and my mind calmer. I moved from survival to stability.
+        During the COVID phase, my health worsened. I suffered from frequent
+        stomach issues, acid reflux, and was eventually diagnosed with
+        hyperacidity. At one point, even breathing felt difficult. Doctors
+        clearly told me that my eating habits, sleep cycle, and lifestyle were
+        the root cause.
       </>
     ),
   },
@@ -60,11 +67,46 @@ const steps: JourneyStep[] = [
     id: 3,
     side: "left",
     image: self3,
-    alt: "Purpose & vision",
+    alt: "Awareness → Action",
+    label: "Choosing Awareness Over Neglect",
     text: (
       <>
-        That personal transformation revealed my purpose—to help others find
-        balance through movement, nutrition, and mindful living.
+        Interestingly, I was already studying Nutrition & Dietetics, but this
+        experience made everything real. I realized that knowing nutrition is
+        one thing, but living it mindfully is another.
+      </>
+    ),
+  },
+  {
+    id: 4,
+    side: "right",
+    image: self1,
+    alt: "Healing through belief, food & movement",
+    label: "Healing Through Food, Yoga & Belief",
+    text: (
+      <>
+        I began making small, consistent changes — eating with awareness,
+        restoring my sleep cycle, introducing yoga and gentle movement, and
+        practicing kinder self-talk and body awareness. Slowly, I shifted from
+        fighting my body to trusting it. Over time, my weight increased from 39
+        kg to 45 kg, my digestion improved, and my energy returned — something
+        years of random eating and irregular living had never given me.
+      </>
+    ),
+  },
+  {
+    id: 5,
+    side: "left",
+    image: self2,
+    alt: "From self-healing to serving others",
+    label: "Turning My Journey into My Purpose",
+    text: (
+      <>
+        What began as self-healing gradually became my purpose. This journey
+        taught me that health is not created through extremes, punishment, or
+        quick fixes — but through consistency, awareness, and compassion. Today,
+        I help others build a balanced relationship with food, movement, and
+        their bodies, in a way that feels sustainable and deeply personal.
       </>
     ),
   },
@@ -90,8 +132,8 @@ const JourneyRow: React.FC<{ step: JourneyStep }> = ({ step }) => {
         visible={inView}
       >
         <TextBlock>
-          <span className="timeline-label"></span>
-          {step.text}
+          <div className="timeline-label">{step.label}</div>
+          <div>{step.text}</div>
         </TextBlock>
       </AnimatedSide>
     </CardRow>

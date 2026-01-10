@@ -1,3 +1,4 @@
+import ExperienceLearning from "../../components/ExperienceLearning";
 import JourneyTimeline from "../../components/JouneyTimeline";
 import { Journey } from "../../components/Journey";
 import Philosophy from "../../components/Philosophy";
@@ -9,6 +10,7 @@ export default function AboutPage() {
       <Journey showFull />
       <Philosophy />
       <JourneyTimeline />
+      <ExperienceLearning />
       <WorkWithMeCTA />
     </div>
   );

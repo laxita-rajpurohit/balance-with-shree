@@ -91,7 +91,7 @@ export const CardRow = styled.div<{ align: "left" | "right" }>`
 
   & > div:nth-child(2) {
     order: ${({ align }) => (align === "left" ? 2 : 1)};
-    margin-right: ${({ align }) => (align === "right" ? "0" : "25%")};
+    // margin-right: ${({ align }) => (align === "right" ? "0" : "0")};
   }
 
   @media (max-width: 768px) {
@@ -128,19 +128,44 @@ export const Image = styled.img`
 `;
 
 export const TextBlock = styled.div`
-  max-width: 420px;
-  // color: #4a4a4a;
+  // max-width: 420px;
+  color: black;
   line-height: 1.6;
-  background: #2f4f4f;
-  color: #ffffff;
+  background: white;
   box-shadow: 0 14px 26px rgba(0, 0, 0, 0.2);
   border-radius: 24px 0px 24px 24px;
   padding: 10px;
+  text-align: justify;
   &:nth-child(2) {
   }
   &:nth-child(1) {
     border-radius: 0px 24px 24px 24px;
   }
+  .timeline-label {
+    display: inline-block;
+    margin-bottom: 12px;
+
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+
+    color: #0a2e65; /* your primary text color */
+
+    position: relative;
+  }
+
+  .timeline-label::before {
+    content: "";
+    position: absolute;
+    left: -32px;
+    top: 50%;
+    width: 20px;
+    height: 1px;
+    background: rgba(10, 46, 101, 0.25);
+    transform: translateY(-50%);
+  }
+
   @media (max-width: 768px) {
     max-width: 100%;
     text-align: justify;

@@ -53,4 +53,8 @@ export const Text = styled.p`
   font-size: 16px;
   line-height: 1.9;
   color: #5f6f66;
+
+  &.bold {
+    font-weight: 600;
+  }
 `;

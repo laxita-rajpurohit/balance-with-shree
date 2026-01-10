@@ -21,7 +21,13 @@ export const Journey = ({ showFull = false }: JourneyProps) => {
         <AnimatedText visible={inView}>
           <h3>Hi, I am Dhanashree</h3>
 
-          <p>Movement has always been a part of who I am.</p>
+          <p>
+            a Clinical Nutritionist & Yoga Therapist, and the founder of Balance
+            with Shree. I help people build a healthy relationship with food,
+            movement, and their bodies — not through extreme diets or quick
+            fixes, but through simple, sustainable, and mindful lifestyle
+            changes.
+          </p>
 
           {showFull ? (
             <>

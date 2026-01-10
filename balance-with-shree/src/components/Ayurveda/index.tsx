@@ -17,7 +17,7 @@ import {
 export default function Ayurveda() {
   const whatsappNumber = "919999999999";
   const message = encodeURIComponent(
-    "Hi Shree, I’d like to understand how Ayurveda can support my health."
+    "Hi Shree, I’d like to book a personalised Ayurveda consultation."
   );
 
   return (
@@ -26,139 +26,130 @@ export default function Ayurveda() {
         {/* HERO */}
         <Hero>
           <Title>
-            Ayurveda for <span>Lasting Balance</span>
+            Ayurveda for <span>Natural Balance</span>
           </Title>
           <Subtitle>
-            Ayurveda is not about quick fixes. It’s about understanding your
-            body’s nature and restoring harmony at the root — gently, naturally,
-            and sustainably.
+            Ayurveda helps you understand your body’s unique constitution and
+            lifestyle patterns to restore balance in a gentle and sustainable
+            way.
           </Subtitle>
         </Hero>
 
-        {/* YOUR SKILLS */}
+        {/* WHAT THIS INCLUDES */}
+        <Hero as="div" style={{ marginTop: "100px" }}>
+          <Title as="h2">
+            What This <span>Includes</span>
+          </Title>
+        </Hero>
+
         <Grid>
           <Card>
             <CardTitle>Ayurvedic Assessment</CardTitle>
             <CardText>
-              In-depth understanding of your body constitution (Prakriti),
-              imbalances (Vikriti), digestion, lifestyle, and stress patterns.
+              • Prakriti (body constitution) & Vikriti (current imbalance)
+              understanding
+              <br />
+              • Dosha evaluation: Vata, Pitta & Kapha
+              <br />• Basic review of digestion, routine & stress patterns
             </CardText>
           </Card>
 
           <Card>
-            <CardTitle>Dosha-Based Guidance</CardTitle>
+            <CardTitle>Dosha-Based Diet & Lifestyle Guidance</CardTitle>
             <CardText>
-              Personalised recommendations based on Vata, Pitta, and Kapha —
-              helping your body move back into balance naturally.
+              • Simple food suggestions according to dosha tendencies
+              <br />
+              • Daily routine (Dinacharya) guidance for better digestion, sleep
+              & energy
+              <br />• Practical, easy-to-follow habits
             </CardText>
           </Card>
 
           <Card>
-            <CardTitle>Diet & Daily Routine</CardTitle>
+            <CardTitle>Ayurvedic Therapies</CardTitle>
             <CardText>
-              Simple, realistic food and daily rhythm suggestions aligned with
-              your body type — no extreme rules, only sustainable habits.
+              • Abhyanga – full body oil massage for relaxation & circulation
+              <br />
+              • Potli Abhyanga – herbal bolus therapy for muscle & joint comfort
+              <br />
+              • Shirodhara – calming therapy to support mental relaxation &
+              sleep
+              <br />• Panchakarma awareness & guidance (referral where
+              appropriate)
             </CardText>
           </Card>
 
           <Card>
-            <CardTitle>Mind–Body Alignment</CardTitle>
+            <CardTitle>Oils & Home Practices</CardTitle>
             <CardText>
-              Ayurveda works deeply with mental patterns, sleep quality, energy
-              cycles, and emotional balance — not just physical symptoms.
+              • Understanding Ayurvedic oils and their usage
+              <br />
+              • Abhyanga timing, quantity & basic do’s and don’ts
+              <br />• Simple home remedies for skin & hair care
             </CardText>
           </Card>
         </Grid>
 
-        {/* HOW AYURVEDA HELPS */}
+        {/* WHO IT'S FOR */}
         <Hero style={{ marginTop: "100px" }}>
           <Title as="h2">
-            How Ayurveda Can <span>Support You</span>
+            Who It’s <span>For</span>
           </Title>
-          <Subtitle>
-            Ayurveda adapts to where you are in life — physically, mentally, and
-            emotionally.
-          </Subtitle>
         </Hero>
 
         <Grid>
           <Card>
-            <CardTitle>Digestive Issues</CardTitle>
+            <CardText>Digestive discomfort & lifestyle-related issues</CardText>
+          </Card>
+          <Card>
+            <CardText>Stress, anxiety & disturbed sleep</CardText>
+          </Card>
+          <Card>
             <CardText>
-              Bloating, acidity, constipation, sluggish digestion, or irregular
-              appetite patterns.
+              Hormonal imbalance support (PCOS, menstrual health)
             </CardText>
           </Card>
-
           <Card>
-            <CardTitle>Hormonal Balance</CardTitle>
-            <CardText>
-              PCOS, thyroid imbalance, menstrual irregularities, fertility
-              support, and postnatal recovery.
-            </CardText>
+            <CardText>Fatigue, stiffness & general wellbeing</CardText>
           </Card>
-
           <Card>
-            <CardTitle>Stress & Burnout</CardTitle>
-            <CardText>
-              Anxiety, overthinking, poor sleep, constant fatigue, or emotional
-              overwhelm.
-            </CardText>
-          </Card>
-
-          <Card>
-            <CardTitle>Weight & Metabolism</CardTitle>
-            <CardText>
-              Weight gain or difficulty losing weight due to metabolic or
-              hormonal imbalance — addressed gently, not aggressively.
-            </CardText>
+            <CardText>Preventive care & holistic balance</CardText>
           </Card>
         </Grid>
 
-        {/* CONSULTATION EXPERIENCE */}
+        {/* CONSULTATION APPROACH */}
         <Hero style={{ marginTop: "100px" }}>
           <Title as="h2">
-            The <span>Consultation Experience</span>
+            The Consultation <span>Approach</span>
           </Title>
-          <Subtitle>
-            A calm, confidential, and deeply personalised process — designed to
-            support long-term change.
-          </Subtitle>
         </Hero>
 
         <Process>
           <Step>
             <StepNumber>01</StepNumber>
-            <CardText>
-              One-on-one consultation to understand your concerns, lifestyle,
-              and health history.
-            </CardText>
+            <CardText>One-on-one personalised consultation</CardText>
           </Step>
 
           <Step>
             <StepNumber>02</StepNumber>
-            <CardText>
-              Dosha and imbalance assessment with clear explanation — no
-              confusing terminology.
-            </CardText>
+            <CardText>Clear explanation in simple language</CardText>
           </Step>
 
           <Step>
             <StepNumber>03</StepNumber>
-            <CardText>
-              Personalised recommendations covering food, routine, and mindful
-              practices.
-            </CardText>
-          </Step>
-
-          <Step>
-            <StepNumber>04</StepNumber>
-            <CardText>
-              Gentle follow-up guidance to help you integrate changes
-              sustainably.
-            </CardText>
+            <CardText>Gentle, sustainable recommendations</CardText>
           </Step>
         </Process>
+
+        {/* DISCLAIMER */}
+        <Hero style={{ marginTop: "100px" }}>
+          <Subtitle style={{ maxWidth: "800px" }}>
+            <strong>Disclaimer:</strong> Ayurvedic consultations and therapies
+            are offered as supportive wellness practices and do not replace
+            medical diagnosis or treatment. Panchakarma procedures are advised
+            or referred only where clinically appropriate.
+          </Subtitle>
+        </Hero>
 
         {/* CTA */}
         <CTA
@@ -166,7 +157,7 @@ export default function Ayurveda() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          🌿 Speak About Ayurveda on WhatsApp
+          Book your personalised Ayurveda consultation with Shree
         </CTA>
       </Container>
     </Section>

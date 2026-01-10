@@ -16,16 +16,25 @@ const Philosophy = () => {
         <Divider />
 
         <Text>
-          I believe true wellness is not about discipline rooted in pressure or
-          perfection. It is about building a gentle, sustainable relationship
-          with your body—through mindful movement, nourishing food, and
-          conscious living.
+          Yoga is not just exercise. Nutrition is not just calories. Health is
+          not just physical.
         </Text>
 
         <Text>
-          Balance with Shree exists to make wellness feel calm, accessible, and
-          deeply personal—so you feel confident, grounded, and at home in your
-          own body.
+          I follow a holistic approach — working with the mind, body, and soul.
+        </Text>
+
+        <Text>No crash diets. No temporary fixes. No fear around food.</Text>
+
+        <Text>
+          Just sustainable habits, mindful eating, and movement that feels good
+          — for life.
+        </Text>
+
+        <Text className="bold">
+          My goal is to help you feel comfortable in your body, confident in
+          your food choices, and connected to your health — naturally and
+          mindfully.
         </Text>
       </Container>
     </Section>
