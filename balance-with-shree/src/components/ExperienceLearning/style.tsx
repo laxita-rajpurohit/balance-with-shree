@@ -64,7 +64,6 @@ export const Carousel = styled.div`
    CARD (3D + VARIANTS)
 ===================== */
 export const Card = styled.div`
-  position: relative;
   flex: 0 0 100%;
   height: 360px;
   border-radius: 36px;
@@ -72,9 +71,7 @@ export const Card = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  overflow: hidden;
 
-  /* 3D BASE STATE */
   transform: translateZ(-260px) scale(0.82);
   filter: blur(10px);
   opacity: 0.25;
@@ -88,81 +85,25 @@ export const Card = styled.div`
     z-index: 3;
   }
 
-  /* -----------------
-     ART LAYER
-  ------------------ */
-  &::before {
-    content: "";
-    position: absolute;
-    inset: -20%;
-    opacity: 0.06;
-    pointer-events: none;
-    background-repeat: no-repeat;
-    background-size: 600px;
-    background-position: right bottom;
-    transition: transform 1s ease, opacity 0.6s ease;
-  }
-
-  &.active::before {
-    transform: translateY(-20px) rotate(2deg);
-    opacity: 0.1;
-  }
-
-  /* -----------------
-     VARIANTS
-  ------------------ */
-
-  /* 🧘 YOGA — flowing wave */
+  /* VARIANTS */
   &.yoga {
     background: linear-gradient(180deg, #ffffff, #f6faf8);
     box-shadow: 0px 60px 120px rgba(150, 199, 181, 0.35);
-
-    &::before {
-      background-image: url("data:image/svg+xml;utf8,\
-      <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 600'>\
-        <path d='M0,300 C150,200 350,400 600,300' fill='none' stroke='%239bb7a5' stroke-width='6'/>\
-      </svg>");
-    }
   }
 
-  /* 🥗 NUTRITION — structured geometry */
   &.nutrition {
     background: linear-gradient(180deg, #ffffff, #f3f6fa);
     box-shadow: 0px 60px 120px rgba(10, 74, 166, 0.25);
-
-    &::before {
-      background-image: url("data:image/svg+xml;utf8,\
-      <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 600'>\
-        <rect x='80' y='80' width='440' height='440' rx='60' fill='none' stroke='%230a4aa6' stroke-width='5'/>\
-      </svg>");
-    }
   }
 
-  /* 🌿 AYURVEDA — mandala / organic circle */
   &.ayurveda {
     background: linear-gradient(180deg, #fffaf3, #f5efe3);
     box-shadow: 0px 60px 120px rgba(217, 154, 66, 0.35);
-
-    &::before {
-      background-image: url("data:image/svg+xml;utf8,\
-      <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 600'>\
-        <circle cx='300' cy='300' r='220' fill='none' stroke='%23d99a42' stroke-width='5'/>\
-      </svg>");
-    }
   }
 
-  /* 📜 TRAINING — formal lines */
   &.training {
     background: linear-gradient(180deg, #ffffff, #f7f7f7);
     box-shadow: 0px 60px 120px rgba(54, 54, 54, 0.35);
-
-    &::before {
-      background-image: url("data:image/svg+xml;utf8,\
-      <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 600'>\
-        <line x1='100' y1='100' x2='500' y2='500' stroke='%23363636' stroke-width='4'/>\
-        <line x1='500' y1='100' x2='100' y2='500' stroke='%23363636' stroke-width='4'/>\
-      </svg>");
-    }
   }
 
   @media (max-width: 768px) {
@@ -215,22 +156,4 @@ export const Dot = styled.div<{ $active?: boolean }>`
   background: ${({ $active }) => ($active ? "#9bb7a5" : "#d8e2da")};
   cursor: pointer;
   transition: all 0.4s ease;
-`;
-
-export const BorderArt = styled.svg`
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 2; /* above background */
-
-  rect {
-    stroke-dasharray: 260;
-    stroke-dashoffset: 260;
-    transition: stroke-dashoffset 1.2s ease;
-  }
-
-  /* 🔥 animate ONLY when card is active */
-  .active & rect {
-    stroke-dashoffset: 0;
-  }
 `;

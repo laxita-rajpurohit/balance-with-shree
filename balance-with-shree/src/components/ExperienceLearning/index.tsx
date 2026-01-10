@@ -43,42 +43,6 @@ const BASE_CERTIFICATIONS = [
     variant: "training",
   },
 ];
-const BorderArt = () => (
-  <svg className="border-art" viewBox="0 0 100 100" preserveAspectRatio="none">
-    <defs>
-      <linearGradient id="borderGradient" gradientUnits="userSpaceOnUse">
-        <stop offset="0%" stopColor="#96c7b5">
-          <animate
-            attributeName="stop-color"
-            values="#96c7b5;#9bb7a5;#96c7b5"
-            dur="8s"
-            repeatCount="indefinite"
-          />
-        </stop>
-        <stop offset="100%" stopColor="#d99a42">
-          <animate
-            attributeName="stop-color"
-            values="#d99a42;#0a4aa6;#d99a42"
-            dur="8s"
-            repeatCount="indefinite"
-          />
-        </stop>
-      </linearGradient>
-    </defs>
-
-    <rect
-      x="2"
-      y="2"
-      width="96"
-      height="96"
-      rx="14"
-      ry="14"
-      stroke="url(#borderGradient)"
-      fill="none"
-      strokeWidth="1.8"
-    />
-  </svg>
-);
 
 /* duplicate for infinite loop */
 const CERTIFICATIONS = [...BASE_CERTIFICATIONS, ...BASE_CERTIFICATIONS];
@@ -173,8 +137,6 @@ export default function ExperienceLearning() {
               key={i}
               className={`${item.variant} ${i === index ? "active" : ""}`}
             >
-              <BorderArt className="border-art" />
-
               <CertImage
                 src={item.image}
                 alt={item.title}
