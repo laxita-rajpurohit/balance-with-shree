@@ -12,13 +12,25 @@ import {
   Step,
   StepNumber,
   CTA,
+  ComingSoon,
+  PricingWrapper,
+  PricingCard,
+  Button,
 } from "./style";
 
 export default function Ayurveda() {
   const whatsappNumber = "919999999999";
-  const message = encodeURIComponent(
+
+  const consultationMessage = encodeURIComponent(
     "Hi Shree, I’d like to book a personalised Ayurveda consultation."
   );
+
+  const discoveryCallMessage = encodeURIComponent(
+    "Hi Shree, I’d like to book an Ayurveda Discovery Call (20 minutes)."
+  );
+
+  const consultationLink = `https://wa.me/${whatsappNumber}?text=${consultationMessage}`;
+  const discoveryCallLink = `https://wa.me/${whatsappNumber}?text=${discoveryCallMessage}`;
 
   return (
     <Section>
@@ -46,46 +58,51 @@ export default function Ayurveda() {
           <Card>
             <CardTitle>Ayurvedic Assessment</CardTitle>
             <CardText>
-              • Prakriti (body constitution) & Vikriti (current imbalance)
+              • Prakriti (body constitution) &amp; Vikriti (current imbalance)
               understanding
               <br />
-              • Dosha evaluation: Vata, Pitta & Kapha
-              <br />• Basic review of digestion, routine & stress patterns
+              • Dosha evaluation: Vata, Pitta &amp; Kapha
+              <br />• Basic review of digestion, routine &amp; stress patterns
             </CardText>
           </Card>
 
           <Card>
-            <CardTitle>Dosha-Based Diet & Lifestyle Guidance</CardTitle>
+            <CardTitle>Dosha-Based Diet &amp; Lifestyle Guidance</CardTitle>
             <CardText>
               • Simple food suggestions according to dosha tendencies
               <br />
               • Daily routine (Dinacharya) guidance for better digestion, sleep
-              & energy
+              &amp; energy
               <br />• Practical, easy-to-follow habits
             </CardText>
           </Card>
 
           <Card>
             <CardTitle>Ayurvedic Therapies</CardTitle>
+            <ComingSoon>Coming soon</ComingSoon>
             <CardText>
-              • Abhyanga – full body oil massage for relaxation & circulation
+              In-person Ayurvedic therapies will be introduced soon, including:
               <br />
-              • Potli Abhyanga – herbal bolus therapy for muscle & joint comfort
+              • Abhyanga – full body oil massage for relaxation &amp;
+              circulation
               <br />
-              • Shirodhara – calming therapy to support mental relaxation &
+              • Potli Abhyanga – herbal bolus therapy for muscle &amp; joint
+              comfort
+              <br />
+              • Shirodhara – calming therapy to support mental relaxation &amp;
               sleep
-              <br />• Panchakarma awareness & guidance (referral where
+              <br />• Panchakarma awareness &amp; guidance (referral where
               appropriate)
             </CardText>
           </Card>
 
           <Card>
-            <CardTitle>Oils & Home Practices</CardTitle>
+            <CardTitle>Oils &amp; Home Practices</CardTitle>
             <CardText>
               • Understanding Ayurvedic oils and their usage
               <br />
-              • Abhyanga timing, quantity & basic do’s and don’ts
-              <br />• Simple home remedies for skin & hair care
+              • Abhyanga timing, quantity &amp; basic do’s and don’ts
+              <br />• Simple home remedies for skin &amp; hair care
             </CardText>
           </Card>
         </Grid>
@@ -99,10 +116,12 @@ export default function Ayurveda() {
 
         <Grid>
           <Card>
-            <CardText>Digestive discomfort & lifestyle-related issues</CardText>
+            <CardText>
+              Digestive discomfort &amp; lifestyle-related issues
+            </CardText>
           </Card>
           <Card>
-            <CardText>Stress, anxiety & disturbed sleep</CardText>
+            <CardText>Stress, anxiety &amp; disturbed sleep</CardText>
           </Card>
           <Card>
             <CardText>
@@ -110,10 +129,10 @@ export default function Ayurveda() {
             </CardText>
           </Card>
           <Card>
-            <CardText>Fatigue, stiffness & general wellbeing</CardText>
+            <CardText>Fatigue, stiffness &amp; general wellbeing</CardText>
           </Card>
           <Card>
-            <CardText>Preventive care & holistic balance</CardText>
+            <CardText>Preventive care &amp; holistic balance</CardText>
           </Card>
         </Grid>
 
@@ -141,6 +160,44 @@ export default function Ayurveda() {
           </Step>
         </Process>
 
+        {/* DISCOVERY CALL PRICING CARD */}
+        <PricingWrapper style={{ marginTop: "100px" }}>
+          <Title as="h2">
+            Book a <span>Discovery Call</span>
+          </Title>
+
+          <Subtitle>
+            Not sure where to begin? Start with a short call to understand what
+            you need.
+          </Subtitle>
+
+          <PricingCard>
+            <h3>Ayurveda Discovery Call</h3>
+            <p style={{ color: "#aaa", marginTop: "6px" }}>
+              20 Minutes • Online via Zoom/WhatsApp
+            </p>
+
+            <div className="price">
+              <span>₹</span>300
+            </div>
+
+            <ul>
+              <li>Brief dosha &amp; lifestyle overview</li>
+              <li>Clarity on your main concerns</li>
+              <li>Recommendations on next best steps</li>
+            </ul>
+
+            <Button
+              as="a"
+              href={discoveryCallLink}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Book My Ayurveda Discovery Call
+            </Button>
+          </PricingCard>
+        </PricingWrapper>
+
         {/* DISCLAIMER */}
         <Hero style={{ marginTop: "100px" }}>
           <Subtitle style={{ maxWidth: "800px" }}>
@@ -152,11 +209,7 @@ export default function Ayurveda() {
         </Hero>
 
         {/* CTA */}
-        <CTA
-          href={`https://wa.me/${whatsappNumber}?text=${message}`}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <CTA href={consultationLink} target="_blank" rel="noopener noreferrer">
           Book your personalised Ayurveda consultation with Shree
         </CTA>
       </Container>

@@ -42,7 +42,7 @@ export const Subtitle = styled.p`
 
 export const Grid = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(1, 1fr);
   gap: 32px;
 
   @media (max-width: 768px) {
@@ -62,6 +62,20 @@ export const CardTitle = styled.h3`
   font-weight: 500;
   color: #183c2f;
   margin-bottom: 12px;
+`;
+
+export const ComingSoon = styled.span`
+  display: inline-block;
+  margin-top: 2px;
+  margin-bottom: 14px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: #eef6f1;
+  color: #2e6b55;
 `;
 
 export const CardText = styled.p`
@@ -107,8 +121,89 @@ export const CTA = styled.a`
   font-size: 16px;
   font-weight: 500;
   box-shadow: 0 18px 45px rgba(31, 95, 74, 0.4);
+  transition: transform 0.2s ease;
 
   &:hover {
     transform: translateY(-2px);
+  }
+`;
+
+/* =========================
+   PRICING CARD (AYURVEDA PAGE)
+========================= */
+
+export const PricingWrapper = styled.div`
+  max-width: 720px;
+`;
+
+export const PricingCard = styled.div`
+  margin-top: 28px;
+  background: #ffffff;
+  border-radius: 26px;
+  padding: 32px;
+  box-shadow: 0 20px 52px rgba(0, 0, 0, 0.08);
+
+  h3 {
+    font-size: 22px;
+    font-weight: 600;
+    color: #183c2f;
+    margin-bottom: 4px;
+  }
+
+  .price {
+    margin: 20px 0 16px;
+    font-size: 32px;
+    font-weight: 600;
+    color: #1f5f4a;
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+
+    span {
+      font-size: 20px;
+    }
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 24px;
+  }
+
+  li {
+    font-size: 15px;
+    color: #4f6f63;
+    margin-bottom: 8px;
+  }
+`;
+
+export const Button = styled.a`
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+
+  padding: 14px 18px;
+  border-radius: 999px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+
+  background: #1f5f4a;
+  color: white;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+
+  box-shadow: 0 16px 40px rgba(31, 95, 74, 0.4);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 20px 48px rgba(31, 95, 74, 0.5);
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 12px 30px rgba(31, 95, 74, 0.35);
   }
 `;
