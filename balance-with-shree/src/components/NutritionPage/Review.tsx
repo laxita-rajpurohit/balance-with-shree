@@ -10,37 +10,32 @@ import {
 const REVIEWS = [
   {
     name: "Ananya R.",
-    text: "Dhanashree changed my relationship with food. I no longer count calories; I count nutrients.",
+    text: "Dhanashree changed my relationship with food. I stopped chasing calories and started understanding nourishment.",
   },
   {
     name: "Rahul K.",
-    text: "The ₹300 consultation was the best investment I made to get started on my health journey.",
-  },
-  {
-    name: "Priya S.",
-    text: "Gentle, understanding, and scientific. Shree's approach helped me recover my strength.",
+    text: "Simple, practical and realistic. Her approach helped me improve digestion and energy without extreme dieting.",
   },
 ];
 
-export const NutritionReviews = () => {
-  return (
-    <Section>
-      <SectionTitle>Client Love</SectionTitle>
-      <SubTitle>Stories of transformation and balance.</SubTitle>
+export const NutritionReviews = () => (
+  <Section>
+    <SectionTitle>Client Love</SectionTitle>
+    <SubTitle>Small shifts. Sustainable change.</SubTitle>
 
-      <GridThree>
-        {REVIEWS.map((review, index) => (
-          <FeatureCard key={index}>
-            <div style={{ color: "#D4AF37", marginBottom: "10px" }}>
-              <Star size={20} fill="#D4AF37" />
-            </div>
-            <p style={{ fontStyle: "italic", marginBottom: "20px" }}>
-              "{review.text}"
-            </p>
-            <h4 style={{ fontWeight: "bold" }}>{review.name}</h4>
-          </FeatureCard>
-        ))}
-      </GridThree>
-    </Section>
-  );
-};
+    <GridThree>
+      {REVIEWS.map((review, index) => (
+        <FeatureCard key={index}>
+          <Star size={20} fill="#D4AF37" color="#D4AF37" />
+          <p style={{ fontStyle: "italic", margin: "20px 0" }}>
+            “{review.text}”
+          </p>
+          <h4>{review.name}</h4>
+        </FeatureCard>
+      ))}
+    </GridThree>
+
+    {/* Optional CTA */}
+    {/* <Button>View All Client Stories</Button> */}
+  </Section>
+);
