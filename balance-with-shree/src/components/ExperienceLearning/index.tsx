@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import {
   Section,
@@ -44,24 +44,30 @@ const BASE_CERTIFICATIONS = [
   },
 ];
 
-const CERTIFICATIONS = [...BASE_CERTIFICATIONS, ...BASE_CERTIFICATIONS];
-
 export default function ExperienceLearning() {
   const carouselRef = useRef<HTMLDivElement | null>(null);
 
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const resumeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const snapTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const BASE_LEN = BASE_CERTIFICATIONS.length;
-  const TOTAL = CERTIFICATIONS.length;
 
-  // start from middle copy (for seamless loop)
-  const [index, setIndex] = useState(BASE_LEN);
+  // ✅ 3 copies prevents “end boundary” half-card issue
+  const CERTIFICATIONS = useMemo(
+    () => [
+      ...BASE_CERTIFICATIONS,
+      ...BASE_CERTIFICATIONS,
+      ...BASE_CERTIFICATIONS,
+    ],
+    []
+  );
 
-  // this pauses auto-scroll while user is interacting
+  const MIDDLE_START = BASE_LEN; // start at middle copy first element
+
+  const [index, setIndex] = useState(MIDDLE_START);
   const [paused, setPaused] = useState(false);
 
-  // swipe/drag helpers
   const [touchStartX, setTouchStartX] = useState<number | null>(null);
   const [mouseDownX, setMouseDownX] = useState<number | null>(null);
   const SWIPE_THRESHOLD = 45;
@@ -84,21 +90,35 @@ export default function ExperienceLearning() {
     resumeTimeoutRef.current = null;
   };
 
-  // pause now, then resume auto after delay
+  const clearSnapTimer = () => {
+    if (snapTimeoutRef.current) clearTimeout(snapTimeoutRef.current);
+    snapTimeoutRef.current = null;
+  };
+
   const pauseAndResumeLater = (delay = 2000) => {
     setPaused(true);
     clearResumeTimer();
-    resumeTimeoutRef.current = setTimeout(() => {
-      setPaused(false);
-    }, delay);
+    resumeTimeoutRef.current = setTimeout(() => setPaused(false), delay);
   };
 
   const goNext = () => setIndex((prev) => prev + 1);
-  const goPrev = () => setIndex((prev) => Math.max(0, prev - 1));
+  const goPrev = () => setIndex((prev) => prev - 1);
+
+  const scrollToIndex = (i: number, behavior: ScrollBehavior) => {
+    const carousel = carouselRef.current;
+    if (!carousel) return;
+
+    const el = carousel.children[i] as HTMLElement | undefined;
+    if (!el) return;
+
+    carousel.scrollTo({
+      left: el.offsetLeft - carousel.offsetWidth / 2 + el.offsetWidth / 2,
+      behavior,
+    });
+  };
 
   /* =====================
      AUTO ROTATE
-     - runs only if not paused AND section is in view
   ===================== */
   useEffect(() => {
     if (paused || !inView) {
@@ -115,74 +135,40 @@ export default function ExperienceLearning() {
   }, [paused, inView]);
 
   /* =====================
-     SCROLL TO ACTIVE + INFINITE RESET (NO JUMP)
+     SCROLL + PERFECT INFINITE LOOP (NO HALF CARD)
   ===================== */
   useEffect(() => {
-    const carousel = carouselRef.current;
-    if (!carousel) return;
+    // smooth scroll to active
+    scrollToIndex(index, "smooth");
 
-    const cards = carousel.children;
-    const current = cards[index] as HTMLElement | undefined;
+    // After the smooth animation, if we moved into left/right copy,
+    // snap back to the same logical slide in the middle copy.
+    clearSnapTimer();
+    snapTimeoutRef.current = setTimeout(() => {
+      const logical = ((index % BASE_LEN) + BASE_LEN) % BASE_LEN;
+      const middleIndex = MIDDLE_START + logical;
 
-    if (current) {
-      carousel.scrollTo({
-        left:
-          current.offsetLeft -
-          carousel.offsetWidth / 2 +
-          current.offsetWidth / 2,
-        behavior: "smooth",
-      });
-    }
+      // If already in middle region, do nothing
+      if (index === middleIndex) return;
 
-    // reached end of duplicated list -> snap back to middle copy silently
-    if (index >= TOTAL - 1) {
-      clearAuto();
+      // snap silently (no animation)
+      scrollToIndex(middleIndex, "auto");
+      setIndex(middleIndex);
+    }, 850); // should match your smooth feel
 
-      const snapToIndex = BASE_LEN;
-      setTimeout(() => {
-        const snapEl = cards[snapToIndex] as HTMLElement | undefined;
-        if (!snapEl) return;
+    return () => clearSnapTimer();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [index]);
 
-        carousel.scrollTo({
-          left:
-            snapEl.offsetLeft -
-            carousel.offsetWidth / 2 +
-            snapEl.offsetWidth / 2,
-          behavior: "auto",
-        });
-
-        setIndex(snapToIndex);
-      }, 850);
-    }
-
-    // safety far-left -> snap to middle copy
-    if (index <= 0) {
-      clearAuto();
-
-      const snapToIndex = BASE_LEN;
-      const snapEl = cards[snapToIndex] as HTMLElement | undefined;
-      if (!snapEl) return;
-
-      carousel.scrollTo({
-        left:
-          snapEl.offsetLeft - carousel.offsetWidth / 2 + snapEl.offsetWidth / 2,
-        behavior: "auto",
-      });
-
-      setIndex(snapToIndex);
-    }
-  }, [index, BASE_LEN, TOTAL]);
-
-  /* dots index */
   const logicalIndex = ((index % BASE_LEN) + BASE_LEN) % BASE_LEN;
 
   const jumpToSlide = (logicalIdx: number) => {
     pauseAndResumeLater(2500);
-    setIndex(BASE_LEN + logicalIdx);
+    setIndex(MIDDLE_START + logicalIdx);
   };
 
   /* =====================
-     TOUCH SWIPE (slides + auto resumes)
+     TOUCH SWIPE
   ===================== */
   const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
     pauseAndResumeLater(2500);
@@ -191,8 +177,8 @@ export default function ExperienceLearning() {
 
   const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
     if (touchStartX == null) return;
-    const diff = e.touches[0].clientX - touchStartX;
 
+    const diff = e.touches[0].clientX - touchStartX;
     if (Math.abs(diff) > SWIPE_THRESHOLD) {
       if (diff < 0) goNext();
       else goPrev();
@@ -200,12 +186,10 @@ export default function ExperienceLearning() {
     }
   };
 
-  const handleTouchEnd = () => {
-    setTouchStartX(null);
-  };
+  const handleTouchEnd = () => setTouchStartX(null);
 
   /* =====================
-     MOUSE DRAG SWIPE (desktop) + auto resumes
+     MOUSE DRAG SWIPE (DESKTOP)
   ===================== */
   const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     pauseAndResumeLater(2500);
@@ -223,15 +207,14 @@ export default function ExperienceLearning() {
     }
   };
 
-  const handleMouseUp = () => {
-    setMouseDownX(null);
-  };
+  const handleMouseUp = () => setMouseDownX(null);
 
-  // cleanup timers on unmount
+  /* cleanup */
   useEffect(() => {
     return () => {
       clearAuto();
       clearResumeTimer();
+      clearSnapTimer();
     };
   }, []);
 
