@@ -1,4 +1,10 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { useInView } from "react-intersection-observer";
 import {
   Section,
@@ -6,7 +12,8 @@ import {
   Label,
   Title,
   Divider,
-  Carousel,
+  CarouselViewport,
+  CarouselTrack,
   Card,
   CertImage,
   CertTitle,
@@ -14,10 +21,7 @@ import {
   Dot,
 } from "./style";
 
-/* =====================
-   DATA
-===================== */
-const BASE_CERTIFICATIONS = [
+const BASE = [
   {
     image:
       "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=1600&auto=format&fit=crop",
@@ -45,178 +49,143 @@ const BASE_CERTIFICATIONS = [
 ];
 
 export default function ExperienceLearning() {
-  const carouselRef = useRef<HTMLDivElement | null>(null);
-
+  const viewportRef = useRef<HTMLDivElement | null>(null);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const resumeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const snapTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const BASE_LEN = BASE_CERTIFICATIONS.length;
+  const baseLen = BASE.length;
 
-  // ✅ 3 copies prevents “end boundary” half-card issue
-  const CERTIFICATIONS = useMemo(
-    () => [
-      ...BASE_CERTIFICATIONS,
-      ...BASE_CERTIFICATIONS,
-      ...BASE_CERTIFICATIONS,
-    ],
-    []
-  );
+  // ✅ 3 copies (left, middle, right)
+  const items = useMemo(() => [...BASE, ...BASE, ...BASE], []);
+  const middleStart = baseLen; // first element of middle copy
 
-  const MIDDLE_START = BASE_LEN; // start at middle copy first element
-
-  const [index, setIndex] = useState(MIDDLE_START);
+  const [index, setIndex] = useState(middleStart);
   const [paused, setPaused] = useState(false);
 
+  // animation toggle to do invisible “teleport” without blink
+  const [animate, setAnimate] = useState(true);
+
+  // viewport width = slide width (since card is 100%)
+  const [slideW, setSlideW] = useState(0);
+
+  // swipe
   const [touchStartX, setTouchStartX] = useState<number | null>(null);
   const [mouseDownX, setMouseDownX] = useState<number | null>(null);
   const SWIPE_THRESHOLD = 45;
 
-  const { ref, inView } = useInView({
-    threshold: 0.25,
-    triggerOnce: true,
-  });
+  const { ref, inView } = useInView({ threshold: 0.25, triggerOnce: true });
 
-  /* =====================
-     HELPERS
-  ===================== */
+  /* measure width */
+  useLayoutEffect(() => {
+    const el = viewportRef.current;
+    if (!el) return;
+
+    const update = () => setSlideW(el.clientWidth);
+    update();
+
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
   const clearAuto = () => {
     if (intervalRef.current) clearInterval(intervalRef.current);
     intervalRef.current = null;
   };
 
-  const clearResumeTimer = () => {
-    if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current);
-    resumeTimeoutRef.current = null;
-  };
-
-  const clearSnapTimer = () => {
-    if (snapTimeoutRef.current) clearTimeout(snapTimeoutRef.current);
-    snapTimeoutRef.current = null;
-  };
-
   const pauseAndResumeLater = (delay = 2000) => {
     setPaused(true);
-    clearResumeTimer();
+    if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current);
     resumeTimeoutRef.current = setTimeout(() => setPaused(false), delay);
   };
 
-  const goNext = () => setIndex((prev) => prev + 1);
-  const goPrev = () => setIndex((prev) => prev - 1);
-
-  const scrollToIndex = (i: number, behavior: ScrollBehavior) => {
-    const carousel = carouselRef.current;
-    if (!carousel) return;
-
-    const el = carousel.children[i] as HTMLElement | undefined;
-    if (!el) return;
-
-    carousel.scrollTo({
-      left: el.offsetLeft - carousel.offsetWidth / 2 + el.offsetWidth / 2,
-      behavior,
-    });
-  };
-
-  /* =====================
-     AUTO ROTATE
-  ===================== */
+  /* auto rotate (only when visible and not paused) */
   useEffect(() => {
-    if (paused || !inView) {
+    if (!inView || paused) {
       clearAuto();
       return;
     }
 
     clearAuto();
     intervalRef.current = setInterval(() => {
-      setIndex((prev) => prev + 1);
+      setIndex((p) => p + 1);
     }, 3000);
 
     return () => clearAuto();
-  }, [paused, inView]);
+  }, [inView, paused]);
 
-  /* =====================
-     SCROLL + PERFECT INFINITE LOOP (NO HALF CARD)
-  ===================== */
+  /* ✅ seamless loop without blink:
+     after transition ends (approx 850ms), teleport to middle copy with animate=false for 1 frame */
   useEffect(() => {
-    // smooth scroll to active
-    scrollToIndex(index, "smooth");
+    const leftBoundary = baseLen - 1; // end of left copy
+    const rightBoundary = baseLen * 2; // start of right copy
 
-    // After the smooth animation, if we moved into left/right copy,
-    // snap back to the same logical slide in the middle copy.
-    clearSnapTimer();
-    snapTimeoutRef.current = setTimeout(() => {
-      const logical = ((index % BASE_LEN) + BASE_LEN) % BASE_LEN;
-      const middleIndex = MIDDLE_START + logical;
+    // if we are still in middle copy range, nothing to do
+    if (index > leftBoundary && index < rightBoundary) return;
 
-      // If already in middle region, do nothing
-      if (index === middleIndex) return;
+    const t = setTimeout(() => {
+      const logical = ((index % baseLen) + baseLen) % baseLen;
+      const target = middleStart + logical;
 
-      // snap silently (no animation)
-      scrollToIndex(middleIndex, "auto");
-      setIndex(middleIndex);
-    }, 850); // should match your smooth feel
+      // teleport without animation (NO blink)
+      setAnimate(false);
+      setIndex(target);
 
-    return () => clearSnapTimer();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [index]);
+      // next frame: enable animation back
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => setAnimate(true));
+      });
+    }, 850);
 
-  const logicalIndex = ((index % BASE_LEN) + BASE_LEN) % BASE_LEN;
+    return () => clearTimeout(t);
+  }, [index, baseLen, middleStart]);
 
-  const jumpToSlide = (logicalIdx: number) => {
+  const logicalIndex = ((index % baseLen) + baseLen) % baseLen;
+
+  const jumpToSlide = (i: number) => {
     pauseAndResumeLater(2500);
-    setIndex(MIDDLE_START + logicalIdx);
+    setIndex(middleStart + i);
   };
 
-  /* =====================
-     TOUCH SWIPE
-  ===================== */
-  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+  /* swipe handlers */
+  const onTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
     pauseAndResumeLater(2500);
     setTouchStartX(e.touches[0].clientX);
   };
 
-  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+  const onTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
     if (touchStartX == null) return;
-
     const diff = e.touches[0].clientX - touchStartX;
+
     if (Math.abs(diff) > SWIPE_THRESHOLD) {
-      if (diff < 0) goNext();
-      else goPrev();
+      if (diff < 0) setIndex((p) => p + 1);
+      else setIndex((p) => p - 1);
       setTouchStartX(null);
     }
   };
 
-  const handleTouchEnd = () => setTouchStartX(null);
+  const onTouchEnd = () => setTouchStartX(null);
 
-  /* =====================
-     MOUSE DRAG SWIPE (DESKTOP)
-  ===================== */
-  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+  const onMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     pauseAndResumeLater(2500);
     setMouseDownX(e.clientX);
   };
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+  const onMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (mouseDownX == null) return;
-
     const diff = e.clientX - mouseDownX;
+
     if (Math.abs(diff) > SWIPE_THRESHOLD) {
-      if (diff < 0) goNext();
-      else goPrev();
+      if (diff < 0) setIndex((p) => p + 1);
+      else setIndex((p) => p - 1);
       setMouseDownX(null);
     }
   };
 
-  const handleMouseUp = () => setMouseDownX(null);
+  const onMouseUp = () => setMouseDownX(null);
 
-  /* cleanup */
-  useEffect(() => {
-    return () => {
-      clearAuto();
-      clearResumeTimer();
-      clearSnapTimer();
-    };
-  }, []);
+  // x position for track
+  const x = slideW ? -index * slideW : 0;
 
   return (
     <Section ref={ref} className={inView ? "visible" : ""}>
@@ -225,34 +194,36 @@ export default function ExperienceLearning() {
         <Title>Professional Certifications</Title>
         <Divider />
 
-        <Carousel
-          ref={carouselRef}
+        <CarouselViewport
+          ref={viewportRef}
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
-          onMouseDown={handleMouseDown}
-          onMouseMove={handleMouseMove}
-          onMouseUp={handleMouseUp}
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleTouchEnd}
+          onTouchStart={onTouchStart}
+          onTouchMove={onTouchMove}
+          onTouchEnd={onTouchEnd}
+          onMouseDown={onMouseDown}
+          onMouseMove={onMouseMove}
+          onMouseUp={onMouseUp}
         >
-          {CERTIFICATIONS.map((item, i) => (
-            <Card
-              key={i}
-              className={`${item.variant} ${i === index ? "active" : ""}`}
-            >
-              <CertImage
-                src={item.image}
-                alt={item.title}
-                className={item.variant}
-              />
-              <CertTitle>{item.title}</CertTitle>
-            </Card>
-          ))}
-        </Carousel>
+          <CarouselTrack $animate={animate} $x={x}>
+            {items.map((item, i) => (
+              <Card
+                key={i}
+                className={`${item.variant} ${i === index ? "active" : ""}`}
+              >
+                <CertImage
+                  src={item.image}
+                  alt={item.title}
+                  className={item.variant}
+                />
+                <CertTitle>{item.title}</CertTitle>
+              </Card>
+            ))}
+          </CarouselTrack>
+        </CarouselViewport>
 
         <Progress>
-          {BASE_CERTIFICATIONS.map((_, i) => (
+          {BASE.map((_, i) => (
             <Dot
               key={i}
               $active={i === logicalIndex}

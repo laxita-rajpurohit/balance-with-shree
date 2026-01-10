@@ -53,23 +53,28 @@ export const Divider = styled.div`
 `;
 
 /* =====================
-   CAROUSEL
+   CAROUSEL (viewport + track)
 ===================== */
-export const Carousel = styled.div`
-  display: flex;
-  overflow-x: hidden;
+export const CarouselViewport = styled.div`
+  overflow: hidden;
   perspective: 2000px;
+  width: 100%;
+  position: relative;
 
-  /* swipe friendly */
   touch-action: pan-y;
+`;
 
-  @media (max-width: 768px) {
-    perspective: 1600px;
-  }
+export const CarouselTrack = styled.div<{ $animate: boolean; $x: number }>`
+  display: flex;
+  will-change: transform;
+
+  transform: translate3d(${({ $x }) => $x}px, 0, 0);
+  transition: ${({ $animate }) =>
+    $animate ? "transform 850ms cubic-bezier(0.22, 1, 0.36, 1)" : "none"};
 `;
 
 /* =====================
-   CARD (3D + ART BORDER + VARIANTS)
+   CARD (3D + ART BORDER)
 ===================== */
 export const Card = styled.div`
   position: relative;
@@ -84,7 +89,7 @@ export const Card = styled.div`
 
   overflow: hidden;
 
-  /* Inactive (tilt + depth) */
+  /* inactive */
   transform: translateZ(-260px) scale(0.82) rotateY(-12deg);
   filter: blur(10px);
   opacity: 0.25;
@@ -93,13 +98,12 @@ export const Card = styled.div`
     filter 0.85s cubic-bezier(0.22, 1, 0.36, 1),
     opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1);
 
-  /* ART BORDER */
   &::before {
     content: "";
     position: absolute;
     inset: 0;
     border-radius: inherit;
-    padding: 2px; /* thickness */
+    padding: 2px;
 
     background: conic-gradient(
       from 180deg,
@@ -108,7 +112,6 @@ export const Card = styled.div`
       rgba(155, 183, 165, 0.95)
     );
 
-    /* keep only border ring */
     -webkit-mask: linear-gradient(#000 0 0) content-box,
       linear-gradient(#000 0 0);
     -webkit-mask-composite: xor;
@@ -133,28 +136,23 @@ export const Card = styled.div`
     }
   }
 
-  /* VARIANTS */
   &.yoga {
     background: linear-gradient(180deg, #ffffff, #f6faf8);
     box-shadow: 0px 60px 120px rgba(150, 199, 181, 0.35);
   }
-
   &.nutrition {
     background: linear-gradient(180deg, #ffffff, #f3f6fa);
     box-shadow: 0px 60px 120px rgba(10, 74, 166, 0.25);
   }
-
   &.ayurveda {
     background: linear-gradient(180deg, #fffaf3, #f5efe3);
     box-shadow: 0px 60px 120px rgba(217, 154, 66, 0.35);
   }
-
   &.training {
     background: linear-gradient(180deg, #ffffff, #f7f7f7);
     box-shadow: 0px 60px 120px rgba(54, 54, 54, 0.35);
   }
 
-  /* Border colors per variant */
   &.yoga::before {
     background: conic-gradient(from 180deg, #9bb7a5, #f6faf8, #9bb7a5);
   }
@@ -201,9 +199,6 @@ export const CertTitle = styled.p`
   color: #1f2a24;
 `;
 
-/* =====================
-   PROGRESS
-===================== */
 export const Progress = styled.div`
   display: flex;
   justify-content: center;
