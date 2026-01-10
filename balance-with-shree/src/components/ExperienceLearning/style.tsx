@@ -1,13 +1,14 @@
 import styled from "styled-components";
 
 /* =====================
-   BASE (MATCH PHILOSOPHY)
+   BASE
 ===================== */
 export const Section = styled.section`
   padding: 120px 20px;
   background: #faf9f6;
   margin-bottom: 125px;
   border-radius: 24px;
+
   opacity: 0;
   transform: translateY(40px);
   transition: all 0.8s ease;
@@ -58,31 +59,78 @@ export const Carousel = styled.div`
   display: flex;
   overflow-x: hidden;
   perspective: 2000px;
+
+  /* swipe friendly */
+  touch-action: pan-y;
+
+  @media (max-width: 768px) {
+    perspective: 1600px;
+  }
 `;
 
 /* =====================
-   CARD (3D + VARIANTS)
+   CARD (3D + ART BORDER + VARIANTS)
 ===================== */
 export const Card = styled.div`
+  position: relative;
   flex: 0 0 100%;
   height: 360px;
   border-radius: 36px;
   padding: 28px;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
 
-  transform: translateZ(-260px) scale(0.82);
+  overflow: hidden;
+
+  /* Inactive (tilt + depth) */
+  transform: translateZ(-260px) scale(0.82) rotateY(-12deg);
   filter: blur(10px);
   opacity: 0.25;
 
-  transition: all 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* ART BORDER */
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 2px; /* thickness */
+
+    background: conic-gradient(
+      from 180deg,
+      rgba(155, 183, 165, 0.95),
+      rgba(255, 255, 255, 0.4),
+      rgba(155, 183, 165, 0.95)
+    );
+
+    /* keep only border ring */
+    -webkit-mask: linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+
+    opacity: 0.25;
+    transform: rotate(-2deg);
+    transition: opacity 0.6s ease,
+      transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+    pointer-events: none;
+  }
 
   &.active {
-    transform: translateZ(0) scale(1);
+    transform: translateZ(0) scale(1) rotateY(0deg);
     filter: blur(0);
     opacity: 1;
     z-index: 3;
+
+    &::before {
+      opacity: 1;
+      transform: rotate(0deg);
+    }
   }
 
   /* VARIANTS */
@@ -104,6 +152,20 @@ export const Card = styled.div`
   &.training {
     background: linear-gradient(180deg, #ffffff, #f7f7f7);
     box-shadow: 0px 60px 120px rgba(54, 54, 54, 0.35);
+  }
+
+  /* Border colors per variant */
+  &.yoga::before {
+    background: conic-gradient(from 180deg, #9bb7a5, #f6faf8, #9bb7a5);
+  }
+  &.nutrition::before {
+    background: conic-gradient(from 180deg, #0a4aa6, #f3f6fa, #0a4aa6);
+  }
+  &.ayurveda::before {
+    background: conic-gradient(from 180deg, #d99a42, #fffaf3, #d99a42);
+  }
+  &.training::before {
+    background: conic-gradient(from 180deg, #363636, #f7f7f7, #363636);
   }
 
   @media (max-width: 768px) {

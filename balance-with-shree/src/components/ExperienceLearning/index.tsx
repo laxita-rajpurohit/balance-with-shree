@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import {
   Section,
@@ -15,7 +15,7 @@ import {
 } from "./style";
 
 /* =====================
-   BASE DATA
+   DATA
 ===================== */
 const BASE_CERTIFICATIONS = [
   {
@@ -44,15 +44,27 @@ const BASE_CERTIFICATIONS = [
   },
 ];
 
-/* duplicate for infinite loop */
 const CERTIFICATIONS = [...BASE_CERTIFICATIONS, ...BASE_CERTIFICATIONS];
 
 export default function ExperienceLearning() {
   const carouselRef = useRef<HTMLDivElement | null>(null);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  const [index, setIndex] = useState(BASE_CERTIFICATIONS.length);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const resumeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const BASE_LEN = BASE_CERTIFICATIONS.length;
+  const TOTAL = CERTIFICATIONS.length;
+
+  // start from middle copy (for seamless loop)
+  const [index, setIndex] = useState(BASE_LEN);
+
+  // this pauses auto-scroll while user is interacting
   const [paused, setPaused] = useState(false);
+
+  // swipe/drag helpers
+  const [touchStartX, setTouchStartX] = useState<number | null>(null);
+  const [mouseDownX, setMouseDownX] = useState<number | null>(null);
+  const SWIPE_THRESHOLD = 45;
 
   const { ref, inView } = useInView({
     threshold: 0.25,
@@ -60,63 +72,168 @@ export default function ExperienceLearning() {
   });
 
   /* =====================
-     AUTO ROTATE (FIXED)
+     HELPERS
+  ===================== */
+  const clearAuto = () => {
+    if (intervalRef.current) clearInterval(intervalRef.current);
+    intervalRef.current = null;
+  };
+
+  const clearResumeTimer = () => {
+    if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current);
+    resumeTimeoutRef.current = null;
+  };
+
+  // pause now, then resume auto after delay
+  const pauseAndResumeLater = (delay = 2000) => {
+    setPaused(true);
+    clearResumeTimer();
+    resumeTimeoutRef.current = setTimeout(() => {
+      setPaused(false);
+    }, delay);
+  };
+
+  const goNext = () => setIndex((prev) => prev + 1);
+  const goPrev = () => setIndex((prev) => Math.max(0, prev - 1));
+
+  /* =====================
+     AUTO ROTATE
+     - runs only if not paused AND section is in view
   ===================== */
   useEffect(() => {
-    if (paused) return;
+    if (paused || !inView) {
+      clearAuto();
+      return;
+    }
 
+    clearAuto();
     intervalRef.current = setInterval(() => {
       setIndex((prev) => prev + 1);
     }, 3000);
 
-    return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
-    };
-  }, [paused]);
+    return () => clearAuto();
+  }, [paused, inView]);
 
   /* =====================
-     SCROLL + SILENT RESET
+     SCROLL TO ACTIVE + INFINITE RESET (NO JUMP)
   ===================== */
   useEffect(() => {
     const carousel = carouselRef.current;
     if (!carousel) return;
 
     const cards = carousel.children;
-    const card = cards[index] as HTMLElement;
-    if (!card) return;
+    const current = cards[index] as HTMLElement | undefined;
 
-    carousel.scrollTo({
-      left: card.offsetLeft - carousel.offsetWidth / 2 + card.offsetWidth / 2,
-      behavior: "smooth",
-    });
+    if (current) {
+      carousel.scrollTo({
+        left:
+          current.offsetLeft -
+          carousel.offsetWidth / 2 +
+          current.offsetWidth / 2,
+        behavior: "smooth",
+      });
+    }
 
-    /* silent reset to middle copy */
-    if (index === BASE_CERTIFICATIONS.length * 2 - 1) {
-      if (intervalRef.current) clearInterval(intervalRef.current);
+    // reached end of duplicated list -> snap back to middle copy silently
+    if (index >= TOTAL - 1) {
+      clearAuto();
 
+      const snapToIndex = BASE_LEN;
       setTimeout(() => {
-        const resetCard = cards[BASE_CERTIFICATIONS.length] as HTMLElement;
+        const snapEl = cards[snapToIndex] as HTMLElement | undefined;
+        if (!snapEl) return;
 
         carousel.scrollTo({
           left:
-            resetCard.offsetLeft -
+            snapEl.offsetLeft -
             carousel.offsetWidth / 2 +
-            resetCard.offsetWidth / 2,
+            snapEl.offsetWidth / 2,
           behavior: "auto",
         });
 
-        setIndex(BASE_CERTIFICATIONS.length);
-      }, 900);
+        setIndex(snapToIndex);
+      }, 850);
     }
-  }, [index]);
 
-  /* logical index for progress */
-  const logicalIndex = index % BASE_CERTIFICATIONS.length;
+    // safety far-left -> snap to middle copy
+    if (index <= 0) {
+      clearAuto();
 
-  /* dot click */
+      const snapToIndex = BASE_LEN;
+      const snapEl = cards[snapToIndex] as HTMLElement | undefined;
+      if (!snapEl) return;
+
+      carousel.scrollTo({
+        left:
+          snapEl.offsetLeft - carousel.offsetWidth / 2 + snapEl.offsetWidth / 2,
+        behavior: "auto",
+      });
+
+      setIndex(snapToIndex);
+    }
+  }, [index, BASE_LEN, TOTAL]);
+
+  /* dots index */
+  const logicalIndex = ((index % BASE_LEN) + BASE_LEN) % BASE_LEN;
+
   const jumpToSlide = (logicalIdx: number) => {
-    setIndex(BASE_CERTIFICATIONS.length + logicalIdx);
+    pauseAndResumeLater(2500);
+    setIndex(BASE_LEN + logicalIdx);
   };
+
+  /* =====================
+     TOUCH SWIPE (slides + auto resumes)
+  ===================== */
+  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    pauseAndResumeLater(2500);
+    setTouchStartX(e.touches[0].clientX);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (touchStartX == null) return;
+    const diff = e.touches[0].clientX - touchStartX;
+
+    if (Math.abs(diff) > SWIPE_THRESHOLD) {
+      if (diff < 0) goNext();
+      else goPrev();
+      setTouchStartX(null);
+    }
+  };
+
+  const handleTouchEnd = () => {
+    setTouchStartX(null);
+  };
+
+  /* =====================
+     MOUSE DRAG SWIPE (desktop) + auto resumes
+  ===================== */
+  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    pauseAndResumeLater(2500);
+    setMouseDownX(e.clientX);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (mouseDownX == null) return;
+
+    const diff = e.clientX - mouseDownX;
+    if (Math.abs(diff) > SWIPE_THRESHOLD) {
+      if (diff < 0) goNext();
+      else goPrev();
+      setMouseDownX(null);
+    }
+  };
+
+  const handleMouseUp = () => {
+    setMouseDownX(null);
+  };
+
+  // cleanup timers on unmount
+  useEffect(() => {
+    return () => {
+      clearAuto();
+      clearResumeTimer();
+    };
+  }, []);
 
   return (
     <Section ref={ref} className={inView ? "visible" : ""}>
@@ -129,8 +246,12 @@ export default function ExperienceLearning() {
           ref={carouselRef}
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
-          onTouchStart={() => setPaused(true)}
-          onTouchEnd={() => setPaused(false)}
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
         >
           {CERTIFICATIONS.map((item, i) => (
             <Card
@@ -147,7 +268,6 @@ export default function ExperienceLearning() {
           ))}
         </Carousel>
 
-        {/* PROGRESS */}
         <Progress>
           {BASE_CERTIFICATIONS.map((_, i) => (
             <Dot
