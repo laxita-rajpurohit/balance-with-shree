@@ -139,12 +139,22 @@ export const BioImage = styled.div`
 export const BioContent = styled.div`
   flex: 1;
 
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  border-radius: 24px;
+  padding: 48px;
+
+  box-shadow: 0 10px 40px rgba(15, 40, 35, 0.12),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+
   h3 {
-    color: #2a2a2a; // fallback accent color
+    color: #4a6741;
     text-transform: uppercase;
     letter-spacing: 2px;
-    font-size: 0.9rem;
-    margin-bottom: 10px;
+    font-size: 0.85rem;
+    margin-bottom: 12px;
   }
 
   h2 {
@@ -155,7 +165,7 @@ export const BioContent = styled.div`
   }
 
   p {
-    color: #555;
+    color: #444;
     margin-bottom: 20px;
     line-height: 1.8;
   }
@@ -165,18 +175,23 @@ export const BioContent = styled.div`
     padding: 0;
 
     li {
-      margin-bottom: 10px;
+      margin-bottom: 12px;
       font-weight: 600;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
 
       @media (max-width: 900px) {
         justify-content: center;
       }
     }
   }
+
+  @media (max-width: 900px) {
+    padding: 32px;
+  }
 `;
+
 export const PricingCard = styled.div`
   background-color: #1a1a1a; /* Dark Card */
   color: white;

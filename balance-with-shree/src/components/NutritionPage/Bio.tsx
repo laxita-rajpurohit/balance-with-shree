@@ -6,38 +6,57 @@ import portrait from "../../assets/journey.png";
 export const NutritionBio = () => (
   <BioSection>
     <BioImage>
-      <Image src={portrait} alt="Dhanashree - Nutrition & Yoga Coach" />
+      <Image src={portrait} alt="Personalised Nutrition Plans" />
     </BioImage>
 
     <BioContent>
-      <h3>About Shree</h3>
-      <h2>Dhanashree</h2>
+      <h3>Nutrition Approach</h3>
+      <h2>Types of Diet Plans I Offer</h2>
 
       <p>
-        My journey began when I realised that yoga on the mat wasn’t enough if I
-        wasn’t nourishing my body off the mat.
-      </p>
-
-      <p>
-        With over 5 years of experience, I help individuals create balance
-        through food by aligning nutrition with movement, mindset and lifestyle
-        — without strict dieting.
+        I create personalised clinical nutrition plans based on your health
+        condition, body needs and lifestyle — never one-size-fits-all diets.
       </p>
 
       <ul>
         <li>
           <Check size={18} color="#4A6741" />
-          Certified Nutrition Specialist
+          Weight loss, weight gain & body recomposition
         </li>
         <li>
           <Check size={18} color="#4A6741" />
-          Yoga Alliance RYT-200
+          PCOS / PCOD & hormonal balance
         </li>
         <li>
           <Check size={18} color="#4A6741" />
-          Ayurvedic Lifestyle Consultant
+          Diabetes, thyroid & metabolic health
+        </li>
+        <li>
+          <Check size={18} color="#4A6741" />
+          Pregnancy & women’s nutrition support
+        </li>
+        <li>
+          <Check size={18} color="#4A6741" />
+          Gut health, digestion & immunity
+        </li>
+        <li>
+          <Check size={18} color="#4A6741" />
+          Lifestyle & habit-based nutrition
+        </li>
+        <li>
+          <Check size={18} color="#4A6741" />
+          Vegetarian & egg-based meal planning
+        </li>
+        <li>
+          <Check size={18} color="#4A6741" />
+          Indian home-food focused diets (no exotic foods)
         </li>
       </ul>
+
+      <p style={{ marginTop: "24px", fontStyle: "italic" }}>
+        Each plan is designed to be practical, culturally appropriate and easy
+        to follow — supporting healing from within.
+      </p>
     </BioContent>
   </BioSection>
 );

@@ -3,14 +3,19 @@ import { Button, PricingCard, Section, SectionTitle, SubTitle } from "./style";
 
 export const NutritionPricing = () => (
   <Section id="pricing-section">
+    {/* SECTION HEADING */}
     <SectionTitle>Start Your Journey</SectionTitle>
     <SubTitle>
-      Not sure where to begin? Let’s start with a simple conversation.
+      A simple first step towards balanced, sustainable health.
     </SubTitle>
 
+    {/* PRICING CARD */}
     <PricingCard>
       <h3>Discovery Call</h3>
-      <p style={{ color: "#aaa" }}>30 Minutes • Online via Zoom / WhatsApp</p>
+
+      <p style={{ color: "#aaa", marginTop: "8px" }}>
+        30 Minutes • Online via Zoom / WhatsApp
+      </p>
 
       <div className="price">
         <span>₹</span>300
@@ -19,19 +24,19 @@ export const NutritionPricing = () => (
       <ul>
         <li>
           <Check size={16} color="#4A6741" />
-          Dietary Pattern Analysis
+          Dietary pattern analysis
         </li>
         <li>
           <Check size={16} color="#4A6741" />
-          Goal-Setting Strategy
+          Goal-setting strategy
         </li>
         <li>
           <Check size={16} color="#4A6741" />
-          Personal Q&A Session
+          Personal Q&amp;A session
         </li>
       </ul>
 
-      <Button primary style={{ width: "100%" }}>
+      <Button primary style={{ width: "100%", marginTop: "16px" }}>
         Book My Session
       </Button>
     </PricingCard>

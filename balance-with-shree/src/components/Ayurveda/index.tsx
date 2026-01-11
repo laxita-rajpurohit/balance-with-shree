@@ -95,16 +95,6 @@ export default function Ayurveda() {
               appropriate)
             </CardText>
           </Card>
-
-          <Card>
-            <CardTitle>Oils &amp; Home Practices</CardTitle>
-            <CardText>
-              • Understanding Ayurvedic oils and their usage
-              <br />
-              • Abhyanga timing, quantity &amp; basic do’s and don’ts
-              <br />• Simple home remedies for skin &amp; hair care
-            </CardText>
-          </Card>
         </Grid>
 
         {/* WHO IT'S FOR */}
