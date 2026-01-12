@@ -14,29 +14,29 @@ import {
 
 const categories = [
   {
-    slug: "prenatal",
-    title: "Prenatal Yoga",
-    desc: "Gentle, safe movement supporting the mother and baby.",
+    slug: "mindful-movement",
+    title: "Mindful Movement",
+    desc: "Yoga practiced with awareness, breath connection, and respect for your body’s limits.",
   },
   {
-    slug: "postnatal",
-    title: "Postnatal Yoga",
-    desc: "Restore strength, posture, and confidence after delivery.",
+    slug: "strength-stability",
+    title: "Strength & Stability",
+    desc: "Build functional strength and joint stability through safe alignment and gradual progress.",
   },
   {
-    slug: "fertility",
-    title: "Yoga for Conceiving",
-    desc: "Reduce stress and balance hormones naturally.",
+    slug: "posture-pain-care",
+    title: "Posture & Pain Care",
+    desc: "Support posture correction and manage back, neck, and joint discomfort mindfully.",
   },
   {
-    slug: "weight-loss",
-    title: "Weight Loss Yoga",
-    desc: "Mindful fat loss without strain or extremes.",
+    slug: "breath-mindfulness",
+    title: "Breath & Mindfulness",
+    desc: "Calm the nervous system and improve focus through conscious breath awareness.",
   },
   {
-    slug: "overall-health",
-    title: "Overall Health",
-    desc: "A complete practice for strength, calm, and balance.",
+    slug: "progressive-practice",
+    title: "Progressive & Safe Practice",
+    desc: "Each session is designed to be sustainable, adaptive, and supportive of long-term wellbeing.",
   },
 ];
 
@@ -46,11 +46,15 @@ export default function YogaCategories() {
   return (
     <YogaSection>
       <YogaContainer>
-        <YogaTitle>Choose Your Yoga Path</YogaTitle>
+        <YogaTitle>A Practice Beyond Asanas</YogaTitle>
+
         <YogaSubText>
-          Each program is designed for a specific phase of life and wellness
-          need. Choose what resonates with your body right now.
+          Yoga is a tool for balance, healing, and self-awareness. My sessions
+          are thoughtfully designed to support mobility, strength, posture,
+          breath, and mental clarity — while respecting your body’s limitations
+          and needs.
         </YogaSubText>
+
         <MobileStack>
           {categories.map((item) => (
             <YogaCard key={item.slug}>

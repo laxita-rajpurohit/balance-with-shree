@@ -236,3 +236,49 @@ export const DesktopOnly = styled.div`
     display: block;
   }
 `;
+
+/* ---------- Types of Yoga ---------- */
+
+export const YogaTypesWrap = styled.div`
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 48px 56px;
+
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  border-radius: 32px;
+
+  box-shadow: 0px 32px 64px rgba(15, 60, 40, 0.12),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+
+  @media (max-width: 768px) {
+    padding: 36px 24px;
+  }
+`;
+
+export const YogaTypeItem = styled.div`
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+`;
+
+export const YogaTypeDot = styled.span`
+  width: 8px;
+  height: 8px;
+  margin-top: 8px;
+  border-radius: 50%;
+  background: #9bb7a5;
+  flex-shrink: 0;
+`;
+
+export const YogaTypeText = styled.p`
+  font-size: 15.5px;
+  line-height: 1.7;
+  color: #1f2a24;
+`;

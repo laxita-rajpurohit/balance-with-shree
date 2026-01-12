@@ -1,43 +1,67 @@
 import styled from "styled-components";
 
 export const Section = styled.section`
-  padding: 100px 24px;
-  background: #fcfbff;
+  padding: 140px 24px;
 `;
 
 export const Container = styled.div`
   max-width: 1100px;
   margin: 0 auto;
+`;
 
+export const GlassWrap = styled.div`
   display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
-  gap: 72px;
-  align-items: center;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 64px;
 
-  @media (max-width: 768px) {
+  padding: 64px;
+
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  border-radius: 36px;
+
+  box-shadow: 0px 40px 80px rgba(15, 60, 40, 0.12),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+
+  @media (max-width: 900px) {
     grid-template-columns: 1fr;
-    gap: 48px;
+    padding: 48px 28px;
   }
 `;
 
 export const Content = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 20px;
 `;
 
-export const Label = styled.span`
-  font-size: 13px;
-  letter-spacing: 2px;
-  font-weight: 600;
-  color: #6b8f7f;
+export const Media = styled.div`
+  border-radius: 28px;
+  overflow: hidden;
+  align-self: stretch;
 `;
 
-export const Title = styled.h2`
-  font-size: 34px;
-  line-height: 1.2;
+export const Image = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;
+
+export const Eyebrow = styled.span`
+  font-size: 12px;
+  letter-spacing: 2.4px;
   font-weight: 600;
-  color: #1f3d2b;
+  color: ${({ theme }) => theme.colors.textMuted};
+  margin-bottom: 14px;
+`;
+
+export const Heading = styled.h2`
+  font-size: 38px;
+  line-height: 1.15;
+  font-weight: 600;
+  color: ${({ theme }) => theme.colors.textPrimary};
+  margin-bottom: 20px;
 
   @media (max-width: 768px) {
     font-size: 28px;
@@ -45,51 +69,48 @@ export const Title = styled.h2`
 `;
 
 export const Description = styled.p`
-  font-size: 15.5px;
-  line-height: 1.7;
-  color: #2b2a29;
-  opacity: 0.85;
+  font-size: 15.8px;
+  line-height: 1.75;
+  color: ${({ theme }) => theme.colors.textMuted};
+  margin-bottom: 36px;
   max-width: 520px;
 `;
 
 export const Offerings = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  margin-top: 8px;
+  gap: 24px;
+  margin-bottom: 40px;
 `;
 
-export const Offering = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+export const OfferingItem = styled.div`
+  padding-left: 18px;
+  border-left: 2px solid rgba(15, 60, 40, 0.18);
+`;
 
-  strong {
-    font-size: 15.5px;
-    font-weight: 600;
-    color: #24312d;
-  }
+export const OfferingTitle = styled.h4`
+  font-size: 17px;
+  font-weight: 600;
+  color: ${({ theme }) => theme.colors.textPrimary};
+  margin-bottom: 6px;
+`;
 
-  span {
-    font-size: 14.5px;
-    color: #2b2a29;
-    opacity: 0.8;
-  }
+export const OfferingText = styled.p`
+  font-size: 14.6px;
+  line-height: 1.6;
+  color: ${({ theme }) => theme.colors.textMuted};
 `;
 
 export const CTAButton = styled.button`
-  margin-top: 28px;
-  align-self: flex-start;
-`;
+  background: transparent;
+  border: none;
+  padding: 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: ${({ theme }) => theme.colors.textPrimary};
+  cursor: pointer;
 
-export const ImageWrapper = styled.div`
-  border-radius: 28px;
-  overflow: hidden;
-  box-shadow: 0px 30px 60px rgba(15, 60, 40, 0.18);
-`;
-
-export const Image = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  &:hover {
+    text-decoration: underline;
+  }
 `;

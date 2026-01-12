@@ -10,10 +10,14 @@ export default function YogaHero() {
   return (
     <YogaHeroSection>
       <YogaHeroOverlay />
+
       <YogaHeroContent>
-        <YogaHeroSub>Yoga at Balance with Shree</YogaHeroSub>
+        <YogaHeroSub>YOGA</YogaHeroSub>
+
         <YogaHeroTitle>
-          Yoga Designed for <br /> Every Phase of Life
+          Move with Awareness.
+          <br />
+          Build Strength with Ease.
         </YogaHeroTitle>
       </YogaHeroContent>
     </YogaHeroSection>

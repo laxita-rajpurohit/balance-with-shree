@@ -2,14 +2,17 @@ import { useNavigate } from "react-router-dom";
 import {
   Section,
   Container,
+  GlassWrap,
   Content,
-  Label,
-  Title,
+  Media,
+  Eyebrow,
+  Heading,
   Description,
   Offerings,
-  Offering,
+  OfferingItem,
+  OfferingTitle,
+  OfferingText,
   CTAButton,
-  ImageWrapper,
   Image,
 } from "./style";
 
@@ -21,53 +24,60 @@ export const HomeYoga = () => {
   return (
     <Section>
       <Container>
-        <Content>
-          <Label>YOGA</Label>
+        <GlassWrap>
+          {/* LEFT: TEXT */}
+          <Content>
+            <Eyebrow>YOGA</Eyebrow>
 
-          <Title>
-            Mindful Movement for <br />
-            Strength, Calm & Balance
-          </Title>
+            <Heading>
+              Yoga that supports
+              <br />
+              your body & life
+            </Heading>
 
-          <Description>
-            Yoga at Balance with Shree is not about performance or pushing your
-            limits. It is about creating awareness, improving posture, calming
-            the nervous system, and supporting your overall wellbeing — gently
-            and mindfully.
-          </Description>
+            <Description>
+              Yoga at Balance with Shree is therapeutic, mindful, and deeply
+              personalised. The focus is not on flexibility or intensity, but on
+              creating strength, stability, awareness, and calm — in a way that
+              supports your daily life.
+            </Description>
 
-          <Offerings>
-            <Offering>
-              <strong>Therapeutic Yoga</strong>
-              <span>
-                Personalised practices to support pain management, stress
-                relief, digestion, posture correction, and recovery.
-              </span>
-            </Offering>
+            <Offerings>
+              <OfferingItem>
+                <OfferingTitle>Therapeutic Yoga</OfferingTitle>
+                <OfferingText>
+                  Address posture, pain, stress, digestion, and nervous system
+                  balance through personalised movement and breath.
+                </OfferingText>
+              </OfferingItem>
 
-            <Offering>
-              <strong>Group Yoga Sessions</strong>
-              <span>
-                Structured group sessions focused on strength, flexibility,
-                breath awareness, and consistency.
-              </span>
-            </Offering>
+              <OfferingItem>
+                <OfferingTitle>Group Yoga</OfferingTitle>
+                <OfferingText>
+                  Structured sessions focused on consistency, strength,
+                  flexibility, and mindful movement — online or offline.
+                </OfferingText>
+              </OfferingItem>
 
-            <Offering>
-              <strong>Prenatal Yoga</strong>
-              <span>
-                Safe and supportive yoga designed for expecting mothers, guided
-                with care and awareness.
-              </span>
-            </Offering>
-          </Offerings>
+              <OfferingItem>
+                <OfferingTitle>Prenatal & Postnatal Yoga</OfferingTitle>
+                <OfferingText>
+                  Gentle, supportive practices designed for pregnancy recovery
+                  and postnatal healing, guided with care.
+                </OfferingText>
+              </OfferingItem>
+            </Offerings>
 
-          <CTAButton onClick={() => navigate("/yoga")}>Explore Yoga</CTAButton>
-        </Content>
+            <CTAButton onClick={() => navigate("/yoga")}>
+              Explore Yoga →
+            </CTAButton>
+          </Content>
 
-        <ImageWrapper>
-          <Image src={yogaImg} alt="Yoga with Shree" />
-        </ImageWrapper>
+          {/* RIGHT: IMAGE */}
+          <Media>
+            <Image src={yogaImg} alt="Yoga with Shree" />
+          </Media>
+        </GlassWrap>
       </Container>
     </Section>
   );
