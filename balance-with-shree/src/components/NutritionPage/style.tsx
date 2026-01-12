@@ -1,5 +1,6 @@
 // src/pages/Nutrition/styles.ts
 import styled from "styled-components";
+import heroImage from "../../assets/shree1.jpeg";
 
 export const PageWrapper = styled.div`
   background: ${({ theme }) => theme.colors.white};
@@ -22,7 +23,7 @@ export const HeroSection = styled.section`
   color: white;
   position: relative;
 
-  background-image: url("https://images.unsplash.com/photo-1490645935967-10de6ba17061");
+  background-image: url(${heroImage});
   background-size: cover;
   background-position: center;
   max-width: 1100px;

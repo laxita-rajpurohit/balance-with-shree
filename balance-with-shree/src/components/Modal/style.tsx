@@ -1,4 +1,28 @@
-import styled from "styled-components";
+import styled, { keyframes, css } from "styled-components";
+
+/* ===== OPEN ===== */
+const foldOpen = keyframes`
+  from {
+    opacity: 0;
+    transform: perspective(1200px) rotateX(-12deg) scale(0.94) translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: perspective(1200px) rotateX(0deg) scale(1) translateY(0);
+  }
+`;
+
+/* ===== CLOSE ===== */
+const foldClose = keyframes`
+  from {
+    opacity: 1;
+    transform: perspective(1200px) rotateX(0deg) scale(1) translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: perspective(1200px) rotateX(-10deg) scale(0.95) translateY(40px);
+  }
+`;
 
 export const Overlay = styled.div`
   position: fixed;
@@ -9,29 +33,36 @@ export const Overlay = styled.div`
   align-items: center;
   justify-content: center;
   z-index: 1000;
+  padding: 24px;
 `;
 
-export const ModalBox = styled.div`
+export const ModalBox = styled.div<{ closing?: boolean }>`
   background: linear-gradient(180deg, #ffffff 0%, #fbfdfc 100%);
   border-radius: 28px;
   width: 100%;
+  max-width: 900px;
+  max-height: 85vh;
+  overflow-y: auto;
   padding: 40px 36px;
   position: relative;
-
-  box-shadow: 0px 30px 60px rgba(15, 60, 40, 0.18),
+  border-radius: 24px;
+  box-shadow: 0px 40px 80px rgba(15, 60, 40, 0.25),
     0px 2px 8px rgba(15, 60, 40, 0.08);
 
-  animation: modalIn 0.35s ease;
+  transform-origin: center top;
 
-  @keyframes modalIn {
-    from {
-      opacity: 0;
-      transform: translateY(18px) scale(0.97);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
+  animation: ${({ closing }) =>
+    closing
+      ? css`
+          ${foldClose} 0.45s cubic-bezier(0.22, 0.61, 0.36, 1)
+        `
+      : css`
+          ${foldOpen} 0.55s cubic-bezier(0.22, 0.61, 0.36, 1)
+        `};
+
+  @media (max-width: 768px) {
+    align-self: flex-end;
+    transform-origin: center bottom;
   }
 `;
 
@@ -39,21 +70,10 @@ export const CloseBtn = styled.button`
   position: absolute;
   top: 18px;
   right: 18px;
-
   border: none;
   background: #eef4f1;
-  color: #2b2a29;
-
   width: 36px;
   height: 36px;
   border-radius: 50%;
-
-  font-size: 18px;
   cursor: pointer;
-
-  transition: all 0.2s ease;
-
-  &:hover {
-    background: #e2ede8;
-  }
 `;

@@ -1,23 +1,34 @@
-import { BulletList, CTAButton, Icon, Title, Wrapper } from "./style";
+import {
+  Wrapper,
+  CTAButton,
+  Title,
+  PackageItem,
+  PackageTitle,
+  PackageNote,
+} from "./style";
+
+type Package = {
+  title: string;
+  note: string;
+};
 
 type Props = {
   title: string;
-  icon?: string;
-  bullets: string[];
+  packages: Package[];
   cta: string;
 };
 
-export const PackageDetails = ({ title, icon, bullets, cta }: Props) => {
+export const PackageDetails = ({ title, packages, cta }: Props) => {
   return (
     <Wrapper>
-      <Icon>{icon}</Icon>
       <Title>{title}</Title>
 
-      <BulletList>
-        {bullets.map((item) => (
-          <li key={item}>{item}</li>
-        ))}
-      </BulletList>
+      {packages.map((pkg) => (
+        <PackageItem key={pkg.title}>
+          <PackageTitle>{pkg.title}</PackageTitle>
+          <PackageNote>{pkg.note}</PackageNote>
+        </PackageItem>
+      ))}
 
       <CTAButton>{cta}</CTAButton>
     </Wrapper>

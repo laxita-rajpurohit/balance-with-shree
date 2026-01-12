@@ -1,5 +1,5 @@
 import { Image, Section, Inner, AnimatedText } from "./style";
-import portrait from "../../assets/journey.png";
+import portrait from "../../assets/shree7.jpeg";
 import { useInView } from "react-intersection-observer";
 import { useNavigate } from "react-router-dom";
 
