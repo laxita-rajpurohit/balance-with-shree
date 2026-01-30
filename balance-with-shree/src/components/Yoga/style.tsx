@@ -109,24 +109,30 @@ export const YogaCard = styled.div`
   border: 1px solid rgba(255, 255, 255, 0.28);
 
   /* 🧊 Depth */
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12),
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.12),
     inset 0 1px 1px rgba(255, 255, 255, 0.35);
 
-  transition: transform 0.35s ease, box-shadow 0.35s ease, background 0.35s ease;
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease,
+    background 0.35s ease;
 
   /* ✨ Hover lift */
   &:hover {
     transform: translateY(-8px);
     background: rgba(255, 255, 255, 0.18);
 
-    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.18),
+    box-shadow:
+      0 18px 45px rgba(0, 0, 0, 0.18),
       inset 0 1px 1px rgba(255, 255, 255, 0.45);
   }
 
   /* 🫳 Pressed */
   &:active {
     transform: translateY(-2px) scale(0.98);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.16),
+    box-shadow:
+      0 8px 20px rgba(0, 0, 0, 0.16),
       inset 0 2px 6px rgba(0, 0, 0, 0.12);
   }
 `;
@@ -143,7 +149,6 @@ export const YogaCardDesc = styled.p`
 `;
 
 /* ---------- Gallery ---------- */
-
 export const YogaGalleryGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -156,9 +161,15 @@ export const YogaGalleryGrid = styled.div`
 
 export const YogaGalleryImg = styled.img`
   width: 100%;
-  height: 360px;
-  object-fit: cover;
+  height: auto; /* natural height */
+  max-height: 420px; /* keeps size calm like Real Transformations */
+
+  object-fit: contain; /* 🔥 NO CROPPING */
+  object-position: center;
+
   border-radius: 24px;
+  display: block;
+  background: #eef2ef; /* soft backdrop if image is shorter */
 `;
 
 /* ---------- Video Reviews ---------- */
@@ -250,7 +261,8 @@ export const YogaTypesWrap = styled.div`
 
   border-radius: 32px;
 
-  box-shadow: 0px 32px 64px rgba(15, 60, 40, 0.12),
+  box-shadow:
+    0px 32px 64px rgba(15, 60, 40, 0.12),
     inset 0 0 0 1px rgba(255, 255, 255, 0.6);
 
   display: flex;

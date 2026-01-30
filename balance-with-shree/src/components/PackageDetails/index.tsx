@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import {
   Wrapper,
   CTAButton,
@@ -19,6 +20,13 @@ type Props = {
 };
 
 export const PackageDetails = ({ title, packages, cta }: Props) => {
+  const navigate = useNavigate();
+
+  const handleCTAClick = () => {
+    // Navigate to the yoga page
+    navigate("/yoga");
+  };
+
   return (
     <Wrapper>
       <Title>{title}</Title>
@@ -30,7 +38,7 @@ export const PackageDetails = ({ title, packages, cta }: Props) => {
         </PackageItem>
       ))}
 
-      <CTAButton>{cta}</CTAButton>
+      <CTAButton onClick={handleCTAClick}>{cta}</CTAButton>
     </Wrapper>
   );
 };

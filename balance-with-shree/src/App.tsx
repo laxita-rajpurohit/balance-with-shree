@@ -2,7 +2,6 @@ import { useEffect, useRef } from "react";
 import { Navbar } from "./components/Navbar";
 import AppRoutes from "./Routes/AppRoutes";
 import gsap from "gsap";
-import WhatsAppFloating from "./components/WhatsupFloating";
 import Footer from "./components/Footer";
 
 const App = () => {

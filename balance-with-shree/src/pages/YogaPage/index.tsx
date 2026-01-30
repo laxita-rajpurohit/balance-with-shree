@@ -5,6 +5,7 @@ import YogaTransformations from "../../components/Yoga/yogaTransformations";
 import YogaVideoReviews from "../../components/Yoga/YogaVideoReviews";
 
 import YogaTypes from "../../components/Yoga/YogaTypes";
+import PricingPlans from "../../components/PricingPlans";
 
 export default function YogaPage() {
   return (
@@ -12,6 +13,7 @@ export default function YogaPage() {
       <YogaHero />
       <YogaCategories />
       <YogaTypes />
+      <PricingPlans />
       <YogaGallery />
       <YogaTransformations />
       <YogaVideoReviews />

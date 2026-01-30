@@ -1,10 +1,13 @@
+"use client";
+
 import { Star } from "lucide-react";
 import {
   FeatureCard,
-  GridThree,
   Section,
   SectionTitle,
   SubTitle,
+  SliderTrack,
+  SliderWrapper,
 } from "./style";
 
 const REVIEWS = [
@@ -26,25 +29,26 @@ const REVIEWS = [
   },
 ];
 
+// duplicate for seamless loop
+const LOOPED_REVIEWS = [...REVIEWS, ...REVIEWS];
+
 export const NutritionReviews = () => (
   <Section>
     <SectionTitle>Client Love</SectionTitle>
     <SubTitle>Small shifts. Sustainable change.</SubTitle>
 
-    <GridThree
-      style={{
-        gridTemplateColumns: "repeat(4, 1fr)",
-      }}
-    >
-      {REVIEWS.map((review, index) => (
-        <FeatureCard key={index}>
-          <Star size={20} fill="#D4AF37" color="#D4AF37" />
-          <p style={{ fontStyle: "italic", margin: "20px 0" }}>
-            “{review.text}”
-          </p>
-          <h4>{review.name}</h4>
-        </FeatureCard>
-      ))}
-    </GridThree>
+    <SliderWrapper>
+      <SliderTrack>
+        {LOOPED_REVIEWS.map((review, i) => (
+          <FeatureCard key={i}>
+            <Star size={20} fill="#D4AF37" color="#D4AF37" />
+            <p style={{ fontStyle: "italic", margin: "20px 0" }}>
+              “{review.text}”
+            </p>
+            <h4>{review.name}</h4>
+          </FeatureCard>
+        ))}
+      </SliderTrack>
+    </SliderWrapper>
   </Section>
 );

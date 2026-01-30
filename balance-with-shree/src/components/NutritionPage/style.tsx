@@ -1,5 +1,5 @@
 // src/pages/Nutrition/styles.ts
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import heroImage from "../../assets/shree1.jpeg";
 
 export const PageWrapper = styled.div`
@@ -10,7 +10,8 @@ export const PageWrapper = styled.div`
   overflow: hidden;
   position: relative;
 
-  box-shadow: 0 26px 50px rgba(15, 40, 35, 0.22),
+  box-shadow:
+    0 26px 50px rgba(15, 40, 35, 0.22),
     0 0 0 1px rgba(255, 255, 255, 0.9);
 `;
 
@@ -27,10 +28,11 @@ export const HeroSection = styled.section`
   background-size: cover;
   background-position: center;
   max-width: 1100px;
-  margin: 40px auto;
+  margin: 40px 20px;
   border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 26px 50px rgba(15, 40, 35, 0.22),
+  box-shadow:
+    0 26px 50px rgba(15, 40, 35, 0.22),
     0 0 0 1px rgba(255, 255, 255, 0.9);
   transform: translateY(-4px);
   &::before {
@@ -131,15 +133,15 @@ export const BioImage = styled.div`
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 
   img {
-    width: 100%;
-    height: 100%;
+    // width: 100%;
+    // height: 100%;
     object-fit: cover;
   }
 `;
 
 export const BioContent = styled.div`
   flex: 1;
-
+  margin: 0 20px;
   background: rgba(255, 255, 255, 0.75);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -147,7 +149,8 @@ export const BioContent = styled.div`
   border-radius: 24px;
   padding: 48px;
 
-  box-shadow: 0 10px 40px rgba(15, 40, 35, 0.12),
+  box-shadow:
+    0 10px 40px rgba(15, 40, 35, 0.12),
     inset 0 0 0 1px rgba(255, 255, 255, 0.6);
 
   h3 {
@@ -261,4 +264,34 @@ export const FeatureCard = styled.div`
     color: #666;
     line-height: 1.6;
   }
+`;
+
+/* ⏩ Continuous smooth movement */
+const scroll = keyframes`
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+`;
+
+export const SliderWrapper = styled.div`
+  overflow: hidden;
+  width: 100%;
+  margin-top: 40px;
+
+  &:hover div {
+    animation-play-state: paused;
+  }
+`;
+
+export const SliderTrack = styled.div`
+  display: flex;
+  gap: 24px;
+  // width: max-content;
+  max-width: 100%;
+
+  animation: ${scroll} 30s linear infinite;
+  will-change: transform;
 `;

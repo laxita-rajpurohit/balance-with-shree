@@ -94,7 +94,8 @@ export const Card = styled.div`
   filter: blur(10px);
   opacity: 0.25;
 
-  transition: transform 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+  transition:
+    transform 0.85s cubic-bezier(0.22, 1, 0.36, 1),
     filter 0.85s cubic-bezier(0.22, 1, 0.36, 1),
     opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1);
 
@@ -112,14 +113,16 @@ export const Card = styled.div`
       rgba(155, 183, 165, 0.95)
     );
 
-    -webkit-mask: linear-gradient(#000 0 0) content-box,
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
       linear-gradient(#000 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
 
     opacity: 0.25;
     transform: rotate(-2deg);
-    transition: opacity 0.6s ease,
+    transition:
+      opacity 0.6s ease,
       transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
     pointer-events: none;
   }
@@ -173,10 +176,14 @@ export const Card = styled.div`
 
 export const CertImage = styled.img`
   width: 100%;
-  height: 220px;
-  object-fit: contain;
-  border-radius: 22px;
-  padding: 20px;
+  height: 240px; /* ⬆ slightly taller = more width visible */
+  object-fit: contain; /* ✅ no crop */
+  object-position: center;
+
+  border-radius: 20px;
+  padding: 10px 12px; /* ⬅ MUCH LESS padding (this is key) */
+
+  background: transparent;
 
   &.yoga {
     background: #f6faf8;
@@ -189,6 +196,11 @@ export const CertImage = styled.img`
   }
   &.training {
     background: #f7f7f7;
+  }
+
+  @media (max-width: 768px) {
+    height: 210px;
+    padding: 8px 10px;
   }
 `;
 

@@ -7,7 +7,9 @@ import {
   YogaGalleryImg,
   Reveal,
 } from "./style";
-
+import transfrom1 from "../../assets/transform4.jpeg";
+import transfrom2 from "../../assets/transform2.jpeg";
+import transfrom3 from "../../assets/transform3.jpeg";
 export default function YogaTransformations() {
   const { ref, inView } = useReveal();
 
@@ -19,17 +21,17 @@ export default function YogaTransformations() {
         <Reveal visible={inView}>
           <YogaGrid>
             <YogaGalleryImg
-              src="https://images.unsplash.com/photo-1593810450967-f9c42742e326?auto=format&fit=crop&w=800&q=80"
+              src={transfrom1}
               alt="Yoga journey before transformation"
             />
 
             <YogaGalleryImg
-              src="https://images.unsplash.com/photo-1599447421416-3414500d18a5?auto=format&fit=crop&w=800&q=80"
+              src={transfrom2}
               alt="Yoga practice after transformation"
             />
 
             <YogaGalleryImg
-              src="https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=800&q=80"
+              src={transfrom3}
               alt="Mind body balance through yoga"
             />
           </YogaGrid>

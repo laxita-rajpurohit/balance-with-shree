@@ -36,7 +36,16 @@ export const NutritionPricing = () => (
         </li>
       </ul>
 
-      <Button primary style={{ width: "100%", marginTop: "16px" }}>
+      <Button
+        primary
+        style={{ width: "100%", marginTop: "16px" }}
+        onClick={() =>
+          window.open(
+            "https://wa.me/919999999999?text=Hi!%20I%27d%20like%20to%20book%20a%20Discovery%20Call%20session.",
+            "_blank",
+          )
+        }
+      >
         Book My Session
       </Button>
     </PricingCard>

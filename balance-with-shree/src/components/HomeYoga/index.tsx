@@ -69,7 +69,7 @@ export const HomeYoga = () => {
             </Offerings>
 
             <CTAButton onClick={() => navigate("/yoga")}>
-              Explore Yoga →
+              Explore Yoga <span>→</span>
             </CTAButton>
           </Content>
 

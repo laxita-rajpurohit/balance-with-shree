@@ -1,6 +1,5 @@
-import { Container, Section } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { Title, Desc, Points, Point, CTA } from "./style";
+import { Section, Container, Title, Desc, Points, Point, CTA } from "./style";
 
 export const AyurvedaPreview = () => {
   const navigate = useNavigate();
@@ -9,16 +8,19 @@ export const AyurvedaPreview = () => {
     <Section>
       <Container>
         <Title>Ayurveda & Lifestyle Balance</Title>
+
         <Desc>
-          Ancient wisdom adapted for modern living — to support digestion,
-          hormones, and daily rhythm.
+          Ancient Ayurvedic wisdom adapted for modern life — helping you
+          understand your body’s constitution, improve digestion, regulate
+          stress, and build supportive daily routines in a gentle, sustainable
+          way.
         </Desc>
 
         <Points>
-          <Point>Dosha Awareness</Point>
-          <Point>Daily Routines</Point>
-          <Point>Digestive Balance</Point>
-          <Point>Stress Regulation</Point>
+          <Point>Dosha Awareness & Body Constitution</Point>
+          <Point>Daily Routines (Dinacharya)</Point>
+          <Point>Digestive & Metabolic Balance</Point>
+          <Point>Stress & Hormonal Regulation</Point>
         </Points>
 
         <CTA onClick={() => navigate("/ayurveda")}>Explore Ayurveda</CTA>

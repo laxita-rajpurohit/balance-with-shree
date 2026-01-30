@@ -7,16 +7,17 @@ export default function NutritionPreview() {
   return (
     <Section>
       <Container>
-        <Title>Holistic Nutrition</Title>
+        <Title>Nourish with Awareness</Title>
+
         <Desc>
-          Nutrition that supports digestion, energy, and balance — without
-          restriction or guilt.
+          Personalised nutrition that supports digestion, hormones, and energy —
+          rooted in mindful eating, lifestyle balance, and Indian home food.
         </Desc>
 
         <Points>
-          <Point>Mindful Eating</Point>
-          <Point>Gut Health</Point>
-          <Point>Sustainable Weight Balance</Point>
+          <Point>Gut Health & Digestion</Point>
+          <Point>Hormonal & Metabolic Balance</Point>
+          <Point>Sustainable Food Habits</Point>
         </Points>
 
         <CTA onClick={() => navigate("/nutrition")}>Explore Nutrition</CTA>

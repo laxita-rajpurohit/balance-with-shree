@@ -44,7 +44,7 @@ export default function Footer() {
           <Right>
             <IconRow>
               <IconLink
-                href="https://www.instagram.com/balancewithshree"
+                href="https://www.instagram.com/balancewithshree?igsh=MXAwMGY0cGh2MXBpZw%3D%3D&utm_source=qr"
                 target="_blank"
               >
                 <Instagram size={18} />

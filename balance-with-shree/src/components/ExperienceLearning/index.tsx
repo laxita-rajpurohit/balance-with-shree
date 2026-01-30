@@ -6,6 +6,9 @@ import React, {
   useState,
 } from "react";
 import { useInView } from "react-intersection-observer";
+import certificate1 from "../../assets/certificate1.jpeg";
+import certificate2 from "../../assets/certificate2.jpeg";
+import certificate3 from "../../assets/certificate3.jpeg";
 import {
   Section,
   Container,
@@ -23,28 +26,19 @@ import {
 
 const BASE = [
   {
-    image:
-      "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=1600&auto=format&fit=crop",
-    title: "Certified Yoga Therapist",
+    image: certificate1,
+    title: "200-Hour Yoga Teacher Training",
     variant: "yoga",
   },
   {
-    image:
-      "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=1600&auto=format&fit=crop",
+    image: certificate2,
     title: "Clinical Nutrition Certification",
     variant: "nutrition",
   },
   {
-    image:
-      "https://images.unsplash.com/photo-1607746882042-944635dfe10e?q=80&w=1600&auto=format&fit=crop",
+    image: certificate3,
     title: "Ayurveda Foundations Program",
     variant: "ayurveda",
-  },
-  {
-    image:
-      "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=1600&auto=format&fit=crop",
-    title: "200-Hour Yoga Teacher Training",
-    variant: "training",
   },
 ];
 

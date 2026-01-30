@@ -102,15 +102,108 @@ export const OfferingText = styled.p`
 `;
 
 export const CTAButton = styled.button`
-  background: transparent;
-  border: none;
-  padding: 0;
+  position: relative;
+  isolation: isolate;
+
+  /* Glass surface */
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.42),
+    rgba(255, 255, 255, 0.18)
+  );
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+
+  /* Shape */
+  border-radius: 999px;
+  padding: 12px 22px;
+
+  /* Border */
+  border: 1px solid rgba(255, 255, 255, 0.45);
+
+  /* Depth */
+  box-shadow: 0 18px 40px rgba(6, 51, 54, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.65),
+    inset 0 -6px 12px rgba(6, 51, 54, 0.08);
+
+  /* Typography */
   font-size: 15px;
   font-weight: 600;
+  letter-spacing: 0.2px;
   color: ${({ theme }) => theme.colors.textPrimary};
+
+  /* Layout */
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   cursor: pointer;
 
+  /* Motion */
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* 🌟 Saffron accent line */
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    border-radius: inherit;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      ${({ theme }) => theme.colors.primaryActiveLight},
+      transparent
+    );
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    pointer-events: none;
+  }
+
+  /* ✨ Floating glass highlight */
+  &::after {
+    content: "";
+    position: absolute;
+    top: -40%;
+    left: -20%;
+    width: 140%;
+    height: 140%;
+    background: radial-gradient(
+      circle at top,
+      rgba(255, 255, 255, 0.55),
+      transparent 60%
+    );
+    opacity: 0.35;
+    pointer-events: none;
+  }
+
   &:hover {
-    text-decoration: underline;
+    transform: translateY(-3px);
+    box-shadow: 0 28px 60px rgba(6, 51, 54, 0.24),
+      inset 0 1px 0 rgba(255, 255, 255, 0.75),
+      inset 0 -8px 16px rgba(6, 51, 54, 0.1);
+
+    &::before {
+      opacity: 0.6;
+    }
+  }
+
+  &:active {
+    transform: translateY(-1px);
+  }
+
+  /* Accessibility */
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px ${({ theme }) => theme.colors.primaryActiveLightest},
+      0 22px 48px rgba(6, 51, 54, 0.25);
+  }
+
+  /* Arrow polish */
+  span {
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  &:hover span {
+    transform: translateX(4px);
   }
 `;

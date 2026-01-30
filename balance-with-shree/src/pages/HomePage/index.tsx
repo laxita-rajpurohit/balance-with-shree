@@ -14,6 +14,6 @@ export const HomePage = () => (
     <HomeYoga />
     <NutritionPreview />
     <AyurvedaPreview />
-    <FinalCTA />
+    {/* <FinalCTA /> */}
   </div>
 );
