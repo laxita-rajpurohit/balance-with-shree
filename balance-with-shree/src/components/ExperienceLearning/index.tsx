@@ -1,11 +1,4 @@
-import React, {
-  useEffect,
-  useLayoutEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
-import { useInView } from "react-intersection-observer";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import certificate1 from "../../assets/certificate1.jpeg";
 import certificate2 from "../../assets/certificate2.jpeg";
 import certificate3 from "../../assets/certificate3.jpeg";
@@ -22,183 +15,84 @@ import {
   CertTitle,
   Progress,
   Dot,
+  PreviewOverlay,
+  PreviewCard,
+  PreviewImg,
+  PreviewClose,
 } from "./style";
 
 const BASE = [
   {
     image: certificate1,
-    title: "200-Hour Yoga Teacher Training",
+    title: "Medical Yoga Teacher Certification",
     variant: "yoga",
   },
   {
     image: certificate2,
-    title: "Clinical Nutrition Certification",
+    title: "Parental Yoga Certification",
     variant: "nutrition",
   },
   {
     image: certificate3,
-    title: "Ayurveda Foundations Program",
+    title: "Hatha and Ashtanga Yoga Certification",
     variant: "ayurveda",
   },
 ];
 
 export default function ExperienceLearning() {
   const viewportRef = useRef<HTMLDivElement | null>(null);
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const resumeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
   const baseLen = BASE.length;
-
-  // ✅ 3 copies (left, middle, right)
   const items = useMemo(() => [...BASE, ...BASE, ...BASE], []);
-  const middleStart = baseLen; // first element of middle copy
+  const middleStart = baseLen;
 
   const [index, setIndex] = useState(middleStart);
-  const [paused, setPaused] = useState(false);
-
-  // animation toggle to do invisible “teleport” without blink
-  const [animate, setAnimate] = useState(true);
-
-  // viewport width = slide width (since card is 100%)
+  const [animate] = useState(true);
   const [slideW, setSlideW] = useState(0);
 
-  // swipe
-  const [touchStartX, setTouchStartX] = useState<number | null>(null);
-  const [mouseDownX, setMouseDownX] = useState<number | null>(null);
-  const SWIPE_THRESHOLD = 45;
+  /* 🔍 certificate preview */
+  const [preview, setPreview] = useState<null | { src: string; title: string }>(
+    null,
+  );
 
-  const { ref, inView } = useInView({ threshold: 0.25, triggerOnce: true });
+  /* 🔒 lock background scroll */
+  useEffect(() => {
+    if (preview) document.body.style.overflow = "hidden";
+    else document.body.style.overflow = "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [preview]);
 
-  /* measure width */
+  /* ESC to close */
+  useEffect(() => {
+    if (!preview) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setPreview(null);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [preview]);
+
   useLayoutEffect(() => {
     const el = viewportRef.current;
     if (!el) return;
-
     const update = () => setSlideW(el.clientWidth);
     update();
-
     const ro = new ResizeObserver(update);
     ro.observe(el);
     return () => ro.disconnect();
   }, []);
 
-  const clearAuto = () => {
-    if (intervalRef.current) clearInterval(intervalRef.current);
-    intervalRef.current = null;
-  };
-
-  const pauseAndResumeLater = (delay = 2000) => {
-    setPaused(true);
-    if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current);
-    resumeTimeoutRef.current = setTimeout(() => setPaused(false), delay);
-  };
-
-  /* auto rotate (only when visible and not paused) */
-  useEffect(() => {
-    if (!inView || paused) {
-      clearAuto();
-      return;
-    }
-
-    clearAuto();
-    intervalRef.current = setInterval(() => {
-      setIndex((p) => p + 1);
-    }, 3000);
-
-    return () => clearAuto();
-  }, [inView, paused]);
-
-  /* ✅ seamless loop without blink:
-     after transition ends (approx 850ms), teleport to middle copy with animate=false for 1 frame */
-  useEffect(() => {
-    const leftBoundary = baseLen - 1; // end of left copy
-    const rightBoundary = baseLen * 2; // start of right copy
-
-    // if we are still in middle copy range, nothing to do
-    if (index > leftBoundary && index < rightBoundary) return;
-
-    const t = setTimeout(() => {
-      const logical = ((index % baseLen) + baseLen) % baseLen;
-      const target = middleStart + logical;
-
-      // teleport without animation (NO blink)
-      setAnimate(false);
-      setIndex(target);
-
-      // next frame: enable animation back
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => setAnimate(true));
-      });
-    }, 850);
-
-    return () => clearTimeout(t);
-  }, [index, baseLen, middleStart]);
-
-  const logicalIndex = ((index % baseLen) + baseLen) % baseLen;
-
-  const jumpToSlide = (i: number) => {
-    pauseAndResumeLater(2500);
-    setIndex(middleStart + i);
-  };
-
-  /* swipe handlers */
-  const onTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
-    pauseAndResumeLater(2500);
-    setTouchStartX(e.touches[0].clientX);
-  };
-
-  const onTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
-    if (touchStartX == null) return;
-    const diff = e.touches[0].clientX - touchStartX;
-
-    if (Math.abs(diff) > SWIPE_THRESHOLD) {
-      if (diff < 0) setIndex((p) => p + 1);
-      else setIndex((p) => p - 1);
-      setTouchStartX(null);
-    }
-  };
-
-  const onTouchEnd = () => setTouchStartX(null);
-
-  const onMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
-    pauseAndResumeLater(2500);
-    setMouseDownX(e.clientX);
-  };
-
-  const onMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (mouseDownX == null) return;
-    const diff = e.clientX - mouseDownX;
-
-    if (Math.abs(diff) > SWIPE_THRESHOLD) {
-      if (diff < 0) setIndex((p) => p + 1);
-      else setIndex((p) => p - 1);
-      setMouseDownX(null);
-    }
-  };
-
-  const onMouseUp = () => setMouseDownX(null);
-
-  // x position for track
   const x = slideW ? -index * slideW : 0;
 
   return (
-    <Section ref={ref} className={inView ? "visible" : ""}>
+    <Section>
       <Container>
         <Label>Experience & Learning</Label>
         <Title>Professional Certifications</Title>
         <Divider />
 
-        <CarouselViewport
-          ref={viewportRef}
-          onMouseEnter={() => setPaused(true)}
-          onMouseLeave={() => setPaused(false)}
-          onTouchStart={onTouchStart}
-          onTouchMove={onTouchMove}
-          onTouchEnd={onTouchEnd}
-          onMouseDown={onMouseDown}
-          onMouseMove={onMouseMove}
-          onMouseUp={onMouseUp}
-        >
+        <CarouselViewport ref={viewportRef}>
           <CarouselTrack $animate={animate} $x={x}>
             {items.map((item, i) => (
               <Card
@@ -209,6 +103,9 @@ export default function ExperienceLearning() {
                   src={item.image}
                   alt={item.title}
                   className={item.variant}
+                  onClick={() =>
+                    setPreview({ src: item.image, title: item.title })
+                  }
                 />
                 <CertTitle>{item.title}</CertTitle>
               </Card>
@@ -220,12 +117,22 @@ export default function ExperienceLearning() {
           {BASE.map((_, i) => (
             <Dot
               key={i}
-              $active={i === logicalIndex}
-              onClick={() => jumpToSlide(i)}
+              $active={i === index % baseLen}
+              onClick={() => setIndex(middleStart + i)}
             />
           ))}
         </Progress>
       </Container>
+
+      {/* 🌿 PREMIUM CERTIFICATE PREVIEW */}
+      {preview && (
+        <PreviewOverlay onClick={() => setPreview(null)}>
+          <PreviewCard onClick={(e) => e.stopPropagation()}>
+            <PreviewClose onClick={() => setPreview(null)}>✕</PreviewClose>
+            <PreviewImg src={preview.src} alt={preview.title} />
+          </PreviewCard>
+        </PreviewOverlay>
+      )}
     </Section>
   );
 }

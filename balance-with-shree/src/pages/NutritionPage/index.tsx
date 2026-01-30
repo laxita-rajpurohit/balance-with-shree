@@ -4,7 +4,7 @@ import { NutritionBenefits } from "../../components/NutritionPage/Benefits";
 import { NutritionBio } from "../../components/NutritionPage/Bio";
 import { NutritionHero } from "../../components/NutritionPage/HeroSection";
 import { NutritionPricing } from "../../components/NutritionPage/Pricing";
-import { NutritionReviews } from "../../components/NutritionPage/Review";
+import ClientReviews from "../../components/NutritionPage/Review";
 // import { PageWrapper } from "../../components/NutritionPage/style";
 
 const NutritionPage = () => (
@@ -12,7 +12,7 @@ const NutritionPage = () => (
     <NutritionHero />
     <NutritionBenefits />
     <NutritionBio />
-    <NutritionReviews />
+    <ClientReviews />
     <NutritionPricing />
   </>
 );

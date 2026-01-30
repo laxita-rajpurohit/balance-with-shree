@@ -6,6 +6,7 @@ import YogaVideoReviews from "../../components/Yoga/YogaVideoReviews";
 
 import YogaTypes from "../../components/Yoga/YogaTypes";
 import PricingPlans from "../../components/PricingPlans";
+import ExperienceLearning from "../../components/ExperienceLearning";
 
 export default function YogaPage() {
   return (
@@ -17,6 +18,7 @@ export default function YogaPage() {
       <YogaGallery />
       <YogaTransformations />
       <YogaVideoReviews />
+      <ExperienceLearning />
     </>
   );
 }

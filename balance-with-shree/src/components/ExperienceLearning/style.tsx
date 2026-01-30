@@ -9,7 +9,7 @@ export const Section = styled.section`
   margin-bottom: 125px;
   border-radius: 24px;
 
-  opacity: 0;
+  // opacity: 0;
   transform: translateY(40px);
   transition: all 0.8s ease;
 
@@ -225,4 +225,111 @@ export const Dot = styled.div<{ $active?: boolean }>`
   background: ${({ $active }) => ($active ? "#9bb7a5" : "#d8e2da")};
   cursor: pointer;
   transition: all 0.4s ease;
+`;
+
+/* =====================
+   IMAGE PREVIEW (LIGHTBOX)
+===================== */
+
+export const ImagePreviewOverlay = styled.div`
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+
+  // background: rgba(15, 20, 18, 0.85);
+  backdrop-filter: blur(6px);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overscroll-behavior: contain;
+`;
+
+export const ImagePreviewContent = styled.div`
+  max-width: 92vw;
+  max-height: 92vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+  background: transparent;
+`;
+
+/* ===============================
+   CERTIFICATE PREVIEW (LIGHTBOX)
+================================ */
+
+export const PreviewOverlay = styled.div`
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+
+  // background: rgba(14, 18, 16, 0.9);
+  backdrop-filter: blur(8px);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+`;
+
+export const PreviewCard = styled.div`
+  position: relative;
+  width: 100%;
+  max-width: 1100px;
+  max-height: 90vh;
+
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-shadow: 0 60px 140px rgba(0, 0, 0, 0.45);
+
+  @media (max-width: 768px) {
+    padding: 16px;
+    border-radius: 16px;
+  }
+`;
+
+export const PreviewImg = styled.img`
+  width: 100%;
+  height: auto;
+  max-height: calc(90vh - 48px);
+
+  object-fit: contain;
+  display: block;
+`;
+
+export const PreviewClose = styled.button`
+  position: absolute;
+  top: 14px;
+  right: 14px;
+
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+
+  border: none;
+  background: rgba(0, 0, 0, 0.05);
+  color: #1f2a24;
+
+  font-size: 18px;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: background 0.25s ease;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.1);
+  }
 `;
