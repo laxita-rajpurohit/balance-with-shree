@@ -115,9 +115,9 @@ const SliderTrack = styled.div`
 `;
 
 /* CARD WRAPPER (IMPORTANT FIX) */
-
 const CardWrapper = styled.div`
   position: relative;
+  padding-top: 55px; /* exact half of avatar */
   overflow: visible;
 `;
 
@@ -126,7 +126,9 @@ const CardWrapper = styled.div`
 const ReviewCard = styled.div`
   background: #ffffff;
   width: 360px;
-  padding: 90px 40px 70px;
+  min-height: 520px;
+
+  padding: 100px 40px 70px; /* more top padding */
   border-radius: 28px;
   position: relative;
   text-align: center;
@@ -135,26 +137,25 @@ const ReviewCard = styled.div`
     0 24px 50px rgba(0, 0, 0, 0.12),
     inset 0 0 0 1px rgba(255, 255, 255, 0.9);
 
-  @media (max-width: 480px) {
-    width: 300px;
-    padding: 80px 30px 60px;
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
 /* AVATAR (FIXED VISIBILITY) */
 
 const Avatar = styled.div`
   position: absolute;
-  top: 0;
+  top: 0; /* sits on card edge */
   left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 5;
+  transform: translateX(-50%);
+  z-index: 10;
 
-  width: 90px;
-  height: 90px;
+  width: 110px;
+  height: 110px;
   border-radius: 50%;
-  background: #fff;
-  padding: 6px;
+  background: #ffffff;
+  padding: 8px;
 
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
 
