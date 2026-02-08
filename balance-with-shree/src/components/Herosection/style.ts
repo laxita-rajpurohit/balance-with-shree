@@ -1,5 +1,5 @@
 // Hero/style.ts
-import styled, { keyframes } from "styled-components";
+import styled, { keyframes, css } from "styled-components";
 
 const fadeUp = keyframes`
   from { opacity: 0; transform: translateY(40px); }
@@ -13,11 +13,10 @@ export const Wrapper = styled.section`
   border-radius: 20px;
   overflow: hidden;
   position: relative;
-
-  /* static 3D look */
-  box-shadow: 0 26px 50px rgba(15, 40, 35, 0.22),
-    /* deep outer shadow */ 0 0 0 1px rgba(255, 255, 255, 0.9); /* subtle light edge */
-  transform: translateY(-4px); /* tiny lift off background */
+  box-shadow:
+    0 26px 50px rgba(15, 40, 35, 0.22),
+    0 0 0 1px rgba(255, 255, 255, 0.9);
+  transform: translateY(-4px);
 
   @media (max-width: 768px) {
     max-width: 100%;
@@ -25,10 +24,12 @@ export const Wrapper = styled.section`
   }
 `;
 
-export const Img = styled.img`
+export const CarouselContainer = styled.div`
+  position: relative;
   width: 100%;
   height: 460px;
-  object-fit: cover;
+  overflow: hidden;
+  border-radius: 20px;
 
   @media (max-width: 768px) {
     height: 420px;
@@ -39,7 +40,54 @@ export const Img = styled.img`
   }
 `;
 
+export const CarouselTrack = styled.div<{ $currentSlide: number }>`
+  display: flex;
+  height: 100%;
+  width: 100%;
+  transition: transform 0.5s ease-in-out;
+  transform: ${({ $currentSlide }) => `translateX(-${$currentSlide * 100}%)`};
+`;
+
+export const CarouselSlide = styled.div`
+  min-width: 100%;
+  height: 100%;
+`;
+
+export const Img = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;
+
 /* absolute layer containing heading + buttons */
+export const CarouselButtons = styled.div`
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  z-index: 2;
+`;
+
+export const CarouselButton = styled.button<{ $active: boolean }>`
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  background-color: ${({ $active }) =>
+    $active ? "#ffffff" : "rgba(255, 255, 255, 0.5)"};
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: #ffffff;
+    transform: scale(1.2);
+  }
+`;
+
 export const Content = styled.div`
   position: absolute;
   inset: 0;
@@ -97,7 +145,7 @@ export const ButtonsRow = styled.div`
   pointer-events: auto; /* re‑enable clicks */
 
   @media (max-width: 768px) {
-    bottom: 45%;
+    bottom: 15%;
   }
 
   @media (max-width: 480px) {
@@ -120,5 +168,7 @@ export const AnimatedContent = styled(Content)<{ visible: boolean }>`
     visible ? "translateY(0)" : "translateY(40px)"};
   animation: ${({ visible }) => (visible ? fadeUp : "none")} 0.8s
     cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  transition:
+    opacity 0.6s ease-out,
+    transform 0.6s ease-out;
 `;
