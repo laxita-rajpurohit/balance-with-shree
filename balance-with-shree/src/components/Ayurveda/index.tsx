@@ -19,18 +19,13 @@ import {
 } from "./style";
 
 export default function Ayurveda() {
-  const whatsappNumber = "919999999999";
+  const whatsappNumber = "8087048659";
 
   const consultationMessage = encodeURIComponent(
-    "Hi Shree, I’d like to book a personalised Ayurveda consultation."
-  );
-
-  const discoveryCallMessage = encodeURIComponent(
-    "Hi Shree, I’d like to book an Ayurveda Discovery Call (20 minutes)."
+    "Hi Shree, I’d like to book a personalised Ayurveda consultation.",
   );
 
   const consultationLink = `https://wa.me/${whatsappNumber}?text=${consultationMessage}`;
-  const discoveryCallLink = `https://wa.me/${whatsappNumber}?text=${discoveryCallMessage}`;
 
   return (
     <Section>
@@ -179,7 +174,7 @@ export default function Ayurveda() {
 
             <Button
               as="a"
-              href={discoveryCallLink}
+              href="https://wa.me/918087048659?text=Hi%20Shree,%20I%27d%20like%20to%20book%20an%20Ayurveda%20Discovery%20Call%20for%20₹300.%20Please%20let%20me%20know%20the%20next%20steps."
               target="_blank"
               rel="noopener noreferrer"
             >

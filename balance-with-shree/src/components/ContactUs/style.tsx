@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 
 export const Section = styled.section`
   padding: 120px 20px;
@@ -104,7 +104,7 @@ export const WhatsAppCTA = styled.a`
   }
 `;
 
-export const Form = styled.div`
+export const Form = styled.form`
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -135,9 +135,51 @@ export const Submit = styled.button`
   border-radius: 999px;
   font-size: 15px;
   cursor: pointer;
+  transition: all 0.2s ease;
 
   &:hover {
     background: #1f5f4a;
     color: white;
   }
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    background: #f0f0f0;
+    border-color: #ddd;
+    color: #999;
+  }
 `;
+
+export const SuccessMessage = styled.div`
+  margin: 10px 0;
+  padding: 12px 16px;
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  border-radius: 8px;
+  font-size: 14px;
+  border-left: 4px solid #4caf50;
+  animation: fadeIn 0.3s ease-in-out;
+`;
+
+export const ErrorMessage = styled.div`
+  margin: 10px 0;
+  padding: 12px 16px;
+  background-color: #ffebee;
+  color: #c62828;
+  border-radius: 8px;
+  font-size: 14px;
+  border-left: 4px solid #f44336;
+  animation: fadeIn 0.3s ease-in-out;
+`;
+
+// Add fadeIn animation
+const fadeIn = `
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+`;
+
+// Create a style component for the animation
+export const GlobalStyle = createGlobalStyle`${fadeIn}`;

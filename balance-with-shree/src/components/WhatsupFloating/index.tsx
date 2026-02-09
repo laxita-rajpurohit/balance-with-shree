@@ -1,9 +1,9 @@
 import { FloatingButton, Hint } from "./style";
 
 export default function WhatsAppFloating() {
-  const whatsappNumber = "919999999999";
+  const whatsappNumber = "918087048659";
   const message = encodeURIComponent(
-    "Hi Shree, I’d love to connect regarding your wellness offerings."
+    "Hi Shree, I’d love to connect regarding your wellness offerings.",
   );
 
   return (
