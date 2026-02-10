@@ -17,7 +17,6 @@ import { Modal } from "../Modal";
 import { PackageDetails } from "../PackageDetails";
 import { SessionSelector } from "../SessionSelector";
 
-// Import your hero images
 import heroImg1 from "../../assets/shree5.jpeg";
 import heroImg2 from "../../assets/shree4.jpeg";
 
@@ -32,31 +31,53 @@ export const Hero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [packagesOpen, setPackagesOpen] = useState(false);
   const [sessionOpen, setSessionOpen] = useState(false);
+
   const slideInterval = useRef<NodeJS.Timeout>();
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
 
-  // Auto slide functionality
+  /* AUTOPLAY */
   useEffect(() => {
-    const startAutoSlide = () => {
-      slideInterval.current = setInterval(() => {
-        setCurrentSlide((prev) => (prev + 1) % heroImages.length);
-      }, 5000); // Change slide every 5 seconds
-    };
+    slideInterval.current = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % heroImages.length);
+    }, 5000);
 
-    startAutoSlide();
     return () => {
       if (slideInterval.current) clearInterval(slideInterval.current);
     };
   }, []);
 
-  // Handle manual slide change
+  /* MANUAL NAVIGATION */
   const goToSlide = (index: number) => {
     if (slideInterval.current) clearInterval(slideInterval.current);
     setCurrentSlide(index);
   };
 
+  /* MOBILE SWIPE */
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.changedTouches[0].clientX;
+  };
+
+  const onTouchEnd = (e: React.TouchEvent) => {
+    touchEndX.current = e.changedTouches[0].clientX;
+    const diff = touchStartX.current - touchEndX.current;
+
+    if (Math.abs(diff) < 40) return;
+
+    if (slideInterval.current) clearInterval(slideInterval.current);
+
+    if (diff > 0) {
+      setCurrentSlide((prev) => (prev + 1) % heroImages.length);
+    } else {
+      setCurrentSlide(
+        (prev) => (prev - 1 + heroImages.length) % heroImages.length,
+      );
+    }
+  };
+
   return (
     <Wrapper ref={ref}>
-      <CarouselContainer>
+      <CarouselContainer onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
         <CarouselTrack $currentSlide={currentSlide}>
           {heroImages.map((img, index) => (
             <CarouselSlide key={index}>
@@ -71,7 +92,6 @@ export const Hero = () => {
               key={index}
               $active={currentSlide === index}
               onClick={() => goToSlide(index)}
-              aria-label={`Go to slide ${index + 1}`}
             />
           ))}
         </CarouselButtons>
@@ -95,7 +115,6 @@ export const Hero = () => {
             Book a Session
           </Button>
 
-          {/* Packages Modal */}
           <Modal isOpen={packagesOpen} onClose={() => setPackagesOpen(false)}>
             <PackageDetails
               title="Wellness Packages"
@@ -110,14 +129,13 @@ export const Hero = () => {
                 },
                 {
                   title: "Prenatal Yoga (Private)",
-                  note: "✔ Special cases are discussed after consultation. Final structure is decided after assessment.",
+                  note: "✔ Special cases are discussed after consultation.",
                 },
               ]}
               cta="Start Your Journey"
             />
           </Modal>
 
-          {/* Book Session Modal */}
           <Modal isOpen={sessionOpen} onClose={() => setSessionOpen(false)}>
             <SessionSelector onSelect={() => setSessionOpen(false)} />
           </Modal>

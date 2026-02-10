@@ -29,6 +29,7 @@ export const CarouselContainer = styled.div`
   width: 100%;
   height: 460px;
   border-radius: 20px;
+  touch-action: pan-y;
 
   @media (max-width: 768px) {
     height: 420px;
