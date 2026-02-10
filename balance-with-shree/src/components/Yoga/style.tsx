@@ -187,6 +187,7 @@ export const YogaVideoGrid = styled.div`
 export const YogaVideo = styled.video`
   width: 100%;
   border-radius: 24px;
+  max-height: 400px;
   box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
 `;
 
@@ -293,4 +294,131 @@ export const YogaTypeText = styled.p`
   font-size: 15.5px;
   line-height: 1.7;
   color: #1f2a24;
+`;
+
+// ImageCarousel.styled.ts
+export const CarouselContainer = styled.div`
+  position: relative;
+  height: 520px;
+  max-width: 900px;
+  margin: 0 auto;
+
+  @media (max-width: 768px) {
+    height: 420px;
+    max-width: 100%;
+  }
+`;
+
+export const CarouselTrack = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
+`;
+
+export const CarouselItem = styled.div<{ $position: string }>`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 70%;
+  height: 420px;
+  transition: all 0.6s ease;
+
+  video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 22px;
+    box-shadow: 0 25px 45px rgba(0, 0, 0, 0.18);
+  }
+
+  /* FRONT VIDEO */
+  ${({ $position }) =>
+    $position === "front" &&
+    `
+      transform: translate(-50%, -50%) scale(1);
+      z-index: 5;
+      opacity: 1;
+    `}
+
+  /* LEFT VIDEO */
+  ${({ $position }) =>
+    $position === "back-left" &&
+    `
+      transform: translate(-115%, -48%) scale(0.82);
+      z-index: 2;
+      opacity: 0.65;
+    `}
+
+  /* RIGHT VIDEO */
+  ${({ $position }) =>
+    $position === "back-right" &&
+    `
+      transform: translate(15%, -48%) scale(0.82);
+      z-index: 2;
+      opacity: 0.65;
+    `}
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    width: 85%;
+    height: 320px;
+
+    ${({ $position }) =>
+      $position === "back-left" &&
+      `
+        transform: translate(-90%, -48%) scale(0.75);
+        opacity: 0.5;
+      `}
+
+    ${({ $position }) =>
+      $position === "back-right" &&
+      `
+        transform: translate(-10%, -48%) scale(0.75);
+        opacity: 0.5;
+      `}
+  }
+`;
+
+export const NavButton = styled.button<{ $direction: "left" | "right" }>`
+  position: absolute;
+  top: 50%;
+  ${(props) => (props.$direction === "left" ? "left: 5%" : "right: 5%")};
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+
+  &:hover {
+    transform: translateY(-50%) scale(1.1);
+    background: white;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  &:active {
+    transform: translateY(-50%) scale(0.95);
+  }
+
+  &::before {
+    content: "${(props) => (props.$direction === "left" ? "❮" : "❯")}";
+    font-size: 20px;
+    color: #333;
+    font-weight: bold;
+  }
+
+  @media (max-width: 768px) {
+    width: 40px;
+    height: 40px;
+    ${(props) => (props.$direction === "left" ? "left: 10px" : "right: 10px")};
+  }
 `;
