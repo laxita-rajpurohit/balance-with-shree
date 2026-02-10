@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
 export const Section = styled.section`
-  padding: 120px 24px;
+  // padding: 120px 24px;
+  padding: 0 0 120px;
 `;
 
 export const Container = styled.div`
@@ -24,7 +25,8 @@ export const GlassWrap = styled.div`
 
   border-radius: 36px;
 
-  box-shadow: 0px 40px 80px rgba(15, 60, 40, 0.12),
+  box-shadow:
+    0px 40px 80px rgba(15, 60, 40, 0.12),
     inset 0 0 0 1px rgba(255, 255, 255, 0.6);
 
   @media (max-width: 768px) {
