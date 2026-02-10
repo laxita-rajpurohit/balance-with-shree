@@ -28,7 +28,7 @@ export const YogaTitle = styled.h2`
   font-size: 36px;
   color: #1f2a24;
   text-align: center;
-  margin-bottom: 24px;
+  margin-bottom: 80px;
 `;
 
 export const YogaSubText = styled.p`
@@ -303,6 +303,8 @@ export const YogaTypeText = styled.p`
 export const CarouselContainer = styled.div`
   position: relative;
   height: 520px;
+  touch-action: pan-y;
+
   max-width: 900px;
   margin: 0 auto;
 
@@ -322,9 +324,18 @@ export const CarouselItem = styled.div<{ $position: string }>`
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 70%;
-  height: 420px;
   transition: all 0.6s ease;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 22px;
+  }
+
+  video {
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+  }
 
   video {
     width: 100%;
@@ -363,9 +374,6 @@ export const CarouselItem = styled.div<{ $position: string }>`
 
   /* MOBILE */
   @media (max-width: 768px) {
-    width: 85%;
-    height: 320px;
-
     ${({ $position }) =>
       $position === "back-left" &&
       `

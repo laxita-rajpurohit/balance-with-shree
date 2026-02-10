@@ -22,7 +22,6 @@ const videos = [
 
 export default function YogaVideoReviews() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const videoRef = useRef<HTMLVideoElement | null>(null);
   const sectionRef = useRef<HTMLElement | null>(null);
 
   const total = videos.length;
@@ -32,56 +31,36 @@ export default function YogaVideoReviews() {
 
   const getIndex = (offset: number) => (currentIndex + offset + total) % total;
 
-  /* AUTO PLAY WHEN SECTION IS VISIBLE */
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          videoRef.current?.play();
-        } else {
-          videoRef.current?.pause();
-        }
-      },
-      { threshold: 0.6 },
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <YogaSection ref={sectionRef}>
       <YogaContainer>
         <YogaTitle>Client Stories</YogaTitle>
 
         <CarouselContainer>
-          <CarouselTrack>
-            {total > 1 && (
-              <CarouselItem $position="back-left">
-                <video src={videos[getIndex(-1)].src} muted />
-              </CarouselItem>
-            )}
+          <CarouselTrack
+            style={{
+              transition: "transform 0.6s cubic-bezier(0.22,1,0.36,1)",
+            }}
+          >
+            <CarouselItem $position="back-left">
+              <video src={videos[getIndex(-1)].src} muted preload="auto" />
+            </CarouselItem>
 
             <CarouselItem $position="front">
               <video
-                ref={videoRef}
-                key={videos[currentIndex].id}
-                src={videos[currentIndex].src}
+                src={videos[getIndex(0)].src}
                 controls
                 playsInline
                 muted
+                autoPlay
+                preload="auto"
                 onEnded={next}
               />
             </CarouselItem>
 
-            {total > 1 && (
-              <CarouselItem $position="back-right">
-                <video src={videos[getIndex(1)].src} muted />
-              </CarouselItem>
-            )}
+            <CarouselItem $position="back-right">
+              <video src={videos[getIndex(1)].src} muted preload="auto" />
+            </CarouselItem>
           </CarouselTrack>
 
           {total > 1 && (
