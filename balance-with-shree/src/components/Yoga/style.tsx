@@ -41,10 +41,13 @@ export const YogaSubText = styled.p`
 
 /* ---------- Hero ---------- */
 
-export const YogaHeroSection = styled.section`
+export const YogaHeroSection = styled.section<{ $bgImage: string }>`
   height: 95vh;
-  background: url("/yoga-hero.jpg") center / cover no-repeat;
+  background: ${({ $bgImage }) => `url(${$bgImage})`} center / cover no-repeat;
   position: relative;
+  margin: 0 20px;
+  border-radius: 20px;
+  overflow: hidden;
 `;
 
 export const YogaHeroOverlay = styled.div`
