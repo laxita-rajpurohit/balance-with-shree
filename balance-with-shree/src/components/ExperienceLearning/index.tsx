@@ -41,49 +41,82 @@ const BASE = [
 
 export default function ExperienceLearning() {
   const viewportRef = useRef<HTMLDivElement | null>(null);
+
   const baseLen = BASE.length;
+  if (!BASE.length) return null;
+
   const items = useMemo(() => [...BASE, ...BASE, ...BASE], []);
   const middleStart = baseLen;
 
   const [index, setIndex] = useState(middleStart);
-  const [animate] = useState(true);
+  const [animate, setAnimate] = useState(true);
   const [slideW, setSlideW] = useState(0);
-
-  /* 🔍 certificate preview */
   const [preview, setPreview] = useState<null | { src: string; title: string }>(
     null,
   );
 
-  /* 🔒 lock background scroll */
-  useEffect(() => {
-    if (preview) document.body.style.overflow = "hidden";
-    else document.body.style.overflow = "";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [preview]);
+  const autoplayRef = useRef<NodeJS.Timeout | null>(null);
 
-  /* ESC to close */
-  useEffect(() => {
-    if (!preview) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setPreview(null);
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [preview]);
-
+  /* measure width */
   useLayoutEffect(() => {
     const el = viewportRef.current;
     if (!el) return;
+
     const update = () => setSlideW(el.clientWidth);
     update();
+
     const ro = new ResizeObserver(update);
     ro.observe(el);
     return () => ro.disconnect();
   }, []);
 
-  const x = slideW ? -index * slideW : 0;
+  /* autoplay (slow + smooth) */
+  useEffect(() => {
+    autoplayRef.current = setInterval(() => {
+      setIndex((i) => i + 1);
+    }, 4000); // ← smooth timing
+
+    return () => {
+      if (autoplayRef.current) clearInterval(autoplayRef.current);
+    };
+  }, []);
+
+  /* seamless infinite reset */
+  useEffect(() => {
+    if (index >= baseLen * 2) {
+      setAnimate(false);
+      setIndex(index - baseLen);
+    }
+
+    if (index < baseLen) {
+      setAnimate(false);
+      setIndex(index + baseLen);
+    }
+  }, [index, baseLen]);
+
+  /* re-enable animation */
+  useEffect(() => {
+    if (!animate) {
+      requestAnimationFrame(() => setAnimate(true));
+    }
+  }, [animate]);
+
+  /* drag / swipe */
+  const startX = useRef(0);
+
+  const onPointerDown = (e: React.PointerEvent) => {
+    startX.current = e.clientX;
+  };
+
+  const onPointerUp = (e: React.PointerEvent) => {
+    const diff = startX.current - e.clientX;
+
+    if (Math.abs(diff) < 40) return;
+
+    setIndex((i) => (diff > 0 ? i + 1 : i - 1));
+  };
+
+  const x = -index * (slideW || 1);
 
   return (
     <Section>
@@ -92,7 +125,11 @@ export default function ExperienceLearning() {
         <Title>Professional Certifications</Title>
         <Divider />
 
-        <CarouselViewport ref={viewportRef}>
+        <CarouselViewport
+          ref={viewportRef}
+          onPointerDown={onPointerDown}
+          onPointerUp={onPointerUp}
+        >
           <CarouselTrack $animate={animate} $x={x}>
             {items.map((item, i) => (
               <Card
@@ -124,7 +161,6 @@ export default function ExperienceLearning() {
         </Progress>
       </Container>
 
-      {/* 🌿 PREMIUM CERTIFICATE PREVIEW */}
       {preview && (
         <PreviewOverlay onClick={() => setPreview(null)}>
           <PreviewCard onClick={(e) => e.stopPropagation()}>
