@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   YogaSection,
   YogaContainer,
@@ -22,6 +22,8 @@ const videos = [
 
 export default function YogaVideoReviews() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const sectionRef = useRef<HTMLElement | null>(null);
 
   const total = videos.length;
 
@@ -30,8 +32,28 @@ export default function YogaVideoReviews() {
 
   const getIndex = (offset: number) => (currentIndex + offset + total) % total;
 
+  /* AUTO PLAY WHEN SECTION IS VISIBLE */
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          videoRef.current?.play();
+        } else {
+          videoRef.current?.pause();
+        }
+      },
+      { threshold: 0.6 },
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <YogaSection>
+    <YogaSection ref={sectionRef}>
       <YogaContainer>
         <YogaTitle>Client Stories</YogaTitle>
 
@@ -43,15 +65,15 @@ export default function YogaVideoReviews() {
               </CarouselItem>
             )}
 
-            {/* CURRENT VIDEO */}
             <CarouselItem $position="front">
               <video
+                ref={videoRef}
                 key={videos[currentIndex].id}
                 src={videos[currentIndex].src}
-                autoPlay
                 controls
                 playsInline
-                onEnded={next} // ← THIS IS THE IMPORTANT PART
+                muted
+                onEnded={next}
               />
             </CarouselItem>
 
