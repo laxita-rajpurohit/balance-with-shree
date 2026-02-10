@@ -7,10 +7,6 @@ import styled from "styled-components";
 export const Section = styled.section`
   padding: 120px 0 0;
   background: ${({ theme }) => theme.colors.backgroundSoft};
-
-  @media (max-width: 768px) {
-    padding: 88px 0;
-  }
 `;
 
 /* ===============================
