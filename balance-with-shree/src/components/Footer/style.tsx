@@ -10,6 +10,10 @@ export const FooterWrapper = styled.footer`
 
   padding: 18px 28px;
   z-index: 50;
+
+  @media (max-width: 768px) {
+    padding: 14px 18px;
+  }
 `;
 
 export const FooterContainer = styled.div`
@@ -19,11 +23,21 @@ export const FooterContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    text-align: center;
+  }
 `;
 
 export const Left = styled.div`
   display: flex;
   flex-direction: column;
+
+  @media (max-width: 768px) {
+    align-items: center;
+  }
 `;
 
 export const Logo = styled.div`
@@ -57,6 +71,10 @@ export const IconRow = styled.div`
   display: flex;
   justify-content: flex-end;
   gap: 14px;
+
+  @media (max-width: 768px) {
+    justify-content: center;
+  }
 `;
 
 export const IconLink = styled.a`
