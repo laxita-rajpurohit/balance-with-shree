@@ -101,6 +101,12 @@ const scroll = keyframes`
 const SliderWrapper = styled.div`
   overflow: hidden;
   width: 100%;
+
+  @media (max-width: 768px) {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
 `;
 
 const SliderTrack = styled.div`
@@ -112,13 +118,22 @@ const SliderTrack = styled.div`
   &:hover {
     animation-play-state: paused;
   }
+
+  @media (max-width: 768px) {
+    animation: none;
+    padding: 10px 20px;
+  }
 `;
 
 /* CARD WRAPPER (IMPORTANT FIX) */
 const CardWrapper = styled.div`
   position: relative;
-  padding-top: 55px; /* exact half of avatar */
+  padding-top: 55px;
   overflow: visible;
+
+  @media (max-width: 768px) {
+    scroll-snap-align: center;
+  }
 `;
 
 /* CARD */
@@ -128,7 +143,12 @@ const ReviewCard = styled.div`
   width: 360px;
   min-height: 520px;
 
-  padding: 100px 40px 70px; /* more top padding */
+  @media (max-width: 768px) {
+    width: 280px;
+    min-height: 460px;
+  }
+
+  padding: 100px 40px 70px;
   border-radius: 28px;
   position: relative;
   text-align: center;

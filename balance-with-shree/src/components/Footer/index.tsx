@@ -37,7 +37,7 @@ export default function Footer() {
             <Instagram size={16} />
           </IconLink>
 
-          <IconLink href="https://wa.me/918087048759" target="_blank">
+          <IconLink href="https://wa.me/918087048659" target="_blank">
             <MessageCircle size={16} />
           </IconLink>
 

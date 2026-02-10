@@ -62,15 +62,15 @@ export const HeroContent = styled.div`
 `;
 
 export const Button = styled.button<{ primary?: boolean }>`
-  background: ${({ primary, theme }) =>
-    primary ? theme.colors.primary : "transparent"};
-  color: ${({ theme }) => theme.colors.white};
-  border: 2px solid ${({ theme }) => theme.colors.primary};
+  background: #2d5e43;
+  border: 2px solid #1f2a24;
   padding: 12px 32px;
   border-radius: 50px;
   cursor: pointer;
   font-weight: 600;
-
+  text-decoration: none;
+  color: #ffffff;
+  transition: all 0.25s ease;
   &:hover {
     transform: translateY(-2px);
   }
