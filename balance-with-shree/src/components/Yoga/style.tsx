@@ -55,7 +55,7 @@ export const YogaHeroOverlay = styled.div`
 
 export const YogaHeroContent = styled.div`
   position: relative;
-  z-index: 2;
+  // z-index: 2;
   height: 100%;
   display: flex;
   flex-direction: column;
