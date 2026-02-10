@@ -18,7 +18,7 @@ export const NutritionPricing = () => (
       </p>
 
       <div className="price">
-        <span>₹</span>300
+        <span>₹</span>299
       </div>
 
       <ul>

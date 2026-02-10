@@ -62,16 +62,18 @@ export const HeroContent = styled.div`
 `;
 
 export const Button = styled.button<{ primary?: boolean }>`
-  background: #2d5e43;
+  background: #1f2a24;
   border: 2px solid #1f2a24;
   padding: 12px 32px;
   border-radius: 50px;
   cursor: pointer;
   font-weight: 600;
-  text-decoration: none;
   color: #ffffff;
   transition: all 0.25s ease;
+  text-decoration: none;
   &:hover {
+    background: #4a6741;
+    border-color: #4a6741;
     transform: translateY(-2px);
   }
 `;
@@ -197,31 +199,35 @@ export const BioContent = styled.div`
 `;
 
 export const PricingCard = styled.div`
-  background-color: #1a1a1a; /* Dark Card */
-  color: white;
-  padding: 60px;
-  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  border-radius: 28px;
+  padding: 56px 48px;
   text-align: center;
-  max-width: 600px;
-  width: 100%;
-  position: relative;
-  overflow: hidden;
+
+  max-width: 520px;
   margin: 0 auto;
+
+  box-shadow:
+    0 24px 60px rgba(15, 60, 40, 0.12),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.7);
 
   h3 {
     font-size: 2rem;
     font-family: "Playfair Display", serif;
-    margin-bottom: 10px;
+    color: #1f2a24;
   }
 
   .price {
-    font-size: 4rem;
+    font-size: 3.2rem;
     font-family: "Playfair Display", serif;
-    margin: 20px 0;
-    color: #ffd700;
+    margin: 22px 0;
+    color: #4a6741;
 
     span {
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       vertical-align: top;
       margin-right: 5px;
     }
@@ -230,8 +236,8 @@ export const PricingCard = styled.div`
   ul {
     text-align: left;
     margin: 30px auto;
-    max-width: 300px;
-    color: #ccc;
+    max-width: 320px;
+    color: #4f5c56;
 
     li {
       margin-bottom: 12px;
