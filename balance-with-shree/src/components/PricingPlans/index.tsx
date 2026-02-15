@@ -20,6 +20,9 @@ import {
   Feature,
   HighlightBadge,
   SaveBadge,
+  OriginalPrice,
+  SessionOptions,
+  SessionOption,
 } from "./style";
 
 const PLANS = [
@@ -40,9 +43,9 @@ const PLANS = [
   },
   {
     id: "holistic",
-    name: "Holistic Transformation",
+    name: "Private Session Plan",
     monthly: 6999,
-    quarterly: 6999 * 10,
+    quarterly: 6999 * 3,
     highlight: true,
     cta: "Start Transformation",
     features: [
@@ -54,10 +57,73 @@ const PLANS = [
       "Priority 1:1 Support",
     ],
   },
+  {
+    id: "prenatal",
+    name: "Prenatal & Postnatal Session Plan",
+    monthly: 8000,
+    quarterly: 8000 * 3,
+    highlight: false,
+    cta: "Start Gentle Practice",
+    features: [
+      "Safe Prenatal Yoga Practice",
+      "Postnatal Recovery Sessions",
+      "Breathwork for Relaxation",
+      "Pelvic Floor Awareness",
+      "Gentle Strength Building",
+    ],
+  },
+];
+
+const PRIVATE_SESSION_OPTIONS = [
+  { sessions: 12, price: 6000 },
+  { sessions: 16, price: 8000 },
+  { sessions: 20, price: 10000 },
 ];
 
 export default function PricingPlans() {
   const [billing, setBilling] = useState<"monthly" | "quarterly">("monthly");
+  const [selectedSessions, setSelectedSessions] = useState(12);
+  const handleWhatsApp = (plan: any) => {
+    let message = "";
+    let finalPrice = 0;
+
+    // PRIVATE SESSION PLAN
+    if (plan.id === "holistic") {
+      const selectedOption = PRIVATE_SESSION_OPTIONS.find(
+        (o) => o.sessions === selectedSessions,
+      );
+
+      const basePrice = selectedOption?.price || 0;
+      const quarterlyOriginal = basePrice * 3;
+      const quarterlyDiscounted = Math.round(quarterlyOriginal * 0.9);
+
+      finalPrice = billing === "monthly" ? basePrice : quarterlyDiscounted;
+
+      message = `Hi! I'm interested in the ${plan.name}.
+Billing: ${billing === "monthly" ? "Monthly Plan" : "Quarterly Plan"}
+
+Sessions: ${billing === "monthly" ? selectedSessions : selectedSessions * 3}
+Price: ₹${finalPrice}`;
+    }
+
+    // ALL OTHER PLANS
+    else {
+      const monthlyPrice = plan.monthly;
+      const quarterlyOriginal = monthlyPrice * 3;
+      const quarterlyDiscounted = Math.round(quarterlyOriginal * 0.9);
+
+      finalPrice = billing === "monthly" ? monthlyPrice : quarterlyDiscounted;
+
+      message = `Hi! I'm interested in the ${plan.name}.
+Billing: ${billing}
+Price: ₹${finalPrice}`;
+    }
+
+    window.open(
+      `https://wa.me/918087048659?text=${encodeURIComponent(message)}`,
+      "_blank",
+    );
+  };
 
   return (
     <Section>
@@ -88,30 +154,87 @@ export default function PricingPlans() {
 
         <PlansGrid>
           {PLANS.map((plan) => {
-            const price = billing === "monthly" ? plan.monthly : plan.quarterly;
+            const monthlyPrice = plan.monthly;
+            const quarterlyOriginal = plan.monthly * 3;
+            const quarterlyDiscounted = Math.round(quarterlyOriginal * 0.9);
+
+            const price =
+              billing === "monthly" ? monthlyPrice : quarterlyDiscounted;
 
             return (
               <PlanCard key={plan.id} $highlight={plan.highlight}>
-                {plan.highlight && <HighlightBadge>Most Chosen</HighlightBadge>}
-
                 <PlanName>{plan.name}</PlanName>
 
-                <Price>
-                  ₹{price.toLocaleString("en-IN")}
-                  <span>
-                    {billing === "monthly" ? "per month" : "per quarterly "}
-                  </span>
-                </Price>
+                {/* GROUP PLAN PRICE */}
+                {plan.id !== "holistic" && (
+                  <Price>
+                    {billing === "quarterly" && (
+                      <OriginalPrice>
+                        ₹{quarterlyOriginal.toLocaleString("en-IN")}
+                      </OriginalPrice>
+                    )}
+                    ₹{price.toLocaleString("en-IN")}
+                    <span>
+                      {billing === "monthly" ? "per month" : "per quarter"}
+                    </span>
+                  </Price>
+                )}
 
-                <CTAButton
-                  onClick={() =>
-                    window.open(
-                      `https://wa.me/919999999999?text=Hi!%20I'm%20interested%20in%20the%20${encodeURIComponent(plan.name)}%20plan.`,
-                      "_blank",
-                    )
-                  }
-                >
-                  {plan.cta}
+                {/* PRIVATE SESSION PLAN */}
+                {plan.id === "holistic" && (
+                  <>
+                    {(() => {
+                      const selectedOption = PRIVATE_SESSION_OPTIONS.find(
+                        (o) => o.sessions === selectedSessions,
+                      );
+
+                      const basePrice = selectedOption?.price || 0;
+                      const quarterlyOriginal = basePrice * 3;
+                      const quarterlyDiscounted = Math.round(
+                        quarterlyOriginal * 0.9,
+                      );
+
+                      const displayPrice =
+                        billing === "monthly" ? basePrice : quarterlyDiscounted;
+
+                      return (
+                        <>
+                          <Price>
+                            {billing === "quarterly" && (
+                              <OriginalPrice>
+                                ₹{quarterlyOriginal.toLocaleString("en-IN")}
+                              </OriginalPrice>
+                            )}
+                            ₹{displayPrice.toLocaleString("en-IN")}
+                            <span>
+                              {billing === "monthly"
+                                ? `${selectedSessions} sessions`
+                                : `Total ${selectedSessions * 3} sessions`}
+                            </span>
+                          </Price>
+
+                          <SessionOptions>
+                            {PRIVATE_SESSION_OPTIONS.map((option) => (
+                              <SessionOption key={option.sessions}>
+                                <input
+                                  type="radio"
+                                  checked={selectedSessions === option.sessions}
+                                  onChange={() =>
+                                    setSelectedSessions(option.sessions)
+                                  }
+                                />
+                                {option.sessions} Sessions
+                              </SessionOption>
+                            ))}
+                          </SessionOptions>
+                        </>
+                      );
+                    })()}
+                  </>
+                )}
+
+                <CTAButton onClick={() => handleWhatsApp(plan)}>
+                  Begin Your Journey
                 </CTAButton>
 
                 <Features>

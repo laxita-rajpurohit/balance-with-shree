@@ -73,7 +73,8 @@ export const PlanCard = styled.div<{ $highlight?: boolean }>`
   backdrop-filter: blur(22px) saturate(140%);
   border: 1px solid rgba(255, 255, 255, 0.6);
 
-  box-shadow: 0 30px 80px rgba(6, 51, 54, 0.18),
+  box-shadow:
+    0 30px 80px rgba(6, 51, 54, 0.18),
     inset 0 1px 0 rgba(255, 255, 255, 0.7);
 
   transform: ${({ $highlight }) => ($highlight ? "translateY(-12px)" : "none")};
@@ -149,7 +150,8 @@ export const CTAButton = styled.button`
   border: 1px solid rgba(255, 255, 255, 0.65);
 
   /* Subtle depth */
-  box-shadow: 0 14px 36px rgba(6, 51, 54, 0.16),
+  box-shadow:
+    0 14px 36px rgba(6, 51, 54, 0.16),
     inset 0 1px 0 rgba(255, 255, 255, 0.75);
 
   /* Typography */
@@ -160,8 +162,10 @@ export const CTAButton = styled.button`
 
   cursor: pointer;
 
-  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-    box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1), background 0.45s ease;
+  transition:
+    transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    background 0.45s ease;
 
   /* Soft glass highlight */
   &::after {
@@ -180,7 +184,8 @@ export const CTAButton = styled.button`
 
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 20px 48px rgba(6, 51, 54, 0.22),
+    box-shadow:
+      0 20px 48px rgba(6, 51, 54, 0.22),
       inset 0 1px 0 rgba(255, 255, 255, 0.85);
   }
 
@@ -191,7 +196,8 @@ export const CTAButton = styled.button`
 
   &:focus-visible {
     outline: none;
-    box-shadow: 0 0 0 3px rgba(6, 51, 54, 0.15),
+    box-shadow:
+      0 0 0 3px rgba(6, 51, 54, 0.15),
       0 18px 44px rgba(6, 51, 54, 0.22);
   }
 `;
@@ -294,4 +300,29 @@ export const SaveBadge = styled.span`
 
   background: ${({ theme }) => theme.colors.primaryActiveLight};
   color: ${({ theme }) => theme.colors.primaryActive};
+`;
+export const OriginalPrice = styled.div`
+  font-size: 16px;
+  font-weight: 500;
+  color: ${({ theme }) => theme.colors.textMuted};
+  text-decoration: line-through;
+  margin-bottom: 4px;
+`;
+
+export const SessionOptions = styled.div`
+  display: flex;
+  gap: 10px;
+  margin-bottom: 18px;
+`;
+
+export const SessionOption = styled.label`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  cursor: pointer;
+
+  input {
+    cursor: pointer;
+  }
 `;
