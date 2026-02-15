@@ -25,9 +25,9 @@ import {
 const PLANS = [
   {
     id: "foundation",
-    name: "Foundation Plan",
-    monthly: 2999,
-    yearly: 2999 * 10, // 2 months free
+    name: "Group Session Plan",
+    monthly: 1500,
+    quarterly: 1500 * 3,
     highlight: false,
     cta: "Begin Your Journey",
     features: [
@@ -42,7 +42,7 @@ const PLANS = [
     id: "holistic",
     name: "Holistic Transformation",
     monthly: 6999,
-    yearly: 6999 * 10,
+    quarterly: 6999 * 10,
     highlight: true,
     cta: "Start Transformation",
     features: [
@@ -57,7 +57,7 @@ const PLANS = [
 ];
 
 export default function PricingPlans() {
-  const [billing, setBilling] = useState<"monthly" | "yearly">("monthly");
+  const [billing, setBilling] = useState<"monthly" | "quarterly">("monthly");
 
   return (
     <Section>
@@ -73,22 +73,22 @@ export default function PricingPlans() {
             <ToggleLabel $active={billing === "monthly"}>Monthly</ToggleLabel>
 
             <Toggle
-              $active={billing === "yearly"}
+              $active={billing === "quarterly"}
               onClick={() =>
-                setBilling(billing === "monthly" ? "yearly" : "monthly")
+                setBilling(billing === "monthly" ? "quarterly" : "monthly")
               }
             />
 
-            <ToggleLabel $active={billing === "yearly"}>
-              Annually
-              <SaveBadge>Save 20%</SaveBadge>
+            <ToggleLabel $active={billing === "quarterly"}>
+              Quarterly
+              <SaveBadge>Save 10%</SaveBadge>
             </ToggleLabel>
           </ToggleWrap>
         </Header>
 
         <PlansGrid>
           {PLANS.map((plan) => {
-            const price = billing === "monthly" ? plan.monthly : plan.yearly;
+            const price = billing === "monthly" ? plan.monthly : plan.quarterly;
 
             return (
               <PlanCard key={plan.id} $highlight={plan.highlight}>
@@ -99,9 +99,7 @@ export default function PricingPlans() {
                 <Price>
                   ₹{price.toLocaleString("en-IN")}
                   <span>
-                    {billing === "monthly"
-                      ? "per month"
-                      : "per year (2 months free)"}
+                    {billing === "monthly" ? "per month" : "per quarterly "}
                   </span>
                 </Price>
 
