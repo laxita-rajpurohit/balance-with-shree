@@ -8,7 +8,7 @@ const fadeUp = keyframes`
 
 export const Wrapper = styled.section`
   background: white;
-  max-width: 1100px;
+  // max-width: 1100px;
   margin-top: 40px;
   border-radius: 20px;
   overflow: hidden;
