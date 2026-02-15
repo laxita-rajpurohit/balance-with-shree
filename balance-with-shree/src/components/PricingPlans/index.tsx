@@ -28,7 +28,7 @@ import {
 const PLANS = [
   {
     id: "foundation",
-    name: "Group Session Plan",
+    name: "Group Session ",
     monthly: 1500,
     quarterly: 1500 * 3,
     highlight: false,
@@ -43,7 +43,7 @@ const PLANS = [
   },
   {
     id: "holistic",
-    name: "Private Session Plan",
+    name: "Private Session ",
     monthly: 6999,
     quarterly: 6999 * 3,
     highlight: true,
@@ -59,7 +59,7 @@ const PLANS = [
   },
   {
     id: "prenatal",
-    name: "Prenatal & Postnatal Session Plan",
+    name: "Prenatal & Postnatal Plan",
     monthly: 8000,
     quarterly: 8000 * 3,
     highlight: false,
