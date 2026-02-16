@@ -1,9 +1,6 @@
 // JourneyTimeline.tsx
 import React from "react";
 import { useInView } from "react-intersection-observer";
-import self1 from "../../assets/self1.jpeg";
-import self2 from "../../assets/self2.jpeg";
-import self3 from "../../assets/self3.jpeg";
 import {
   AnimatedSide,
   CardRow,
@@ -35,7 +32,8 @@ const steps: JourneyStep[] = [
   {
     id: 1,
     side: "left",
-    image: self1,
+    image:
+      "https://res.cloudinary.com/drjzugsyo/image/upload/v1771263597/self1_uguqlb.jpg",
     alt: "Where it all began (2019–2020)",
     label: "The Beginning — Ignoring My Health",
     text: (
@@ -50,7 +48,8 @@ const steps: JourneyStep[] = [
   {
     id: 2,
     side: "right",
-    image: self2,
+    image:
+      "https://res.cloudinary.com/drjzugsyo/image/upload/v1771263597/self2_e2xknl.jpg",
     alt: "The turning point – COVID & health breakdown",
     label: "The Wake-Up Call — COVID & Hyperacidity",
     text: (
@@ -66,7 +65,8 @@ const steps: JourneyStep[] = [
   {
     id: 3,
     side: "left",
-    image: self3,
+    image:
+      "https://res.cloudinary.com/drjzugsyo/image/upload/v1771265496/self3_ml3idz.jpg",
     alt: "Awareness → Action",
     label: "Choosing Awareness Over Neglect",
     text: (
@@ -80,7 +80,8 @@ const steps: JourneyStep[] = [
   {
     id: 4,
     side: "right",
-    image: self1,
+    image:
+      "https://res.cloudinary.com/drjzugsyo/image/upload/v1771263597/self1_uguqlb.jpg",
     alt: "Healing through belief, food & movement",
     label: "Healing Through Food, Yoga & Belief",
     text: (
@@ -97,7 +98,8 @@ const steps: JourneyStep[] = [
   {
     id: 5,
     side: "left",
-    image: self2,
+    image:
+      "https://res.cloudinary.com/drjzugsyo/image/upload/v1771263597/self2_e2xknl.jpg",
     alt: "From self-healing to serving others",
     label: "Turning My Journey into My Purpose",
     text: (
@@ -173,7 +175,7 @@ const JourneyTimeline: React.FC = () => {
           }
         });
       },
-      { threshold: 0.5 }
+      { threshold: 0.5 },
     );
 
     rowRefs.current.forEach((el) => {

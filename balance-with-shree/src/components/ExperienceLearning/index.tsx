@@ -1,7 +1,5 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
-import certificate1 from "../../assets/certificate1.jpeg";
-import certificate2 from "../../assets/certificate2.jpeg";
-import certificate3 from "../../assets/certificate3.jpeg";
+
 import {
   Section,
   Container,
@@ -23,17 +21,20 @@ import {
 
 const BASE = [
   {
-    image: certificate1,
+    image:
+      "https://res.cloudinary.com/drjzugsyo/image/upload/v1771263583/certificate_carousel_1_bsfcoq.jpg",
     title: "Medical Yoga Teacher Certification",
     variant: "yoga",
   },
   {
-    image: certificate2,
+    image:
+      "https://res.cloudinary.com/drjzugsyo/image/upload/v1771263574/certificate2_wl3vy9.jpg",
     title: "Parental Yoga Certification",
     variant: "nutrition",
   },
   {
-    image: certificate3,
+    image:
+      "https://res.cloudinary.com/drjzugsyo/image/upload/v1771263573/certificate3_lkbzmr.jpg",
     title: "Hatha and Ashtanga Yoga Certification",
     variant: "ayurveda",
   },
