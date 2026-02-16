@@ -15,8 +15,17 @@ export const Modal = ({ isOpen, onClose, children }: ModalProps) => {
     if (isOpen) {
       setVisible(true);
       document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
     }
   }, [isOpen]);
+
+  useEffect(() => {
+    // Cleanup on unmount
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, []);
 
   const handleClose = () => {
     document.body.style.overflow = "auto";
@@ -35,6 +44,6 @@ export const Modal = ({ isOpen, onClose, children }: ModalProps) => {
         {children}
       </ModalBox>
     </Overlay>,
-    document.body
+    document.body,
   );
 };
