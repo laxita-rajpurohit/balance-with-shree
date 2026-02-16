@@ -115,6 +115,7 @@ export const Input = styled.input`
   border-radius: 12px;
   border: 1px solid #d6e3dc;
   font-size: 15px;
+  color: black;
 `;
 
 export const Textarea = styled.textarea`
@@ -124,6 +125,7 @@ export const Textarea = styled.textarea`
   font-size: 15px;
   min-height: 120px;
   resize: vertical;
+  color: black;
 `;
 
 export const Submit = styled.button`

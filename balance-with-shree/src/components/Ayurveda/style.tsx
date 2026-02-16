@@ -181,7 +181,7 @@ export const Button = styled.a`
   display: inline-block;
   width: 100%;
   text-align: center;
-
+  color: black;
   padding: 14px 18px;
   border-radius: 999px;
   border: none;
@@ -195,7 +195,9 @@ export const Button = styled.a`
   font-weight: 500;
 
   box-shadow: 0 16px 40px rgba(31, 95, 74, 0.4);
-  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
 
   &:hover {
     transform: translateY(-1px);

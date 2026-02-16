@@ -136,7 +136,7 @@ export const CTAButton = styled.button`
   width: 100%;
   padding: 14px 18px;
   border-radius: 999px;
-
+  color: black;
   /* Frosted white glass */
   background: linear-gradient(
     180deg,
