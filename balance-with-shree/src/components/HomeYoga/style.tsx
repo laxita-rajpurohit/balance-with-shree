@@ -109,6 +109,7 @@ export const CTAButton = styled.button`
   position: relative;
   isolation: isolate;
   width: max-content;
+  color: black;
   /* Glass surface */
   background: linear-gradient(
     180deg,

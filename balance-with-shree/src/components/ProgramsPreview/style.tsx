@@ -66,7 +66,7 @@ export const PackagesRow = styled.div`
 export const PackageButton = styled.button`
   padding: 14px 30px;
   border-radius: 999px;
-
+  color: black;
   background: rgba(255, 255, 255, 0.75);
   backdrop-filter: blur(6px);
 
