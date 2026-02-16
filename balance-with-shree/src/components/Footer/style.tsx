@@ -54,6 +54,11 @@ export const TextLink = styled.a`
   font-size: 13px;
   color: #6c7c73;
   text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font-family: inherit;
 
   &:hover {
     text-decoration: underline;
