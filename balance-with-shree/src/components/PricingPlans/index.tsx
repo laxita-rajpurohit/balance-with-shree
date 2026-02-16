@@ -18,7 +18,6 @@ import {
   CTAButton,
   Features,
   Feature,
-  HighlightBadge,
   SaveBadge,
   OriginalPrice,
   SessionOptions,
@@ -28,48 +27,70 @@ import {
 const PLANS = [
   {
     id: "foundation",
-    name: "Group Session ",
+    name: "Group Session Plan",
     monthly: 1500,
     quarterly: 1500 * 3,
     highlight: false,
-    cta: "Begin Your Journey",
     features: [
-      "Personalized Yoga Routine",
-      "Weekly Guided Sessions",
-      "Breathwork & Relaxation",
-      "Basic Lifestyle Guidance",
-      "WhatsApp Support",
+      "Hatha, Ashtanga & Vinyasa Flow Yoga",
+      "Pranayama, Meditation & Breathwork",
+      "Face Yoga (selected days)",
+      "Weight loss or weight gain support",
+      "Improved flexibility & strength",
+      "Daily energy & overall wellness",
     ],
   },
   {
     id: "holistic",
-    name: "Private Session ",
+    name: "Private Session",
     monthly: 6999,
     quarterly: 6999 * 3,
     highlight: true,
-    cta: "Start Transformation",
     features: [
-      "Everything in Foundation",
-      "Therapeutic Yoga Sessions",
-      "Ayurveda Lifestyle Mapping",
-      "Nutrition Guidance",
-      "Daily Accountability",
-      "Priority 1:1 Support",
+      "One-on-one private sessions with complete personal attention",
+      "Hatha, Ashtanga & Vinyasa Flow Yoga (customized for you)",
+      "Pranayama, meditation & breathing techniques",
+      "Face yoga on selected days",
+      "Posture correction & proper movement guidance",
+      "Goal-focused training",
+      "Therapeutic / medical yoga support",
+      "Optional nutrition guidance",
+      "Continuous progress tracking",
     ],
   },
   {
     id: "prenatal",
-    name: "Prenatal & Postnatal Plan",
+    name: "Prenatal & Postnatal Care – Personalized One-on-One Support",
     monthly: 8000,
     quarterly: 8000 * 3,
     highlight: false,
-    cta: "Start Gentle Practice",
     features: [
-      "Safe Prenatal Yoga Practice",
-      "Postnatal Recovery Sessions",
-      "Breathwork for Relaxation",
-      "Pelvic Floor Awareness",
-      "Gentle Strength Building",
+      "Trimester-wise yoga practices",
+      "Safe posture correction & body alignment",
+      "Pranayama & breathwork for relaxation & stamina",
+      "Garbhasanskar (mantras, bonding & mindfulness)",
+      "Nutritional guidance (optional detailed plans)",
+      "Emotional wellness & stress support",
+      "Postnatal recovery & core strengthening",
+      "Fully personalized sessions",
+      "Continuous progress tracking",
+    ],
+  },
+  {
+    id: "prenatal-group",
+    name: "Prenatal & Postnatal Group Care",
+    monthly: 2800,
+    quarterly: 2800 * 3,
+    highlight: false,
+    features: [
+      "Trimester-wise safe yoga practices",
+      "Gentle posture & body alignment support",
+      "Pranayama & breathing techniques for relaxation & stamina",
+      "Garbhasanskar (mantras, bonding & mindfulness)",
+      "Basic nutritional guidance for pregnancy & recovery",
+      "Emotional well-being & stress management",
+      "Postnatal recovery & core strengthening",
+      "Personal attention within small groups",
     ],
   },
 ];
@@ -80,34 +101,44 @@ const PRIVATE_SESSION_OPTIONS = [
   { sessions: 20, price: 10000 },
 ];
 
+const PRENATAL_SESSION_OPTIONS = [
+  { sessions: 12, price: 5000 },
+  { sessions: 16, price: 6500 },
+  { sessions: 20, price: 8000 },
+];
+
 export default function PricingPlans() {
   const [billing, setBilling] = useState<"monthly" | "quarterly">("monthly");
   const [selectedSessions, setSelectedSessions] = useState(12);
+  const [selectedPrenatalSessions, setSelectedPrenatalSessions] = useState(12);
+
   const handleWhatsApp = (plan: any) => {
     let message = "";
     let finalPrice = 0;
 
-    // PRIVATE SESSION PLAN
     if (plan.id === "holistic") {
       const selectedOption = PRIVATE_SESSION_OPTIONS.find(
         (o) => o.sessions === selectedSessions,
       );
 
       const basePrice = selectedOption?.price || 0;
-      const quarterlyOriginal = basePrice * 3;
-      const quarterlyDiscounted = Math.round(quarterlyOriginal * 0.9);
-
-      finalPrice = billing === "monthly" ? basePrice : quarterlyDiscounted;
+      finalPrice = basePrice;
 
       message = `Hi! I'm interested in the ${plan.name}.
-Billing: ${billing === "monthly" ? "Monthly Plan" : "Quarterly Plan"}
-
-Sessions: ${billing === "monthly" ? selectedSessions : selectedSessions * 3}
+Sessions: ${selectedSessions}
 Price: ₹${finalPrice}`;
-    }
+    } else if (plan.id === "prenatal") {
+      const selectedOption = PRENATAL_SESSION_OPTIONS.find(
+        (o) => o.sessions === selectedPrenatalSessions,
+      );
 
-    // ALL OTHER PLANS
-    else {
+      const basePrice = selectedOption?.price || 0;
+      finalPrice = basePrice;
+
+      message = `Hi! I'm interested in the ${plan.name}.
+Sessions: ${selectedPrenatalSessions}
+Price: ₹${finalPrice}`;
+    } else {
       const monthlyPrice = plan.monthly;
       const quarterlyOriginal = monthlyPrice * 3;
       const quarterlyDiscounted = Math.round(quarterlyOriginal * 0.9);
@@ -134,7 +165,6 @@ Price: ₹${finalPrice}`;
             Simple, transparent pricing — switch to annual and save more.
           </SubTitle>
 
-          {/* 🔁 TOGGLE */}
           <ToggleWrap>
             <ToggleLabel $active={billing === "monthly"}>Monthly</ToggleLabel>
 
@@ -165,73 +195,146 @@ Price: ₹${finalPrice}`;
               <PlanCard key={plan.id} $highlight={plan.highlight}>
                 <PlanName>{plan.name}</PlanName>
 
-                {/* GROUP PLAN PRICE */}
-                {plan.id !== "holistic" && (
-                  <Price>
-                    {billing === "quarterly" && (
-                      <OriginalPrice>
-                        ₹{quarterlyOriginal.toLocaleString("en-IN")}
-                      </OriginalPrice>
-                    )}
-                    ₹{price.toLocaleString("en-IN")}
-                    <span>
+                {/* NORMAL PLANS */}
+                {plan.id !== "holistic" && plan.id !== "prenatal" && (
+                  <>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        marginBottom: "6px",
+                      }}
+                    >
+                      <Price>
+                        {billing === "quarterly" && (
+                          <OriginalPrice>
+                            ₹{quarterlyOriginal.toLocaleString("en-IN")}
+                          </OriginalPrice>
+                        )}
+                        ₹{price.toLocaleString("en-IN")}
+                      </Price>
+
+                      {plan.id === "foundation" && (
+                        <div style={{ fontSize: "14px", color: "#777" }}>
+                          Mon–Fri • Online / Offline
+                        </div>
+                      )}
+
+                      {plan.id === "prenatal-group" && (
+                        <div style={{ fontSize: "14px", color: "#777" }}>
+                          Small groups (2–3 mothers)
+                        </div>
+                      )}
+                    </div>
+
+                    <span style={{ fontSize: "13px", color: "#888" }}>
                       {billing === "monthly" ? "per month" : "per quarter"}
                     </span>
-                  </Price>
-                )}
-
-                {/* PRIVATE SESSION PLAN */}
-                {plan.id === "holistic" && (
-                  <>
-                    {(() => {
-                      const selectedOption = PRIVATE_SESSION_OPTIONS.find(
-                        (o) => o.sessions === selectedSessions,
-                      );
-
-                      const basePrice = selectedOption?.price || 0;
-                      const quarterlyOriginal = basePrice * 3;
-                      const quarterlyDiscounted = Math.round(
-                        quarterlyOriginal * 0.9,
-                      );
-
-                      const displayPrice =
-                        billing === "monthly" ? basePrice : quarterlyDiscounted;
-
-                      return (
-                        <>
-                          <Price>
-                            {billing === "quarterly" && (
-                              <OriginalPrice>
-                                ₹{quarterlyOriginal.toLocaleString("en-IN")}
-                              </OriginalPrice>
-                            )}
-                            ₹{displayPrice.toLocaleString("en-IN")}
-                            <span>
-                              {billing === "monthly"
-                                ? `${selectedSessions} sessions`
-                                : `Total ${selectedSessions * 3} sessions`}
-                            </span>
-                          </Price>
-
-                          <SessionOptions>
-                            {PRIVATE_SESSION_OPTIONS.map((option) => (
-                              <SessionOption key={option.sessions}>
-                                <input
-                                  type="radio"
-                                  checked={selectedSessions === option.sessions}
-                                  onChange={() =>
-                                    setSelectedSessions(option.sessions)
-                                  }
-                                />
-                                {option.sessions} Sessions
-                              </SessionOption>
-                            ))}
-                          </SessionOptions>
-                        </>
-                      );
-                    })()}
                   </>
                 )}
+
+                {/* PRIVATE SESSION */}
+                {plan.id === "holistic" &&
+                  (() => {
+                    const selectedOption = PRIVATE_SESSION_OPTIONS.find(
+                      (o) => o.sessions === selectedSessions,
+                    );
+
+                    const basePrice = selectedOption?.price || 0;
+                    const quarterlyOriginal = basePrice * 3;
+                    const quarterlyDiscounted = Math.round(
+                      quarterlyOriginal * 0.9,
+                    );
+
+                    const displayPrice =
+                      billing === "monthly" ? basePrice : quarterlyDiscounted;
+
+                    return (
+                      <>
+                        <Price>
+                          {billing === "quarterly" && (
+                            <OriginalPrice>
+                              ₹{quarterlyOriginal.toLocaleString("en-IN")}
+                            </OriginalPrice>
+                          )}
+                          ₹{displayPrice.toLocaleString("en-IN")}
+                          <span>
+                            {billing === "monthly"
+                              ? `${selectedSessions} sessions`
+                              : `Total ${selectedSessions * 3} sessions`}
+                          </span>
+                        </Price>
+
+                        <SessionOptions>
+                          {PRIVATE_SESSION_OPTIONS.map((option) => (
+                            <SessionOption key={option.sessions}>
+                              <input
+                                type="radio"
+                                checked={selectedSessions === option.sessions}
+                                onChange={() =>
+                                  setSelectedSessions(option.sessions)
+                                }
+                              />
+                              {option.sessions} Sessions
+                            </SessionOption>
+                          ))}
+                        </SessionOptions>
+                      </>
+                    );
+                  })()}
+
+                {/* PRENATAL PRIVATE SESSION */}
+                {plan.id === "prenatal" &&
+                  (() => {
+                    const selectedOption = PRENATAL_SESSION_OPTIONS.find(
+                      (o) => o.sessions === selectedPrenatalSessions,
+                    );
+
+                    const basePrice = selectedOption?.price || 0;
+                    const quarterlyOriginal = basePrice * 3;
+                    const quarterlyDiscounted = Math.round(
+                      quarterlyOriginal * 0.9,
+                    );
+
+                    const displayPrice =
+                      billing === "monthly" ? basePrice : quarterlyDiscounted;
+
+                    return (
+                      <>
+                        <Price>
+                          {billing === "quarterly" && (
+                            <OriginalPrice>
+                              ₹{quarterlyOriginal.toLocaleString("en-IN")}
+                            </OriginalPrice>
+                          )}
+                          ₹{displayPrice.toLocaleString("en-IN")}
+                          <span>
+                            {billing === "monthly"
+                              ? `${selectedPrenatalSessions} sessions`
+                              : `Total ${selectedPrenatalSessions * 3} sessions`}
+                          </span>
+                        </Price>
+
+                        <SessionOptions>
+                          {PRENATAL_SESSION_OPTIONS.map((option) => (
+                            <SessionOption key={option.sessions}>
+                              <input
+                                type="radio"
+                                checked={
+                                  selectedPrenatalSessions === option.sessions
+                                }
+                                onChange={() =>
+                                  setSelectedPrenatalSessions(option.sessions)
+                                }
+                              />
+                              {option.sessions} Sessions
+                            </SessionOption>
+                          ))}
+                        </SessionOptions>
+                      </>
+                    );
+                  })()}
 
                 <CTAButton onClick={() => handleWhatsApp(plan)}>
                   Begin Your Journey
