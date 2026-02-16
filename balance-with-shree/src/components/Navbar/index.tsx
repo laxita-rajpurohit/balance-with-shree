@@ -34,7 +34,10 @@ export const Navbar = () => {
     <>
       <LinkReset>
         <NavbarContainer>
-          <Logo src="/logo.png" alt="Logo" />
+          <Logo
+            src="https://res.cloudinary.com/drjzugsyo/image/upload/v1771263278/logo_aiaixs.png"
+            alt="Logo"
+          />
           <Nav>
             {LINKS.map((link) => (
               <NavLink key={link.to} to={link.to} end={link.to === "/"}>
@@ -45,7 +48,10 @@ export const Navbar = () => {
         </NavbarContainer>
 
         <MobileBar>
-          <MobileLogo src="/logo.png" alt="Logo" />
+          <MobileLogo
+            src="https://res.cloudinary.com/drjzugsyo/image/upload/v1771263278/logo_aiaixs.png"
+            alt="Logo"
+          />
           <BurgerButton onClick={() => setOpen(true)} aria-label="Open menu">
             <BurgerLines />
           </BurgerButton>
@@ -54,7 +60,10 @@ export const Navbar = () => {
         <Overlay $open={open} onClick={() => setOpen(false)}>
           <Drawer $open={open} onClick={(e) => e.stopPropagation()}>
             <DrawerHeader>
-              <MobileLogo src="/logo.png" alt="Logo" />
+              <MobileLogo
+                src="https://res.cloudinary.com/drjzugsyo/image/upload/v1771263278/logo_aiaixs.png"
+                alt="Logo"
+              />
               <h1>Balance with Shree</h1>
               <CloseButton
                 onClick={() => setOpen(false)}

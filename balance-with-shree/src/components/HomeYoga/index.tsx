@@ -16,8 +16,6 @@ import {
   Image,
 } from "./style";
 
-import yogaImg from "../../assets/shree7.jpeg";
-
 export const HomeYoga = () => {
   const navigate = useNavigate();
 
@@ -75,7 +73,10 @@ export const HomeYoga = () => {
 
           {/* RIGHT: IMAGE */}
           <Media>
-            <Image src={yogaImg} alt="Yoga with Shree" />
+            <Image
+              src="https://res.cloudinary.com/drjzugsyo/image/upload/v1771263209/shree8_navizo.jpg"
+              alt="Yoga with Shree"
+            />
           </Media>
         </GlassWrap>
       </Container>

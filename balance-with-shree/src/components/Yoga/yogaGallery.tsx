@@ -4,24 +4,28 @@ import {
   YogaGalleryGrid,
   YogaGalleryImg,
 } from "./style";
-import yogaImage1 from "../../assets/yogaimage1.jpeg";
-import yogaImage2 from "../../assets/shree2.jpeg";
-import yogaImage3 from "../../assets/yogaimage2.jpeg";
+
 export default function YogaGallery() {
   return (
     <YogaSection>
       <YogaContainer>
         <YogaGalleryGrid>
           <YogaGalleryImg
-            src={yogaImage1}
+            src={
+              "https://res.cloudinary.com/drjzugsyo/image/upload/v1771263837/yogaimage1_t1hgpj.jpg"
+            }
             alt="Yoga practice in calm indoor space"
           />
           <YogaGalleryImg
-            src={yogaImage2}
+            src={
+              "https://res.cloudinary.com/drjzugsyo/image/upload/v1771264338/shree2_i3c9mu.jpg"
+            }
             alt="Woman practicing yoga mindfully"
           />
           <YogaGalleryImg
-            src={yogaImage3}
+            src={
+              "https://res.cloudinary.com/drjzugsyo/image/upload/v1771263548/shree3_gveuvh.jpg"
+            }
             alt="Holistic yoga and wellness session"
           />
         </YogaGalleryGrid>

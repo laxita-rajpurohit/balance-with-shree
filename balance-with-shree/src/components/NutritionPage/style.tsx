@@ -1,6 +1,5 @@
 // src/pages/Nutrition/styles.ts
 import styled, { keyframes } from "styled-components";
-import heroImage from "../../assets/shree1.jpeg";
 
 export const PageWrapper = styled.div`
   background: ${({ theme }) => theme.colors.white};
@@ -24,7 +23,7 @@ export const HeroSection = styled.section`
   color: white;
   position: relative;
 
-  background-image: url(${heroImage});
+  background-image: url(${"https://res.cloudinary.com/drjzugsyo/image/upload/v1771263545/shree1_bxjnwa.jpg"});
   background-size: cover;
   background-position: center;
   max-width: 1100px;

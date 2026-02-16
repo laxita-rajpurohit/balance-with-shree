@@ -1,5 +1,4 @@
 import { Image, Section, Inner, AnimatedText } from "./style";
-import portrait from "../../assets/shree7.jpeg";
 import { useInView } from "react-intersection-observer";
 import { useNavigate } from "react-router-dom";
 
@@ -53,7 +52,10 @@ export const Journey = ({ showFull = false }: JourneyProps) => {
           )}
         </AnimatedText>
 
-        <Image src={portrait} alt="Yoga teacher" />
+        <Image
+          src="https://res.cloudinary.com/drjzugsyo/image/upload/v1771263067/shree7_nq8mg9.jpg"
+          alt="Yoga teacher"
+        />
       </Inner>
     </Section>
   );

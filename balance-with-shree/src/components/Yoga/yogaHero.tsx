@@ -5,10 +5,14 @@ import {
   YogaHeroTitle,
   YogaHeroSub,
 } from "./style";
-import yogaImage from "../../assets/yogaimage2.jpeg";
+
 export default function YogaHero() {
   return (
-    <YogaHeroSection $bgImage={yogaImage}>
+    <YogaHeroSection
+      $bgImage={
+        "https://res.cloudinary.com/drjzugsyo/image/upload/v1771264109/yogaimage2_vid0yc.jpg"
+      }
+    >
       <YogaHeroOverlay />
       <YogaHeroContent>
         <YogaHeroSub>YOGA</YogaHeroSub>

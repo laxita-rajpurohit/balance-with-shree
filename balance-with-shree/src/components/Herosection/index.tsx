@@ -17,10 +17,10 @@ import { Modal } from "../Modal";
 import { PackageDetails } from "../PackageDetails";
 import { SessionSelector } from "../SessionSelector";
 
-import heroImg1 from "../../assets/shree5.jpeg";
-import heroImg2 from "../../assets/shree4.jpeg";
-
-const heroImages = [heroImg1, heroImg2];
+const heroImages = [
+  "https://res.cloudinary.com/drjzugsyo/image/upload/v1771262971/shree5_doyho6.webp",
+  "https://res.cloudinary.com/drjzugsyo/image/upload/v1771262850/shree4_rnpdvt.webp",
+];
 
 export const Hero = () => {
   const { ref, inView } = useInView({

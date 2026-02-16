@@ -1,12 +1,16 @@
 import { Check } from "lucide-react";
 import { BioContent, BioImage, BioSection } from "./style";
 import { Image } from "../Journey/style";
-import portrait from "../../assets/journey.png";
 
 export const NutritionBio = () => (
   <BioSection>
     <BioImage>
-      <Image src={portrait} alt="Personalised Nutrition Plans" />
+      <Image
+        src={
+          "https://res.cloudinary.com/drjzugsyo/image/upload/v1771263597/journey_jcc4im.jpg"
+        }
+        alt="Personalised Nutrition Plans"
+      />
     </BioImage>
 
     <BioContent>
