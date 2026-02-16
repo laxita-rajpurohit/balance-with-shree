@@ -1,5 +1,4 @@
 import { AyurvedaPreview } from "../../components/AyurvedaPreview";
-import { FinalCTA } from "../../components/FinalCTA";
 import { Hero } from "../../components/Herosection";
 import { HomeYoga } from "../../components/HomeYoga";
 import { Journey } from "../../components/Journey";
