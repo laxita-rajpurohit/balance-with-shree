@@ -162,7 +162,7 @@ Price: ₹${finalPrice}`;
         <Header>
           <Title>Choose Your Wellness Path</Title>
           <SubTitle>
-            Simple, transparent pricing — switch to annual and save more.
+            Simple, transparent pricing — switch to quarterly and save more.
           </SubTitle>
 
           <ToggleWrap>
