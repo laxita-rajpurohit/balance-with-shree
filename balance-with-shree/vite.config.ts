@@ -15,5 +15,13 @@ export default defineConfig({
         manualChunks: undefined,
       },
     },
+    minify: "terser",
+    sourcemap: false,
+    chunkSizeWarningLimit: 1000,
+  },
+  server: {
+    headers: {
+      "Cache-Control": "public, max-age=31536000",
+    },
   },
 });

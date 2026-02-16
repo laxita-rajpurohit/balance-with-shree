@@ -18,8 +18,8 @@ import { PackageDetails } from "../PackageDetails";
 import { SessionSelector } from "../SessionSelector";
 
 const heroImages = [
-  "https://res.cloudinary.com/drjzugsyo/image/upload/v1771262971/shree5_doyho6.webp",
-  "https://res.cloudinary.com/drjzugsyo/image/upload/v1771262850/shree4_rnpdvt.webp",
+  "https://res.cloudinary.com/drjzugsyo/image/upload/f_auto,q_auto,w_1200/shree5_doyho6.webp",
+  "https://res.cloudinary.com/drjzugsyo/image/upload/f_auto,q_auto,w_1200/shree4_rnpdvt.webp",
 ];
 
 export const Hero = () => {

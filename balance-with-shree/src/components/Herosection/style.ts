@@ -1,5 +1,5 @@
 // Hero/style.ts
-import styled, { keyframes, css } from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 const fadeUp = keyframes`
   from { opacity: 0; transform: translateY(40px); }
@@ -57,6 +57,7 @@ export const Img = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
+  loading: lazy;
 `;
 
 /* absolute layer containing heading + buttons */
