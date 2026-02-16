@@ -14,9 +14,11 @@ import { Instagram, Mail, MessageCircle } from "lucide-react";
 import { useState } from "react";
 import { Modal } from "../Modal";
 import { PrivacyPolicy } from "../PrivacyPolicy";
+import { TermsConditions } from "../TermsConditions";
 
 export default function Footer() {
   const [privacyOpen, setPrivacyOpen] = useState(false);
+  const [termsOpen, setTermsOpen] = useState(false);
 
   return (
     <FooterWrapper>
@@ -32,7 +34,9 @@ export default function Footer() {
           <TextLink as="button" onClick={() => setPrivacyOpen(true)}>
             Privacy Policy
           </TextLink>
-          <TextLink href="/terms">Terms of Service</TextLink>
+          <TextLink as="button" onClick={() => setTermsOpen(true)}>
+            Terms of Service
+          </TextLink>
         </LegalRow>
 
         {/* RIGHT */}
@@ -56,6 +60,10 @@ export default function Footer() {
 
       <Modal isOpen={privacyOpen} onClose={() => setPrivacyOpen(false)}>
         <PrivacyPolicy />
+      </Modal>
+
+      <Modal isOpen={termsOpen} onClose={() => setTermsOpen(false)}>
+        <TermsConditions />
       </Modal>
     </FooterWrapper>
   );
