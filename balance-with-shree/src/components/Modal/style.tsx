@@ -41,12 +41,12 @@ export const ModalBox = styled.div<{ closing?: boolean }>`
   border-radius: 28px;
   width: 100%;
   max-width: 900px;
-  max-height: 85vh;
   overflow-y: auto;
   padding: 40px 36px;
   position: relative;
   border-radius: 24px;
-  box-shadow: 0px 40px 80px rgba(15, 60, 40, 0.25),
+  box-shadow:
+    0px 40px 80px rgba(15, 60, 40, 0.25),
     0px 2px 8px rgba(15, 60, 40, 0.08);
 
   transform-origin: center top;
