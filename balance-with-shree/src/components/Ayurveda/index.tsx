@@ -192,11 +192,6 @@ export default function Ayurveda() {
             or referred only where clinically appropriate.
           </Subtitle>
         </Hero>
-
-        {/* CTA */}
-        <CTA href={consultationLink} target="_blank" rel="noopener noreferrer">
-          Book your personalised Ayurveda consultation with Shree
-        </CTA>
       </Container>
     </Section>
   );
