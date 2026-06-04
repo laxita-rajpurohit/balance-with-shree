@@ -60,7 +60,7 @@ export const HeroContent = styled.div`
   }
 `;
 
-export const Button = styled.button<{ primary?: boolean }>`
+export const Button = styled.button<{ $primary?: boolean }>`
   background: #1f2a24;
   border: 2px solid #1f2a24;
   padding: 12px 32px;
@@ -77,9 +77,9 @@ export const Button = styled.button<{ primary?: boolean }>`
   }
 `;
 
-export const Section = styled.section<{ bg?: string }>`
+export const Section = styled.section<{ $bg?: string }>`
   padding: 80px 20px;
-  background: ${({ bg }) => bg || "transparent"};
+  background: ${({ $bg }) => $bg || "transparent"};
   text-align: center;
 `;
 

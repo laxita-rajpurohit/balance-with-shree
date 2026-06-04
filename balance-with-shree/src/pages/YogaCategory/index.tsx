@@ -30,7 +30,7 @@ const packages = [
 
 export default function YogaCategoryPage() {
   const { category } = useParams();
-  const { ref, inView } = useReveal();
+  const { ref } = useReveal();
 
   return (
     <YogaSection ref={ref}>

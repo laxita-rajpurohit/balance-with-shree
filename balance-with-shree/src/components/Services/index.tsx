@@ -59,7 +59,9 @@ const SERVICES = [
 ];
 
 export const Services = () => {
-  const [selected, setSelected] = useState<any>(null);
+  const [selected, setSelected] = useState<(typeof SERVICES)[number] | null>(
+    null,
+  );
 
   return (
     <>

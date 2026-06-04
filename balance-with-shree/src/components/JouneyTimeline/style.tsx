@@ -37,10 +37,10 @@ export const Line = styled.div`
   }
 `;
 
-export const FloatingDot = styled.div<{ y: number }>`
+export const FloatingDot = styled.div<{ $y: number }>`
   position: absolute;
   left: 50%;
-  transform: translate(-50%, ${({ y }) => y}px);
+  transform: translate(-50%, ${({ $y }) => $y}px);
   z-index: 10;
 
   @media (max-width: 768px) {
@@ -75,7 +75,7 @@ export const Dot = styled.div`
   }
 `;
 
-export const CardRow = styled.div<{ align: "left" | "right" }>`
+export const CardRow = styled.div<{ $align: "left" | "right" }>`
   position: relative;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -84,13 +84,13 @@ export const CardRow = styled.div<{ align: "left" | "right" }>`
   align-items: center;
 
   & > div:nth-child(1) {
-    order: ${({ align }) => (align === "left" ? 1 : 2)};
-    margin-left: ${({ align }) => (align === "left" ? "25%" : 0)};
-    margin-right: ${({ align }) => (align === "left" ? "0" : "25%")};
+    order: ${({ $align }) => ($align === "left" ? 1 : 2)};
+    margin-left: ${({ $align }) => ($align === "left" ? "25%" : 0)};
+    margin-right: ${({ $align }) => ($align === "left" ? "0" : "25%")};
   }
 
   & > div:nth-child(2) {
-    order: ${({ align }) => (align === "left" ? 2 : 1)};
+    order: ${({ $align }) => ($align === "left" ? 2 : 1)};
     // margin-right: ${({ align }) => (align === "right" ? "0" : "0")};
   }
 
@@ -125,7 +125,6 @@ export const Image = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
-  loading: lazy;
 `;
 
 export const TextBlock = styled.div`
@@ -167,6 +166,10 @@ export const TextBlock = styled.div`
     transform: translateY(-50%);
   }
 
+  p {
+    margin: 0;
+  }
+
   @media (max-width: 768px) {
     max-width: 100%;
     text-align: justify;
@@ -192,18 +195,18 @@ const fadeInRight = keyframes`
 `;
 
 export const AnimatedSide = styled.div<{
-  side: "left" | "right";
-  visible: boolean;
+  $side: "left" | "right";
+  $visible: boolean;
 }>`
-  opacity: ${({ visible }) => (visible ? 1 : 0)};
-  animation: ${({ visible, side }) =>
-      visible ? (side === "left" ? fadeInLeft : fadeInRight) : "none"}
+  opacity: ${({ $visible }) => ($visible ? 1 : 0)};
+  animation: ${({ $visible, $side }) =>
+      $visible ? ($side === "left" ? fadeInLeft : fadeInRight) : "none"}
     700ms ease-out both;
 
   @media (max-width: 768px) {
     animation: none;
-    transform: ${({ visible }) =>
-      visible ? "translateY(0)" : "translateY(24px)"};
+    transform: ${({ $visible }) =>
+      $visible ? "translateY(0)" : "translateY(24px)"};
     transition: transform 0.6s ease-out;
   }
 `;

@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import {
   YogaSection,
   YogaContainer,
@@ -41,8 +40,6 @@ const categories = [
 ];
 
 export default function YogaCategories() {
-  const navigate = useNavigate();
-
   return (
     <YogaSection>
       <YogaContainer>
@@ -67,10 +64,7 @@ export default function YogaCategories() {
         <DesktopOnly>
           <YogaGrid>
             {categories.map((item) => (
-              <YogaCard
-                key={item.slug}
-                onClick={() => navigate(`/yoga/${item.slug}`)}
-              >
+              <YogaCard key={item.slug}>
                 <YogaCardTitle>{item.title}</YogaCardTitle>
                 <YogaCardDesc>{item.desc}</YogaCardDesc>
               </YogaCard>

@@ -1,9 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+import { Button } from "../Button";
+import { navigationCta, navigationItems } from "../../data/navigation";
+import { siteMedia } from "../../data/media";
 import {
   NavbarContainer,
   Logo,
   Nav,
+  DesktopCta,
   MobileBar,
   MobileLogo,
   BurgerButton,
@@ -13,58 +17,79 @@ import {
   DrawerHeader,
   CloseButton,
   DrawerNav,
+  DrawerCta,
   LinkReset,
   ItemLink,
   DrawerItemButton,
 } from "./style";
 
-const LINKS = [
-  { label: "HOME", to: "/" },
-  { label: "NUTRITION", to: "/nutrition" },
-  { label: "YOGA", to: "/yoga" },
-  { label: "AYURVEDA", to: "/ayurveda" },
-  { label: "CONTACT", to: "/contact" },
-  { label: "ABOUT", to: "/about" },
-];
-
 export const Navbar = () => {
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    if (!open) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setOpen(false);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [open]);
 
   return (
     <>
       <LinkReset>
         <NavbarContainer>
           <Logo
-            src="https://res.cloudinary.com/drjzugsyo/image/upload/v1771263278/logo_aiaixs.png"
+            src={siteMedia.brand.logo}
             alt="Logo"
           />
           <Nav>
-            {LINKS.map((link) => (
+            {navigationItems.map((link) => (
               <NavLink key={link.to} to={link.to} end={link.to === "/"}>
                 <ItemLink>{link.label}</ItemLink>
               </NavLink>
             ))}
           </Nav>
+          <DesktopCta>
+            <Button to={navigationCta.to} size="sm" variant="secondary">
+              {navigationCta.label}
+            </Button>
+          </DesktopCta>
         </NavbarContainer>
 
         <MobileBar>
           <MobileLogo
-            src="https://res.cloudinary.com/drjzugsyo/image/upload/v1771263278/logo_aiaixs.png"
+            src={siteMedia.brand.logo}
             alt="Logo"
           />
-          <BurgerButton onClick={() => setOpen(true)} aria-label="Open menu">
+          <BurgerButton
+            onClick={() => setOpen(true)}
+            aria-label="Open menu"
+            aria-expanded={open}
+            aria-controls="mobile-site-drawer"
+          >
             <BurgerLines />
           </BurgerButton>
         </MobileBar>
 
         <Overlay $open={open} onClick={() => setOpen(false)}>
-          <Drawer $open={open} onClick={(e) => e.stopPropagation()}>
+          <Drawer
+            id="mobile-site-drawer"
+            $open={open}
+            aria-label="Mobile navigation"
+            onClick={(e) => e.stopPropagation()}
+          >
             <DrawerHeader>
               <MobileLogo
-                src="https://res.cloudinary.com/drjzugsyo/image/upload/v1771263278/logo_aiaixs.png"
+                src={siteMedia.brand.logo}
                 alt="Logo"
               />
-              <h1>Balance with Shree</h1>
+              <p>Balance with Shree</p>
               <CloseButton
                 onClick={() => setOpen(false)}
                 aria-label="Close menu"
@@ -74,7 +99,7 @@ export const Navbar = () => {
             </DrawerHeader>
 
             <DrawerNav>
-              {LINKS.map((link) => (
+              {navigationItems.map((link) => (
                 <NavLink
                   key={link.to}
                   to={link.to}
@@ -85,6 +110,16 @@ export const Navbar = () => {
                 </NavLink>
               ))}
             </DrawerNav>
+
+            <DrawerCta>
+              <Button
+                to={navigationCta.to}
+                fullWidth
+                onClick={() => setOpen(false)}
+              >
+                {navigationCta.label}
+              </Button>
+            </DrawerCta>
           </Drawer>
         </Overlay>
       </LinkReset>

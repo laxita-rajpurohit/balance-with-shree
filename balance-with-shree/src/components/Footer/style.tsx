@@ -1,12 +1,19 @@
 import styled from "styled-components";
 
 export const FooterWrapper = styled.footer`
-  margin-top: 120px;
+  margin-top: 48px;
   padding: 48px 28px 36px;
-
-  background: linear-gradient(to bottom, rgba(238, 244, 241, 0.4), #eef4f1);
-
+  background: linear-gradient(
+    to bottom,
+    rgba(245, 251, 247, 0.45),
+    rgba(238, 244, 241, 0.92)
+  );
   border-top: 1px solid rgba(20, 60, 40, 0.06);
+
+  @media (max-width: 768px) {
+    margin-top: 32px;
+    padding: 36px 20px 28px;
+  }
 `;
 
 export const FooterContainer = styled.div`
@@ -63,6 +70,12 @@ export const TextLink = styled.a`
   &:hover {
     text-decoration: underline;
   }
+
+  &:focus-visible {
+    outline: 2px solid rgba(31, 95, 74, 0.28);
+    outline-offset: 4px;
+    border-radius: 6px;
+  }
 `;
 
 export const IconRow = styled.div`
@@ -95,5 +108,10 @@ export const IconLink = styled.a`
   &:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+  }
+
+  &:focus-visible {
+    outline: 2px solid rgba(31, 95, 74, 0.28);
+    outline-offset: 3px;
   }
 `;

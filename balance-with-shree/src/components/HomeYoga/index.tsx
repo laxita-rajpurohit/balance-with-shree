@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Flower2, HeartPulse, Sparkles } from "lucide-react";
 import {
   Section,
   Container,
@@ -10,15 +10,33 @@ import {
   Description,
   Offerings,
   OfferingItem,
+  OfferingIcon,
   OfferingTitle,
   OfferingText,
-  CTAButton,
   Image,
 } from "./style";
+import { Button } from "../Button";
+import { siteMedia } from "../../data/media";
+
+const offerings = [
+  {
+    title: "Therapeutic Yoga",
+    text: "Address posture, pain, stress, digestion, and nervous system balance through personalised movement and breath.",
+    icon: HeartPulse,
+  },
+  {
+    title: "Group Yoga",
+    text: "Structured sessions focused on consistency, strength, flexibility, and mindful movement — online or offline.",
+    icon: Flower2,
+  },
+  {
+    title: "Prenatal & Postnatal Yoga",
+    text: "Gentle, supportive practices designed for pregnancy recovery and postnatal healing, guided with care.",
+    icon: Sparkles,
+  },
+] as const;
 
 export const HomeYoga = () => {
-  const navigate = useNavigate();
-
   return (
     <Section>
       <Container>
@@ -41,41 +59,31 @@ export const HomeYoga = () => {
             </Description>
 
             <Offerings>
-              <OfferingItem>
-                <OfferingTitle>Therapeutic Yoga</OfferingTitle>
-                <OfferingText>
-                  Address posture, pain, stress, digestion, and nervous system
-                  balance through personalised movement and breath.
-                </OfferingText>
-              </OfferingItem>
-
-              <OfferingItem>
-                <OfferingTitle>Group Yoga</OfferingTitle>
-                <OfferingText>
-                  Structured sessions focused on consistency, strength,
-                  flexibility, and mindful movement — online or offline.
-                </OfferingText>
-              </OfferingItem>
-
-              <OfferingItem>
-                <OfferingTitle>Prenatal & Postnatal Yoga</OfferingTitle>
-                <OfferingText>
-                  Gentle, supportive practices designed for pregnancy recovery
-                  and postnatal healing, guided with care.
-                </OfferingText>
-              </OfferingItem>
+              {offerings.map(({ title, text, icon: Icon }) => (
+                <OfferingItem key={title}>
+                  <OfferingIcon>
+                    <Icon size={18} strokeWidth={1.9} />
+                  </OfferingIcon>
+                  <div>
+                    <OfferingTitle>{title}</OfferingTitle>
+                    <OfferingText>{text}</OfferingText>
+                  </div>
+                </OfferingItem>
+              ))}
             </Offerings>
 
-            <CTAButton onClick={() => navigate("/yoga")}>
+            <Button to="/yoga" variant="secondary" size="lg">
               Explore Yoga <span>→</span>
-            </CTAButton>
+            </Button>
           </Content>
 
           {/* RIGHT: IMAGE */}
           <Media>
             <Image
-              src="https://res.cloudinary.com/drjzugsyo/image/upload/v1771263209/shree8_navizo.jpg"
+              src={siteMedia.home.yogaPreview}
               alt="Yoga with Shree"
+              loading="lazy"
+              decoding="async"
             />
           </Media>
         </GlassWrap>

@@ -5,14 +5,11 @@ import {
   YogaHeroTitle,
   YogaHeroSub,
 } from "./style";
+import { siteMedia } from "../../data/media";
 
 export default function YogaHero() {
   return (
-    <YogaHeroSection
-      $bgImage={
-        "https://res.cloudinary.com/drjzugsyo/image/upload/v1771264109/yogaimage2_vid0yc.jpg"
-      }
-    >
+    <YogaHeroSection $bgImage={siteMedia.yoga.hero}>
       <YogaHeroOverlay />
       <YogaHeroContent>
         <YogaHeroSub>YOGA</YogaHeroSub>

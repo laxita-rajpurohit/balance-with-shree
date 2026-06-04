@@ -10,78 +10,99 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   body {
-    font-family: 'Cormorant Garamond', serif;
-   background: ${({ theme }) => theme.colors.bg};
-   color: ${({ theme }) => theme.colors.dark};
+    font-family: ${({ theme }) => theme.fonts.body};
+    background: ${({ theme }) => theme.colors.bg};
+    color: ${({ theme }) => theme.colors.dark};
+    line-height: 1.5;
+    text-rendering: optimizeLegibility;
   }
 
   p {
-    font-family: 'Inter', sans-serif;
-   color: ${({ theme }) => theme.colors.muted};
+    font-family: ${({ theme }) => theme.fonts.body};
+    color: ${({ theme }) => theme.colors.muted};
   }
-   .page {
-   position: relative;
- }
 
-.site-wrapper {
- min-height: 100vh;
+  h1, h2, h3, h4, h5, h6 {
+    font-family: ${({ theme }) => theme.fonts.heading};
+    color: ${({ theme }) => theme.colors.textPrimary};
+    letter-spacing: 0;
+  }
 
-}
- /* 🌿 Base leaf styles */
-.leaf-background {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  height: 100vh;
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
 
-  background-repeat: no-repeat;
-  // background-size: 520px auto;
-  opacity: 0.40;
-  pointer-events: none;
-  z-index: 0;
-  will-change: transform;
-}
+  a {
+    color: inherit;
+  }
 
-/* 🌿 Right leaf */
-.leaf-right {
-  left: 0;
-  background-image: url(${leafRight});
-  background-position: right -10px center;
-}
+  img,
+  video {
+    display: block;
+    max-width: 100%;
+  }
 
-/* 🌿 Left leaf */
-.leaf-left {
-  left: 0;
-  background-image: url(${leafLeft});
-  background-position: left -10px center;
-}
+  *:focus-visible {
+    outline: 2px solid ${({ theme }) => theme.colors.primaryActive};
+    outline-offset: 2px;
+  }
+  .page {
+    position: relative;
+  }
 
-.content{
-position: relative;
-z-index:1;
-}
-@media (max-width: 768px) {
+  .site-wrapper {
+    min-height: 100vh;
+  }
+
   .leaf-background {
+    position: fixed;
+    top: 0;
+    width: 100%;
     height: 100vh;
-    opacity: 0.60;               /* more visible on mobile */
+    background-repeat: no-repeat;
+    background-size: min(36vw, 520px) auto;
+    opacity: var(--leaf-opacity, 0.32);
+    pointer-events: none;
+    z-index: 0;
+    will-change: transform;
   }
 
   .leaf-right {
-    background-size: 500px auto; /* 👈 smaller leaf */
-    background-position: right -40px top 120px;
-    top: -8%;
+    left: 0;
+    background-image: url(${leafRight});
+    background-position: right -10px center;
   }
 
   .leaf-left {
-    background-size: 500px auto;
-    background-position: left -40px bottom 160px;
-     top: 21%;
-  }
-   
-  .leaf-inner {
-    animation-duration: 20s;
+    left: 0;
+    background-image: url(${leafLeft});
+    background-position: left -10px center;
   }
 
-}
+  .content {
+    position: relative;
+    z-index: 1;
+  }
+
+  @media (max-width: 768px) {
+    .leaf-background {
+      height: 100vh;
+      background-size: min(82vw, 420px) auto;
+      opacity: var(--leaf-mobile-opacity, 0.22);
+    }
+
+    .leaf-right {
+      background-position: right -40px top 120px;
+      top: -8%;
+    }
+
+    .leaf-left {
+      background-position: left -40px bottom 160px;
+      top: 21%;
+    }
+  }
 
 `;

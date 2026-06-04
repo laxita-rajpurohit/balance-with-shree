@@ -1,5 +1,7 @@
 import { Check } from "lucide-react";
-import { Button, PricingCard, Section, SectionTitle, SubTitle } from "./style";
+import { Button as SharedButton } from "../Button";
+import { buildWhatsAppUrl, contactMessages } from "../../data/contact";
+import { PricingCard, Section, SectionTitle, SubTitle } from "./style";
 
 export const NutritionPricing = () => (
   <Section id="pricing-section">
@@ -36,18 +38,16 @@ export const NutritionPricing = () => (
         </li>
       </ul>
 
-      <Button
-        primary
-        style={{ width: "100%", marginTop: "16px" }}
-        onClick={() =>
-          window.open(
-            "https://wa.me/918087048659?text=Hi!%20I%27d%20like%20to%20book%20a%20Discovery%20Call%20session.",
-            "_blank",
-          )
-        }
+      <SharedButton
+        href={buildWhatsAppUrl(contactMessages.nutritionDiscovery)}
+        target="_blank"
+        rel="noopener noreferrer"
+        fullWidth
+        size="lg"
+        style={{ marginTop: "16px" }}
       >
         Book My Session
-      </Button>
+      </SharedButton>
     </PricingCard>
   </Section>
 );

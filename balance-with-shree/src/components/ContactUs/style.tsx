@@ -1,6 +1,11 @@
 import styled, { createGlobalStyle } from "styled-components";
+import {
+  Card as BaseCard,
+  Container as BaseContainer,
+  Section as BaseSection,
+} from "../ui/primitives";
 
-export const Section = styled.section`
+export const Section = styled(BaseSection)`
   padding: 120px 20px;
   background: linear-gradient(180deg, #f4faf6 0%, #eef6f1 100%);
   opacity: 0.9;
@@ -8,9 +13,8 @@ export const Section = styled.section`
   border-radius: 24px;
 `;
 
-export const Container = styled.div`
-  max-width: 1100px;
-  margin: auto;
+export const Container = styled(BaseContainer)`
+  width: min(100%, 1100px);
 `;
 
 export const Header = styled.div`
@@ -50,11 +54,8 @@ export const Grid = styled.div`
   }
 `;
 
-export const Card = styled.div`
-  background: #ffffff;
-  border-radius: 28px;
+export const Card = styled(BaseCard)`
   padding: 36px;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.08);
 `;
 
 export const CardTitle = styled.h3`
@@ -116,6 +117,12 @@ export const Input = styled.input`
   border: 1px solid #d6e3dc;
   font-size: 15px;
   color: black;
+
+  &:focus-visible {
+    border-color: #1f5f4a;
+    box-shadow: 0 0 0 3px rgba(31, 95, 74, 0.08);
+    outline: none;
+  }
 `;
 
 export const Textarea = styled.textarea`
@@ -126,6 +133,12 @@ export const Textarea = styled.textarea`
   min-height: 120px;
   resize: vertical;
   color: black;
+
+  &:focus-visible {
+    border-color: #1f5f4a;
+    box-shadow: 0 0 0 3px rgba(31, 95, 74, 0.08);
+    outline: none;
+  }
 `;
 
 export const Submit = styled.button`

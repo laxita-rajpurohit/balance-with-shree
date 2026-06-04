@@ -1,10 +1,10 @@
 import styled from "styled-components";
+import { ProgramCard } from "../ui/primitives";
 
 export const Section = styled.section`
-  // padding: 120px 24px;
-  padding: 0 0 120px;
+  padding: 42px 0 72px;
   @media (max-width: 768px) {
-    padding: 0 0 80px;
+    padding: 28px 0 52px;
   }
 `;
 
@@ -17,73 +17,68 @@ export const Container = styled.div`
 
 export const GlassWrap = styled.div`
   width: 100%;
-  max-width: 900px;
+  max-width: 980px;
   text-align: center;
-
-  padding: 64px 56px;
-
-  background: rgba(255, 255, 255, 0.65);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-
-  border-radius: 36px;
-
-  box-shadow:
-    0px 40px 80px rgba(15, 60, 40, 0.12),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+  padding: 20px 0 0;
 
   @media (max-width: 768px) {
-    padding: 48px 24px;
+    text-align: left;
+    padding: 10px 0 0;
   }
-`;
-
-export const Heading = styled.h2`
-  font-size: 34px;
-  font-weight: 600;
-  color: ${({ theme }) => theme.colors.textPrimary};
-  margin-bottom: 14px;
-
-  @media (max-width: 768px) {
-    font-size: 26px;
-  }
-`;
-
-export const SubText = styled.p`
-  max-width: 580px;
-  margin: 0 auto 48px;
-  font-size: 15.5px;
-  line-height: 1.7;
-  color: ${({ theme }) => theme.colors.textMuted};
 `;
 
 export const PackagesRow = styled.div`
-  display: flex;
-  justify-content: center;
-  gap: 22px;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 32px;
+
+  @media (max-width: 768px) {
+    display: flex;
+    overflow-x: auto;
+    gap: 12px;
+    margin-top: 24px;
+    padding-bottom: 8px;
+    scroll-snap-type: x proximity;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
 `;
 
-export const PackageButton = styled.button`
-  padding: 14px 30px;
-  border-radius: 999px;
-  color: black;
-  background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(6px);
+export const PackageCard = styled(ProgramCard)`
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 92px;
+  padding: 22px;
+  text-align: left;
 
-  border: 1px solid rgba(15, 60, 40, 0.18);
-
-  font-size: 15px;
-  font-weight: 500;
-  color: ${({ theme }) => theme.colors.textPrimary};
-
-  cursor: default;
-
-  box-shadow: 0px 12px 30px rgba(15, 60, 40, 0.12);
-
-  transition: all 0.25s ease;
-
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0px 18px 40px rgba(15, 60, 40, 0.18);
+  @media (max-width: 768px) {
+    min-width: 220px;
+    min-height: 84px;
+    padding: 18px;
+    border-radius: 24px;
+    scroll-snap-align: start;
   }
+`;
+
+export const PackageIcon = styled.span`
+  width: 42px;
+  height: 42px;
+  border-radius: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(31, 95, 74, 0.08);
+  color: ${({ theme }) => theme.colors.primary};
+  flex-shrink: 0;
+`;
+
+export const PackageLabel = styled.span`
+  font-family: ${({ theme }) => theme.fonts.body};
+  font-size: 15px;
+  font-weight: 600;
+  color: ${({ theme }) => theme.colors.textPrimary};
 `;

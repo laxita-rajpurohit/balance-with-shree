@@ -1,9 +1,14 @@
-import { useNavigate } from "react-router-dom";
-import { Container, CTA, Desc, Point, Points, Section, Title } from "./style";
+import { Apple, HeartPulse, Leaf } from "lucide-react";
+import { Button } from "../Button";
+import { Container, Desc, Point, PointIcon, PointLabel, Points, Section, Title } from "./style";
+
+const nutritionPoints = [
+  { label: "Gut Health & Digestion", icon: Apple },
+  { label: "Hormonal & Metabolic Balance", icon: HeartPulse },
+  { label: "Sustainable Food Habits", icon: Leaf },
+] as const;
 
 export default function NutritionPreview() {
-  const navigate = useNavigate();
-
   return (
     <Section>
       <Container>
@@ -15,12 +20,19 @@ export default function NutritionPreview() {
         </Desc>
 
         <Points>
-          <Point>Gut Health & Digestion</Point>
-          <Point>Hormonal & Metabolic Balance</Point>
-          <Point>Sustainable Food Habits</Point>
+          {nutritionPoints.map(({ label, icon: Icon }) => (
+            <Point key={label}>
+              <PointIcon>
+                <Icon size={16} strokeWidth={1.9} />
+              </PointIcon>
+              <PointLabel>{label}</PointLabel>
+            </Point>
+          ))}
         </Points>
 
-        <CTA onClick={() => navigate("/nutrition")}>Explore Nutrition</CTA>
+        <Button to="/nutrition" variant="outline" style={{ marginTop: "30px" }}>
+          Explore Nutrition
+        </Button>
       </Container>
     </Section>
   );

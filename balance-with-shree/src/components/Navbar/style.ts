@@ -8,7 +8,7 @@ export const NavbarContainer = styled.header`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 18px;
+  gap: 16px;
 
   @media (max-width: 767px) {
     display: none;
@@ -32,6 +32,11 @@ export const Nav = styled.nav`
   box-shadow: 0 20px 45px rgba(0, 0, 0, 0.08);
   display: flex;
   gap: 36px;
+`;
+
+export const DesktopCta = styled.div`
+  display: flex;
+  justify-content: center;
 `;
 
 /* IMPORTANT: NavLink instead of <a> */
@@ -84,12 +89,16 @@ export const Item = styled(NavLink)`
 /* mobile navbar + drawer */
 export const MobileBar = styled.header`
   width: 100%;
-  padding: 12px 18px;
+  padding: calc(env(safe-area-inset-top) + 8px) 16px 8px;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #e1f1eb;
+  min-height: 60px;
+  background: rgba(236, 245, 240, 0.9);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(31, 95, 74, 0.08);
+  box-shadow: 0 8px 20px rgba(15, 60, 40, 0.05);
 
   @media (min-width: 768px) {
     display: none;
@@ -97,8 +106,8 @@ export const MobileBar = styled.header`
 `;
 
 export const MobileLogo = styled.img`
-  width: 52px;
-  height: 52px;
+  width: 46px;
+  height: 46px;
   border-radius: 50%;
   object-fit: contain;
   box-shadow: 0 14px 30px rgba(0, 0, 0, 0.22),
@@ -107,11 +116,11 @@ export const MobileLogo = styled.img`
 
 export const BurgerButton = styled.button`
   position: absolute;
-  right: 18px;
+  right: 16px;
   top: 50%;
   transform: translateY(-50%);
-  width: 36px;
-  height: 36px;
+  width: 34px;
+  height: 34px;
   border-radius: 999px;
   border: none;
   background: rgba(248, 255, 252, 0.95);
@@ -120,6 +129,12 @@ export const BurgerButton = styled.button`
   justify-content: center;
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
   cursor: pointer;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+
+  &:hover {
+    transform: translateY(-50%) translateY(-1px);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.18);
+  }
 `;
 
 export const BurgerLines = styled.span`
@@ -166,9 +181,9 @@ export const Drawer = styled.aside<{ $open: boolean }>`
   width: 78%;
   max-width: 320px;
   height: 100%;
-  background: #f8fffc;
+  background: linear-gradient(180deg, rgba(248, 255, 252, 0.98), rgba(238, 246, 241, 0.98));
   box-shadow: 12px 0 40px rgba(0, 0, 0, 0.25);
-  padding: 20px 22px;
+  padding: 22px 22px 28px;
   display: flex;
   flex-direction: column;
   transform: translateX(${({ $open }) => ($open ? "0" : "-100%")});
@@ -179,12 +194,13 @@ export const DrawerHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 28px;
+  margin-bottom: 32px;
 
-  h1 {
+  p {
     font-size: 18px;
     line-height: 1.05;
     margin-right: 35px;
+    color: #264139;
   }
 `;
 
@@ -199,7 +215,7 @@ export const CloseButton = styled.button`
 export const DrawerNav = styled.nav`
   display: flex;
   flex-direction: column;
-  gap: 22px;
+  gap: 18px;
 `;
 
 export const ItemLink = styled.span`
@@ -241,8 +257,12 @@ export const DrawerItemButton = styled.span`
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: #264139;
-  padding: 4px 0;
+  padding: 8px 0;
   cursor: pointer;
+`;
+
+export const DrawerCta = styled.div`
+  margin-top: 28px;
 `;
 
 export const LinkReset = styled.div`
@@ -267,6 +287,6 @@ export const LinkReset = styled.div`
   @media (max-width: 768px) {
     position: sticky;
     top: 0;
-    z-index: 1;
+    z-index: 120;
   }
 `;

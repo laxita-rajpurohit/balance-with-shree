@@ -1,8 +1,10 @@
 {
-  "dependencies": {
-    "framer-motion": "^12.23.26",
-    "gsap": "^3.14.2",
-    "lucide-react": "^0.562.0",
-    "react-intersection-observer": "^10.0.0"
+  "name": "balance-with-shree-workspace",
+  "private": true,
+  "scripts": {
+    "dev": "npm --prefix balance-with-shree run dev --",
+    "build": "npm --prefix balance-with-shree run build",
+    "lint": "npm --prefix balance-with-shree run lint",
+    "preview": "npm --prefix balance-with-shree run preview --"
   }
 }

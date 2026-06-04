@@ -7,6 +7,7 @@ import {
   YogaGalleryImg,
   Reveal,
 } from "./style";
+import { siteMedia } from "../../data/media";
 
 export default function YogaTransformations() {
   const { ref, inView } = useReveal();
@@ -16,26 +17,20 @@ export default function YogaTransformations() {
       <YogaContainer>
         <YogaTitle>Real Transformations</YogaTitle>
 
-        <Reveal visible={inView}>
+        <Reveal $visible={inView}>
           <YogaGrid>
             <YogaGalleryImg
-              src={
-                "https://res.cloudinary.com/drjzugsyo/image/upload/v1771263544/transform4_uqtnrd.jpg"
-              }
+              src={siteMedia.yoga.transformations[0]}
               alt="Yoga journey before transformation"
             />
 
             <YogaGalleryImg
-              src={
-                "https://res.cloudinary.com/drjzugsyo/image/upload/v1771263547/transform2_zlouig.jpg"
-              }
+              src={siteMedia.yoga.transformations[1]}
               alt="Yoga practice after transformation"
             />
 
             <YogaGalleryImg
-              src={
-                "https://res.cloudinary.com/drjzugsyo/image/upload/v1771263573/transform3_bzxtx8.jpg"
-              }
+              src={siteMedia.yoga.transformations[2]}
               alt="Mind body balance through yoga"
             />
           </YogaGrid>

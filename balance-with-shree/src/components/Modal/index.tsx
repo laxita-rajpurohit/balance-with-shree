@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { Overlay, ModalBox, CloseBtn } from "./style";
 
@@ -9,38 +9,51 @@ type ModalProps = {
 };
 
 export const Modal = ({ isOpen, onClose, children }: ModalProps) => {
-  const [visible, setVisible] = useState(isOpen);
+  const [isClosing, setIsClosing] = useState(false);
+
+  const handleClose = useCallback(() => {
+    if (isClosing) return;
+
+    document.body.style.overflow = "auto";
+    setIsClosing(true);
+    window.setTimeout(() => {
+      setIsClosing(false);
+      onClose();
+    }, 450);
+  }, [isClosing, onClose]);
 
   useEffect(() => {
-    if (isOpen) {
-      setVisible(true);
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
-  }, [isOpen]);
+    if (!isOpen) return;
 
-  useEffect(() => {
-    // Cleanup on unmount
+    document.body.style.overflow = "hidden";
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        handleClose();
+      }
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+
     return () => {
+      window.removeEventListener("keydown", onKeyDown);
       document.body.style.overflow = "auto";
     };
-  }, []);
+  }, [handleClose, isOpen]);
 
-  const handleClose = () => {
-    document.body.style.overflow = "auto";
-    setVisible(false);
-
-    // wait for animation to finish
-    setTimeout(onClose, 450);
-  };
-
-  if (!visible) return null;
+  if (!isOpen) return null;
 
   return createPortal(
     <Overlay onClick={handleClose}>
-      <ModalBox closing={!isOpen} onClick={(e) => e.stopPropagation()}>
-        <CloseBtn onClick={handleClose}>✕</CloseBtn>
+      <ModalBox
+        $closing={isClosing}
+        role="dialog"
+        aria-modal="true"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <CloseBtn onClick={handleClose} aria-label="Close dialog">
+          ✕
+        </CloseBtn>
         {children}
       </ModalBox>
     </Overlay>,

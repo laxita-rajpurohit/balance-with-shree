@@ -4,6 +4,7 @@ import {
   YogaGalleryGrid,
   YogaGalleryImg,
 } from "./style";
+import { siteMedia } from "../../data/media";
 
 export default function YogaGallery() {
   return (
@@ -11,21 +12,15 @@ export default function YogaGallery() {
       <YogaContainer>
         <YogaGalleryGrid>
           <YogaGalleryImg
-            src={
-              "https://res.cloudinary.com/drjzugsyo/image/upload/v1771263837/yogaimage1_t1hgpj.jpg"
-            }
+            src={siteMedia.yoga.gallery[0]}
             alt="Yoga practice in calm indoor space"
           />
           <YogaGalleryImg
-            src={
-              "https://res.cloudinary.com/drjzugsyo/image/upload/v1771264338/shree2_i3c9mu.jpg"
-            }
+            src={siteMedia.yoga.gallery[1]}
             alt="Woman practicing yoga mindfully"
           />
           <YogaGalleryImg
-            src={
-              "https://res.cloudinary.com/drjzugsyo/image/upload/v1771263548/shree3_gveuvh.jpg"
-            }
+            src={siteMedia.yoga.gallery[2]}
             alt="Holistic yoga and wellness session"
           />
         </YogaGalleryGrid>

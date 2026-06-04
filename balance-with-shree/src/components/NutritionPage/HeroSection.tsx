@@ -1,7 +1,8 @@
 import { Button, HeroContent, HeroSection } from "./style";
+import { siteMedia } from "../../data/media";
 
 export const NutritionHero = () => (
-  <HeroSection>
+  <HeroSection style={{ backgroundImage: `url(${siteMedia.nutrition.hero})` }}>
     <HeroContent>
       <h1>
         Nourish Your Body,
@@ -16,7 +17,7 @@ export const NutritionHero = () => (
         obsession. It’s about nourishing your body in a way that supports your
         energy, digestion, hormones and everyday life — on and off the mat.
       </p>
-      <Button primary as="a" href="#pricing-section">
+      <Button $primary as="a" href="#pricing-section">
         Start Your Journey
       </Button>
     </HeroContent>

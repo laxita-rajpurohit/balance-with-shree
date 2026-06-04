@@ -1,19 +1,50 @@
 export const theme = {
   colors: {
-    primary: "#1e90ff",
-    secondary: "#ff4081",
-    bg: "#E1F1EB", // was `background`
-    dark: "#333333", // main body text
-    muted: "#666666", // paragraph text
+    primary: "#1f5f4a",
+    secondary: "#7aa08f",
+    bg: "#E1F1EB",
+    dark: "#1f2a24",
+    muted: "#5f6f66",
+    white: "#ffffff",
+    ivory: "#fbf9f3",
+    textPrimary: "#1f2a24",
+    textSecondary: "#2e6b55",
+    textMuted: "#5f6f66",
+    textWhite: "#ffffff",
+    backgroundSoft: "#f4faf6",
+    backgroundLight: "#ffffff",
+    bgPrimary: "#f5fbf7",
+    bgSecondary: "#edf6f1",
+    borderLight: "rgba(31, 95, 74, 0.12)",
+    primaryActive: "#1f5f4a",
+    primaryActiveLight: "rgba(31, 95, 74, 0.14)",
+    primaryActiveLightest: "rgba(31, 95, 74, 0.08)",
+    warmAccent: "#d9b889",
+  },
+  fonts: {
+    heading: "'Cormorant Garamond', serif",
+    body: "'Inter', sans-serif",
+    accent: "'Playfair Display', serif",
   },
   spacing: {
+    xsmall: "4px",
     small: "8px",
+    base: "12px",
     medium: "16px",
     large: "24px",
+    xlarge: "32px",
+    section: "120px",
   },
   radius: {
     small: "4px",
     medium: "8px",
     large: "12px",
+    xl: "24px",
+    pill: "999px",
+  },
+  shadows: {
+    card: "0 18px 48px rgba(15, 60, 40, 0.12)",
+    soft: "0 12px 28px rgba(15, 60, 40, 0.08)",
+    button: "0 16px 36px rgba(31, 95, 74, 0.24)",
   },
 } as const;

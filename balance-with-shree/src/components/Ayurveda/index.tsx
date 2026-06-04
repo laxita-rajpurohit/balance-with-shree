@@ -11,22 +11,14 @@ import {
   Process,
   Step,
   StepNumber,
-  CTA,
   ComingSoon,
   PricingWrapper,
   PricingCard,
-  Button,
 } from "./style";
+import { Button } from "../Button";
+import { buildWhatsAppUrl, contactMessages } from "../../data/contact";
 
 export default function Ayurveda() {
-  const whatsappNumber = "8087048659";
-
-  const consultationMessage = encodeURIComponent(
-    "Hi Shree, I’d like to book a personalised Ayurveda consultation.",
-  );
-
-  const consultationLink = `https://wa.me/${whatsappNumber}?text=${consultationMessage}`;
-
   return (
     <Section>
       <Container>
@@ -173,10 +165,11 @@ export default function Ayurveda() {
             </ul>
 
             <Button
-              as="a"
-              href="https://wa.me/918087048659?text=Hi%20Shree,%20I%27d%20like%20to%20book%20an%20Ayurveda%20Discovery%20Call%20for%20₹300.%20Please%20let%20me%20know%20the%20next%20steps."
+              href={buildWhatsAppUrl(contactMessages.ayurvedaDiscovery)}
               target="_blank"
               rel="noopener noreferrer"
+              fullWidth
+              size="lg"
             >
               Book My Ayurveda Discovery Call
             </Button>

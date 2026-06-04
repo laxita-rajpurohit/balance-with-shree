@@ -15,6 +15,7 @@ import { useState } from "react";
 import { Modal } from "../Modal";
 import { PrivacyPolicy } from "../PrivacyPolicy";
 import { TermsConditions } from "../TermsConditions";
+import { buildWhatsAppUrl, contactData } from "../../data/contact";
 
 export default function Footer() {
   const [privacyOpen, setPrivacyOpen] = useState(false);
@@ -42,17 +43,27 @@ export default function Footer() {
         {/* RIGHT */}
         <IconRow>
           <IconLink
-            href="https://www.instagram.com/balancewithshree"
+            href={contactData.instagramUrl}
             target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Visit Balance with Shree on Instagram"
           >
             <Instagram size={16} />
           </IconLink>
 
-          <IconLink href="https://wa.me/918087048659" target="_blank">
+          <IconLink
+            href={buildWhatsAppUrl()}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Chat with Balance with Shree on WhatsApp"
+          >
             <MessageCircle size={16} />
           </IconLink>
 
-          <IconLink href="mailto:balancewithshree@gmail.com">
+          <IconLink
+            href={`mailto:${contactData.publicEmail}`}
+            aria-label="Send an email to Balance with Shree"
+          >
             <Mail size={16} />
           </IconLink>
         </IconRow>

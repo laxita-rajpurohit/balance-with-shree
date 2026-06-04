@@ -8,15 +8,16 @@ import {
   CarouselTrack,
   NavButton,
 } from "./style";
+import { siteMedia } from "../../data/media";
 
 const videos = [
   {
     id: "1",
-    src: "https://res.cloudinary.com/drjzugsyo/video/upload/v1770745584/IMG_7633_1_qooflf.mp4",
+    src: siteMedia.yoga.videos[0],
   },
   {
     id: "2",
-    src: "https://res.cloudinary.com/drjzugsyo/video/upload/v1770745298/IMG_7634_kapmzh.mp4",
+    src: siteMedia.yoga.videos[1],
   },
 ];
 

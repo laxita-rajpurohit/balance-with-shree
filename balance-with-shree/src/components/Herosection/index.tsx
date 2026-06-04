@@ -1,26 +1,25 @@
 import {
   ButtonsRow,
+  Description,
   HeadingBlock,
+  HeroCard,
+  HeroImageFrame,
+  HeroPicture,
   Img,
+  SoftBadge,
   Wrapper,
   CarouselContainer,
-  CarouselSlide,
-  CarouselTrack,
-  CarouselButtons,
-  CarouselButton,
 } from "./style";
 import { Button } from "../Button";
 import { useInView } from "react-intersection-observer";
 import { AnimatedContent } from "./style";
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { Modal } from "../Modal";
 import { PackageDetails } from "../PackageDetails";
 import { SessionSelector } from "../SessionSelector";
+import { siteMedia } from "../../data/media";
 
-const heroImages = [
-  "https://res.cloudinary.com/drjzugsyo/image/upload/f_auto,q_auto,w_1200/shree5_doyho6.webp",
-  "https://res.cloudinary.com/drjzugsyo/image/upload/f_auto,q_auto,w_1200/shree4_rnpdvt.webp",
-];
+const fallbackHeroImage = siteMedia.home.heroSlides[0];
 
 export const Hero = () => {
   const { ref, inView } = useInView({
@@ -28,118 +27,91 @@ export const Hero = () => {
     threshold: 0.3,
   });
 
-  const [currentSlide, setCurrentSlide] = useState(0);
   const [packagesOpen, setPackagesOpen] = useState(false);
   const [sessionOpen, setSessionOpen] = useState(false);
+  const [useFallbackHero, setUseFallbackHero] = useState(false);
 
-  const slideInterval = useRef<NodeJS.Timeout>();
-  const touchStartX = useRef(0);
-  const touchEndX = useRef(0);
-
-  /* AUTOPLAY */
-  useEffect(() => {
-    slideInterval.current = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % heroImages.length);
-    }, 5000);
-
-    return () => {
-      if (slideInterval.current) clearInterval(slideInterval.current);
-    };
-  }, []);
-
-  /* MANUAL NAVIGATION */
-  const goToSlide = (index: number) => {
-    if (slideInterval.current) clearInterval(slideInterval.current);
-    setCurrentSlide(index);
-  };
-
-  /* MOBILE SWIPE */
-  const onTouchStart = (e: React.TouchEvent) => {
-    touchStartX.current = e.changedTouches[0].clientX;
-  };
-
-  const onTouchEnd = (e: React.TouchEvent) => {
-    touchEndX.current = e.changedTouches[0].clientX;
-    const diff = touchStartX.current - touchEndX.current;
-
-    if (Math.abs(diff) < 40) return;
-
-    if (slideInterval.current) clearInterval(slideInterval.current);
-
-    if (diff > 0) {
-      setCurrentSlide((prev) => (prev + 1) % heroImages.length);
-    } else {
-      setCurrentSlide(
-        (prev) => (prev - 1 + heroImages.length) % heroImages.length,
-      );
-    }
-  };
+  const watercolorHero = siteMedia.home.homeHeroWatercolorIllustration;
+  const heroAlt = watercolorHero?.alt ?? "Balance with Shree home hero image";
+  const mobileHeroSrc =
+    !useFallbackHero && watercolorHero
+      ? watercolorHero.mobile
+      : fallbackHeroImage;
+  const desktopHeroSrc =
+    !useFallbackHero && watercolorHero
+      ? watercolorHero.desktop
+      : fallbackHeroImage;
 
   return (
     <Wrapper ref={ref}>
-      <CarouselContainer onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
-        <CarouselTrack $currentSlide={currentSlide}>
-          {heroImages.map((img, index) => (
-            <CarouselSlide key={index}>
-              <Img src={img} alt={`Hero ${index + 1}`} />
-            </CarouselSlide>
-          ))}
-        </CarouselTrack>
-
-        <CarouselButtons>
-          {heroImages.map((_, index) => (
-            <CarouselButton
-              key={index}
-              $active={currentSlide === index}
-              onClick={() => goToSlide(index)}
-            />
-          ))}
-        </CarouselButtons>
+      <CarouselContainer>
+        <HeroPicture>
+          {!useFallbackHero && watercolorHero ? (
+            <source media="(min-width: 768px)" srcSet={desktopHeroSrc} />
+          ) : null}
+          <Img
+            src={mobileHeroSrc}
+            alt={heroAlt}
+            loading="eager"
+            decoding="async"
+            fetchPriority="high"
+            onError={() => setUseFallbackHero(true)}
+          />
+        </HeroPicture>
       </CarouselContainer>
 
-      <AnimatedContent visible={inView}>
-        <HeadingBlock>
-          <h1>
-            BALANCE
-            <br />
-            WITH SHREE
-          </h1>
-        </HeadingBlock>
+      <AnimatedContent $visible={inView}>
+        <HeroCard>
+          <SoftBadge>Yoga • Nutrition • Ayurveda</SoftBadge>
 
-        <ButtonsRow>
-          <Button variant="primary" onClick={() => setPackagesOpen(true)}>
-            Explore Packages
-          </Button>
+          <HeadingBlock>
+            <h1>Find balance that feels calm, sustainable, and deeply personal.</h1>
+          </HeadingBlock>
 
-          <Button variant="secondary" onClick={() => setSessionOpen(true)}>
-            Book a Session
-          </Button>
+          <Description>
+            Through yoga, nutrition, and mindful living, I help you find
+            balance that supports your body, your food habits, and your
+            everyday life.
+          </Description>
 
-          <Modal isOpen={packagesOpen} onClose={() => setPackagesOpen(false)}>
-            <PackageDetails
-              title="Wellness Packages"
-              packages={[
-                {
-                  title: "Group Yoga (Online / Offline)",
-                  note: "✔ Fees for group sessions are fixed.",
-                },
-                {
-                  title: "Private Yoga (Personal Training)",
-                  note: "✔ Private sessions are customised based on individual needs.",
-                },
-                {
-                  title: "Prenatal Yoga (Private)",
-                  note: "✔ Special cases are discussed after consultation.",
-                },
-              ]}
-              cta="Start Your Journey"
-            />
-          </Modal>
+          <ButtonsRow>
+            <Button variant="primary" size="lg" onClick={() => setPackagesOpen(true)}>
+              Explore Packages
+            </Button>
 
-          <Modal isOpen={sessionOpen} onClose={() => setSessionOpen(false)}>
-            <SessionSelector onSelect={() => setSessionOpen(false)} />
-          </Modal>
-        </ButtonsRow>
+            <Button variant="secondary" size="lg" onClick={() => setSessionOpen(true)}>
+              Book a Session
+            </Button>
+
+            <Modal isOpen={packagesOpen} onClose={() => setPackagesOpen(false)}>
+              <PackageDetails
+                title="Wellness Packages"
+                packages={[
+                  {
+                    title: "Group Yoga (Online / Offline)",
+                    note: "✔ Fees for group sessions are fixed.",
+                  },
+                  {
+                    title: "Private Yoga (Personal Training)",
+                    note: "✔ Private sessions are customised based on individual needs.",
+                  },
+                  {
+                    title: "Prenatal Yoga (Private)",
+                    note: "✔ Special cases are discussed after consultation.",
+                  },
+                ]}
+                cta="Start Your Journey"
+              />
+            </Modal>
+
+            <Modal isOpen={sessionOpen} onClose={() => setSessionOpen(false)}>
+              <SessionSelector onSelect={() => setSessionOpen(false)} />
+            </Modal>
+          </ButtonsRow>
+        </HeroCard>
+
+        <HeroImageFrame>
+        </HeroImageFrame>
       </AnimatedContent>
     </Wrapper>
   );

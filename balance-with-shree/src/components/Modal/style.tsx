@@ -36,7 +36,7 @@ export const Overlay = styled.div`
   padding: 24px;
 `;
 
-export const ModalBox = styled.div<{ closing?: boolean }>`
+export const ModalBox = styled.div<{ $closing?: boolean }>`
   background: linear-gradient(180deg, #ffffff 0%, #fbfdfc 100%);
   border-radius: 28px;
   width: 100%;
@@ -51,8 +51,8 @@ export const ModalBox = styled.div<{ closing?: boolean }>`
 
   transform-origin: center top;
 
-  animation: ${({ closing }) =>
-    closing
+  animation: ${({ $closing }) =>
+    $closing
       ? css`
           ${foldClose} 0.45s cubic-bezier(0.22, 0.61, 0.36, 1)
         `

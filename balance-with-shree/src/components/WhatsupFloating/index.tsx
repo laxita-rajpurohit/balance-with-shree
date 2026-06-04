@@ -1,18 +1,16 @@
+import { MessageCircleMore } from "lucide-react";
+import { buildWhatsAppUrl, contactMessages } from "../../data/contact";
 import { FloatingButton, Hint } from "./style";
 
 export default function WhatsAppFloating() {
-  const whatsappNumber = "918087048659";
-  const message = encodeURIComponent(
-    "Hi Shree, I’d love to connect regarding your wellness offerings.",
-  );
-
   return (
     <FloatingButton
-      href={`https://wa.me/${whatsappNumber}?text=${message}`}
+      href={buildWhatsAppUrl(contactMessages.general)}
       target="_blank"
       rel="noopener noreferrer"
+      aria-label="Chat on WhatsApp"
     >
-      💬
+      <MessageCircleMore size={24} strokeWidth={1.9} />
       <Hint>Chat on WhatsApp</Hint>
     </FloatingButton>
   );

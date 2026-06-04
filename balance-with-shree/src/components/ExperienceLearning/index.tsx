@@ -18,23 +18,21 @@ import {
   PreviewImg,
   PreviewClose,
 } from "./style";
+import { siteMedia } from "../../data/media";
 
 const BASE = [
   {
-    image:
-      "https://res.cloudinary.com/drjzugsyo/image/upload/v1771263583/certificate_carousel_1_bsfcoq.jpg",
+    image: siteMedia.about.certifications[0],
     title: "Medical Yoga Teacher Certification",
     variant: "yoga",
   },
   {
-    image:
-      "https://res.cloudinary.com/drjzugsyo/image/upload/v1771263574/certificate2_wl3vy9.jpg",
+    image: siteMedia.about.certifications[1],
     title: "Parental Yoga Certification",
     variant: "nutrition",
   },
   {
-    image:
-      "https://res.cloudinary.com/drjzugsyo/image/upload/v1771263573/certificate3_lkbzmr.jpg",
+    image: siteMedia.about.certifications[2],
     title: "Hatha and Ashtanga Yoga Certification",
     variant: "ayurveda",
   },
@@ -44,8 +42,6 @@ export default function ExperienceLearning() {
   const viewportRef = useRef<HTMLDivElement | null>(null);
 
   const baseLen = BASE.length;
-  if (!BASE.length) return null;
-
   const items = useMemo(() => [...BASE, ...BASE, ...BASE], []);
   const middleStart = baseLen;
 
@@ -82,26 +78,6 @@ export default function ExperienceLearning() {
     };
   }, []);
 
-  /* seamless infinite reset */
-  useEffect(() => {
-    if (index >= baseLen * 2) {
-      setAnimate(false);
-      setIndex(index - baseLen);
-    }
-
-    if (index < baseLen) {
-      setAnimate(false);
-      setIndex(index + baseLen);
-    }
-  }, [index, baseLen]);
-
-  /* re-enable animation */
-  useEffect(() => {
-    if (!animate) {
-      requestAnimationFrame(() => setAnimate(true));
-    }
-  }, [animate]);
-
   /* drag / swipe */
   const startX = useRef(0);
 
@@ -119,6 +95,23 @@ export default function ExperienceLearning() {
 
   const x = -index * (slideW || 1);
 
+  const handleTransitionEnd = () => {
+    if (index >= baseLen * 2) {
+      setAnimate(false);
+      setIndex((current) => current - baseLen);
+      requestAnimationFrame(() => setAnimate(true));
+      return;
+    }
+
+    if (index < baseLen) {
+      setAnimate(false);
+      setIndex((current) => current + baseLen);
+      requestAnimationFrame(() => setAnimate(true));
+    }
+  };
+
+  if (!baseLen) return null;
+
   return (
     <Section>
       <Container>
@@ -131,7 +124,11 @@ export default function ExperienceLearning() {
           onPointerDown={onPointerDown}
           onPointerUp={onPointerUp}
         >
-          <CarouselTrack $animate={animate} $x={x}>
+          <CarouselTrack
+            $animate={animate}
+            $x={x}
+            onTransitionEnd={handleTransitionEnd}
+          >
             {items.map((item, i) => (
               <Card
                 key={i}
@@ -140,6 +137,8 @@ export default function ExperienceLearning() {
                 <CertImage
                   src={item.image}
                   alt={item.title}
+                  loading="lazy"
+                  decoding="async"
                   className={item.variant}
                   onClick={() =>
                     setPreview({ src: item.image, title: item.title })

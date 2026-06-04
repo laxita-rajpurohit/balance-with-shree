@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Check } from "lucide-react";
+import { buildWhatsAppUrl } from "../../data/contact";
 import {
   Section,
   Container,
@@ -107,12 +108,14 @@ const PRENATAL_SESSION_OPTIONS = [
   { sessions: 20, price: 8000 },
 ];
 
+type Plan = (typeof PLANS)[number];
+
 export default function PricingPlans() {
   const [billing, setBilling] = useState<"monthly" | "quarterly">("monthly");
   const [selectedSessions, setSelectedSessions] = useState(12);
   const [selectedPrenatalSessions, setSelectedPrenatalSessions] = useState(12);
 
-  const handleWhatsApp = (plan: any) => {
+  const handleWhatsApp = (plan: Plan) => {
     let message = "";
     let finalPrice = 0;
 
@@ -150,10 +153,7 @@ Billing: ${billing}
 Price: ₹${finalPrice}`;
     }
 
-    window.open(
-      `https://wa.me/918087048659?text=${encodeURIComponent(message)}`,
-      "_blank",
-    );
+    window.open(buildWhatsAppUrl(message), "_blank");
   };
 
   return (

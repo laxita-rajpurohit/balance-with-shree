@@ -218,7 +218,7 @@ export const YogaCTAButton = styled.button`
 
 /* ===== Scroll Reveal Animation ===== */
 
-export const revealUp = keyframes`
+const revealUp = keyframes`
   from {
     opacity: 0;
     transform: translateY(40px);
@@ -229,9 +229,9 @@ export const revealUp = keyframes`
   }
 `;
 
-export const Reveal = styled.div<{ visible: boolean }>`
-  opacity: ${({ visible }) => (visible ? 1 : 0)};
-  animation: ${({ visible }) => visible && revealUp} 0.8s ease forwards;
+export const Reveal = styled.div<{ $visible: boolean }>`
+  opacity: ${({ $visible }) => ($visible ? 1 : 0)};
+  animation: ${({ $visible }) => $visible && revealUp} 0.8s ease forwards;
 `;
 
 export const MobileStack = styled.div`

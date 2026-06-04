@@ -5,8 +5,7 @@ import styled from "styled-components";
 ================================ */
 
 export const Section = styled.section`
-  padding: 120px 0 0;
-  background: ${({ theme }) => theme.colors.backgroundSoft};
+  padding: 0;
 `;
 
 /* ===============================
@@ -15,24 +14,21 @@ export const Section = styled.section`
 
 export const Container = styled.div`
   width: 100%;
-  max-width: 900px;
+  max-width: 1100px;
   margin: 0 auto;
-
-  text-align: center;
-  padding: 64px 56px;
-
-  background: rgba(255, 255, 255, 0.65);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-
-  border-radius: 36px;
-
-  box-shadow:
-    0px 40px 80px rgba(15, 60, 40, 0.12),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+  text-align: left;
+  padding: 28px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.92),
+    rgba(251, 249, 243, 0.94)
+  );
+  border-radius: 34px;
+  border: 1px solid rgba(122, 160, 143, 0.14);
+  box-shadow: 0 24px 60px rgba(15, 60, 40, 0.1);
 
   @media (max-width: 768px) {
-    padding: 48px 28px;
+    padding: 22px 18px;
     border-radius: 28px;
   }
 `;
@@ -54,13 +50,13 @@ export const Title = styled.h2`
 
 export const Desc = styled.p`
   max-width: 640px;
-  margin: 20px auto 56px;
+  margin: 14px 0 24px;
   font-size: 16px;
   line-height: 28px;
   color: ${({ theme }) => theme.colors.textMuted};
 
   @media (max-width: 768px) {
-    margin-bottom: 44px;
+    margin-bottom: 24px;
     font-size: 15px;
   }
 `;
@@ -71,9 +67,9 @@ export const Desc = styled.p`
 
 export const Points = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-  margin-bottom: 64px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 22px;
 
   @media (max-width: 1024px) {
     grid-template-columns: repeat(2, 1fr);
@@ -85,17 +81,14 @@ export const Points = styled.div`
 `;
 
 export const Point = styled.div`
-  font-size: 15px;
-  font-weight: 500;
-  color: ${({ theme }) => theme.colors.textSecondary};
-
-  padding: 22px 20px;
-  border-radius: 22px;
-
-  background: ${({ theme }) => theme.colors.backgroundLight};
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.78);
   border: 1px solid ${({ theme }) => theme.colors.borderLight};
-
-  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.06);
 
   transition:
     transform 0.25s ease,
@@ -107,32 +100,21 @@ export const Point = styled.div`
   }
 `;
 
-/* ===============================
-   CTA — PREMIUM, ON-BRAND
-================================ */
+export const PointIcon = styled.span`
+  width: 36px;
+  height: 36px;
+  border-radius: 14px;
+  background: rgba(31, 95, 74, 0.08);
+  color: ${({ theme }) => theme.colors.primary};
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+`;
 
-export const CTA = styled.button`
-  background: linear-gradient(180deg, #3f6f5b 0%, #345e4e 100%);
-  color: #ffffff;
-
-  padding: 14px 46px;
-  border-radius: 999px;
-  border: none;
-
+export const PointLabel = styled.span`
+  font-family: ${({ theme }) => theme.fonts.body};
   font-size: 15px;
-  font-weight: 500;
-  letter-spacing: 0.2px;
-  cursor: pointer;
-
-  box-shadow:
-    0 12px 30px rgba(52, 94, 78, 0.35),
-    inset 0 1px 0 rgba(255, 255, 255, 0.25);
-
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease;
-
-  &:hover {
-    transform: translateY(-2px);
-  }
+  font-weight: 600;
+  color: ${({ theme }) => theme.colors.textSecondary};
 `;

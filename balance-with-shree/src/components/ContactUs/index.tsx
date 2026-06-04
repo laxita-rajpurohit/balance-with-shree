@@ -2,6 +2,12 @@ import { useState, useEffect } from "react";
 import emailjs from "@emailjs/browser";
 import { motion } from "framer-motion";
 import { EMAILJS_CONFIG } from "../../config/emailConfig";
+import { Button } from "../Button";
+import {
+  buildWhatsAppUrl,
+  contactData,
+  contactMessages,
+} from "../../data/contact";
 import {
   Section,
   Container,
@@ -12,12 +18,10 @@ import {
   Card,
   CardTitle,
   CardText,
-  WhatsAppCTA,
   Divider,
   Form,
   Input,
   Textarea,
-  Submit,
   SuccessMessage,
   ErrorMessage,
   GlobalStyle,
@@ -30,7 +34,6 @@ interface FormData {
 }
 
 export default function Contact() {
-  // Initialize EmailJS
   useEffect(() => {
     emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY);
   }, []);
@@ -43,11 +46,6 @@ export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState("");
-
-  const whatsappNumber = "918087048659";
-  const message = encodeURIComponent(
-    "Hi Shree, I feel drawn to your work and would love to begin my wellness journey with you.",
-  );
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -81,7 +79,7 @@ export default function Contact() {
       const templateParams = {
         from_name: formData.name,
         from_email: formData.email,
-        to_email: EMAILJS_CONFIG.RECEIVER_EMAIL,
+        to_email: contactData.receiverEmail,
         message: formData.message,
         reply_to: formData.email,
       };
@@ -95,8 +93,7 @@ export default function Contact() {
       setIsSuccess(true);
       setFormData({ name: "", email: "", message: "" });
 
-      // Reset success message after 5 seconds
-      setTimeout(() => {
+      window.setTimeout(() => {
         setIsSuccess(false);
       }, 5000);
     } catch (err) {
@@ -152,13 +149,26 @@ export default function Contact() {
                 <CardText>
                   📧 <strong>Email</strong>
                   <br />
-                  balancewithshree@gmail.com
+                  <a
+                    href={`mailto:${contactData.publicEmail}`}
+                    style={{ color: "inherit" }}
+                  >
+                    {contactData.publicEmail}
+                  </a>
+                </CardText>
+
+                <CardText>
+                  📞 <strong>Call</strong>
+                  <br />
+                  <a href={contactData.phoneHref} style={{ color: "inherit" }}>
+                    {contactData.phoneDisplay}
+                  </a>
                 </CardText>
 
                 <CardText>
                   📍 <strong>Sessions</strong>
                   <br />
-                  Online • One-on-One • Worldwide
+                  {contactData.sessionsLabel}
                 </CardText>
 
                 <CardText
@@ -183,25 +193,18 @@ export default function Contact() {
                   Prefer speaking instead of typing?
                 </CardText>
 
-                <WhatsAppCTA
-                  href={`https://wa.me/${whatsappNumber}?text=${message}`}
+                <Button
+                  href={buildWhatsAppUrl(contactMessages.contactIntro)}
                   target="_blank"
                   rel="noopener noreferrer nofollow"
+                  variant="outline"
+                  size="lg"
                   style={{
-                    background: "transparent",
-                    color: "#1f5f4a",
-                    border: "1px solid #1f5f4a",
-                    boxShadow: "none",
                     marginTop: "12px",
-                    textDecoration: "none",
-                    display: "inline-flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    gap: "8px",
                   }}
                 >
                   🎙️ Send a Voice Note on WhatsApp
-                </WhatsAppCTA>
+                </Button>
               </Card>
             </motion.div>
 
@@ -225,6 +228,8 @@ export default function Contact() {
                     value={formData.name}
                     onChange={handleChange}
                     placeholder="Your name"
+                    aria-label="Your name"
+                    autoComplete="name"
                     disabled={isSubmitting}
                   />
                   <Input
@@ -233,6 +238,8 @@ export default function Contact() {
                     value={formData.email}
                     onChange={handleChange}
                     placeholder="Email address"
+                    aria-label="Email address"
+                    autoComplete="email"
                     disabled={isSubmitting}
                   />
                   <Textarea
@@ -240,6 +247,7 @@ export default function Contact() {
                     value={formData.message}
                     onChange={handleChange}
                     placeholder="What are you seeking support with?"
+                    aria-label="What are you seeking support with?"
                     disabled={isSubmitting}
                   />
                   {error && <ErrorMessage>{error}</ErrorMessage>}
@@ -248,9 +256,15 @@ export default function Contact() {
                       Thank you! Your message has been sent successfully.
                     </SuccessMessage>
                   )}
-                  <Submit type="submit" disabled={isSubmitting}>
+                  <Button
+                    type="submit"
+                    disabled={isSubmitting}
+                    variant="primary"
+                    fullWidth
+                    size="lg"
+                  >
                     {isSubmitting ? "Sending..." : "Send Message"}
-                  </Submit>
+                  </Button>
                 </Form>
               </Card>
             </motion.div>

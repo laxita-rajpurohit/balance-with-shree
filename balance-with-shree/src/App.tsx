@@ -3,6 +3,23 @@ import { Navbar } from "./components/Navbar";
 import AppRoutes from "./Routes/AppRoutes";
 import gsap from "gsap";
 import Footer from "./components/Footer";
+import WhatsAppFloating from "./components/WhatsupFloating";
+
+const leafMotionConfig = {
+  desktop: {
+    entranceDistance: 120,
+    leftOpacity: 0.22,
+    rightOpacity: 0.18,
+    leftParallaxIntensity: 0.036,
+    rightParallaxIntensity: 0.06,
+  },
+  mobile: {
+    entranceDistance: 56,
+    opacity: 0.16,
+    leftParallaxIntensity: 0.022,
+    rightParallaxIntensity: 0.03,
+  },
+} as const;
 
 const App = () => {
   const leafRightRef = useRef<HTMLDivElement>(null);
@@ -21,9 +38,21 @@ const App = () => {
     if (!right || !left) return;
 
     const isMobile = window.innerWidth < 768;
-
-    const entranceX = isMobile ? 60 : 120;
-    const scrollMultiplier = isMobile ? 0.025 : 0.06;
+    const entranceX = isMobile
+      ? leafMotionConfig.mobile.entranceDistance
+      : leafMotionConfig.desktop.entranceDistance;
+    const rightOpacity = isMobile
+      ? leafMotionConfig.mobile.opacity
+      : leafMotionConfig.desktop.rightOpacity;
+    const leftOpacity = isMobile
+      ? leafMotionConfig.mobile.opacity
+      : leafMotionConfig.desktop.leftOpacity;
+    const rightParallax = isMobile
+      ? leafMotionConfig.mobile.rightParallaxIntensity
+      : leafMotionConfig.desktop.rightParallaxIntensity;
+    const leftParallax = isMobile
+      ? leafMotionConfig.mobile.leftParallaxIntensity
+      : leafMotionConfig.desktop.leftParallaxIntensity;
 
     const entranceDuration = isMobile ? 1.1 : 1.4;
     const scrollEaseDuration = isMobile ? 1.6 : 2.2;
@@ -33,13 +62,27 @@ const App = () => {
 
     const intro = gsap.timeline({ delay: 0.6 });
 
-    intro.to([right, left], {
-      x: 0,
-      opacity: 0.4,
-      duration: entranceDuration,
-      ease: "power3.out",
-      stagger: 0.12,
-    });
+    intro
+      .to(
+        right,
+        {
+          x: 0,
+          opacity: rightOpacity,
+          duration: entranceDuration,
+          ease: "power3.out",
+        },
+        0,
+      )
+      .to(
+        left,
+        {
+          x: 0,
+          opacity: leftOpacity,
+          duration: entranceDuration,
+          ease: "power3.out",
+        },
+        0.08,
+      );
 
     const moveRight = gsap.quickTo(right, "y", {
       duration: scrollEaseDuration,
@@ -52,14 +95,17 @@ const App = () => {
     });
 
     const onScroll = () => {
-      const offset = window.scrollY * scrollMultiplier;
-      moveRight(offset);
-      moveLeft(offset);
+      moveRight(window.scrollY * rightParallax);
+      moveLeft(window.scrollY * leftParallax);
     };
 
-    window.addEventListener("scroll", onScroll);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
 
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      intro.kill();
+    };
   }, []);
 
   return (
@@ -78,11 +124,8 @@ const App = () => {
         <Navbar />
         <AppRoutes />
 
-        {/* ✅ Common footer for all pages */}
         <Footer />
-
-        {/* 💬 Floating WhatsApp */}
-        {/* <WhatsAppFloating /> */}
+        <WhatsAppFloating />
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
 import { Image, Section, Inner, AnimatedText } from "./style";
 import { useInView } from "react-intersection-observer";
 import { useNavigate } from "react-router-dom";
+import { siteMedia } from "../../data/media";
 
 interface JourneyProps {
   showFull?: boolean;
@@ -15,9 +16,9 @@ export const Journey = ({ showFull = false }: JourneyProps) => {
   const navigate = useNavigate();
 
   return (
-    <Section ref={ref}>
-      <Inner>
-        <AnimatedText visible={inView}>
+    <Section ref={ref} $compact={!showFull}>
+      <Inner $compact={!showFull}>
+        <AnimatedText $visible={inView} $compact={!showFull}>
           <h3>Hi, I am Dhanashree</h3>
 
           <p>
@@ -44,17 +45,22 @@ export const Journey = ({ showFull = false }: JourneyProps) => {
               </p>
             </>
           ) : (
-            <p>
-              Through yoga, nutrition, and mindful living, I help you find
-              balance that feels calm, sustainable, and deeply personal.
+            <>
+              <p>
+                Through yoga, nutrition, and mindful living, I help you find
+                balance that feels calm, sustainable, and deeply personal.
+              </p>
               <button onClick={() => navigate("/about")}>...Read more</button>
-            </p>
+            </>
           )}
         </AnimatedText>
 
         <Image
-          src="https://res.cloudinary.com/drjzugsyo/image/upload/v1771263067/shree7_nq8mg9.jpg"
+          src={siteMedia.home.journeyPortrait}
           alt="Yoga teacher"
+          loading="lazy"
+          decoding="async"
+          $compact={!showFull}
         />
       </Inner>
     </Section>
