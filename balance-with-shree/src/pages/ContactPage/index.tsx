@@ -1,5 +1,5 @@
-import ContactUs from "../../components/ContactUs";
+import { ContactLanding } from "./ContactLanding";
 
 export default function ContactPage() {
-  return <ContactUs />;
+  return <ContactLanding />;
 }

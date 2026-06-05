@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { Button } from "../Button";
-import { navigationCta, navigationItems } from "../../data/navigation";
+import { navigationItems } from "../../data/navigation";
 import { siteMedia } from "../../data/media";
 import {
   NavbarContainer,
   Logo,
   Nav,
-  DesktopCta,
   MobileBar,
   MobileLogo,
   BurgerButton,
@@ -17,7 +15,6 @@ import {
   DrawerHeader,
   CloseButton,
   DrawerNav,
-  DrawerCta,
   LinkReset,
   ItemLink,
   DrawerItemButton,
@@ -55,11 +52,6 @@ export const Navbar = () => {
               </NavLink>
             ))}
           </Nav>
-          <DesktopCta>
-            <Button to={navigationCta.to} size="sm" variant="secondary">
-              {navigationCta.label}
-            </Button>
-          </DesktopCta>
         </NavbarContainer>
 
         <MobileBar>
@@ -110,16 +102,6 @@ export const Navbar = () => {
                 </NavLink>
               ))}
             </DrawerNav>
-
-            <DrawerCta>
-              <Button
-                to={navigationCta.to}
-                fullWidth
-                onClick={() => setOpen(false)}
-              >
-                {navigationCta.label}
-              </Button>
-            </DrawerCta>
           </Drawer>
         </Overlay>
       </LinkReset>

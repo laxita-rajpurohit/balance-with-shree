@@ -1,5 +1,5 @@
-import Ayurveda from "../../components/Ayurveda";
+import { AyurvedaLanding } from "./AyurvedaLanding";
 
 export default function AyurvedaPage() {
-  return <Ayurveda />;
+  return <AyurvedaLanding />;
 }

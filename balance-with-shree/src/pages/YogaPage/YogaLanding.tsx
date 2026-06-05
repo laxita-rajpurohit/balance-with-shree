@@ -331,7 +331,6 @@ export const YogaLanding = () => {
 
           <PricingSection>
             <PricingHeader>
-              <SectionEyebrow>Choose Your Wellness Path</SectionEyebrow>
               <SectionTitle>Choose Your Wellness Path</SectionTitle>
               <SectionBody>
                 Simple, transparent pricing — switch to quarterly and save
@@ -545,7 +544,6 @@ export const YogaLanding = () => {
 
           <MediaSection>
             <MediaHeader>
-              <SectionEyebrow>Practice Gallery</SectionEyebrow>
               <SectionTitle>Practice Gallery</SectionTitle>
             </MediaHeader>
             <GalleryScroll>
@@ -638,7 +636,6 @@ export const YogaLanding = () => {
 
           <MediaSection>
             <MediaHeader>
-              <SectionEyebrow>Client Stories</SectionEyebrow>
               <SectionTitle>Client Stories</SectionTitle>
             </MediaHeader>
             <VideoViewport>
@@ -696,7 +693,6 @@ export const YogaLanding = () => {
 
           <MediaSection>
             <MediaHeader>
-              <SectionEyebrow>Professional Certifications</SectionEyebrow>
               <SectionTitle>Professional Certifications</SectionTitle>
             </MediaHeader>
             <CertViewport>

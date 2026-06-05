@@ -11,6 +11,10 @@ import aboutJourneyAwareness from "../assets/about/about-journey-awareness-water
 import aboutJourneyPurpose from "../assets/about/about-journey-purpose-watercolor.png";
 import yogaHeroWatercolorMobile from "../assets/yoga/yoga-hero-watercolor-mobile.png";
 import yogaHeroWatercolorDesktop from "../assets/yoga/yoga-hero-watercolor-desktop.png";
+import nutritionHeroWatercolorMobile from "../assets/nutrition/nutrition-hero-watercolor-mobile.png";
+import nutritionHeroWatercolorDesktop from "../assets/nutrition/nutrition-hero-watercolor-desktop.png";
+import ayurvedaHeroWatercolorMobile from "../assets/ayurveda/ayurveda-hero-watercolor-mobile.png";
+import ayurvedaHeroWatercolorDesktop from "../assets/ayurveda/ayurveda-hero-watercolor-desktop.png";
 
 /*
  * Centralized media map for the current production-safe assets.
@@ -117,11 +121,21 @@ export const siteMedia = {
   },
   nutrition: {
     illustration: null,
+    heroWatercolor: {
+      mobile: nutritionHeroWatercolorMobile,
+      desktop: nutritionHeroWatercolorDesktop,
+      alt: "Watercolor illustration of mindful nutrition with a food bowl and meditative figure",
+    },
     hero: "https://res.cloudinary.com/drjzugsyo/image/upload/v1771263545/shree1_bxjnwa.jpg",
     bio: "https://res.cloudinary.com/drjzugsyo/image/upload/v1771263597/journey_jcc4im.jpg",
   },
   ayurveda: {
     illustration: null,
+    heroWatercolor: {
+      mobile: ayurvedaHeroWatercolorMobile,
+      desktop: ayurvedaHeroWatercolorDesktop,
+      alt: "Watercolor illustration of Ayurvedic herbs, oils, and traditional wellness elements in a calm natural setting",
+    },
   },
   testimonials: {
     defaultProfile: "/reviews/mander.jpeg",
