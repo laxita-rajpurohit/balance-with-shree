@@ -1,20 +1,34 @@
-import homeHeroWatercolorDesktop from "../assets/home/home-hero-watercolor-desktop.png";
-import homeHeroWatercolorMobile from "../assets/home/home-hero-watercolor-mobile.png";
-import homeAboutDhanashree from "../assets/home/home-about-dhanashree.png";
-import homeYogaServiceWatercolor from "../assets/home/home-yoga-service-watercolor-2.png";
-import homeNutritionBowlWatercolor from "../assets/home/home-nutrition-bowl-watercolor.png";
-import homeAyurvedaMortarWatercolor from "../assets/home/home-ayurveda-mortar-watercolor.png";
-import aboutJourneyBeginning from "../assets/about/about-journey-beginning-watercolor.png";
-import aboutJourneyWakeup from "../assets/about/about-journey-wakeup-watercolor.png";
-import aboutJourneyHealing from "../assets/about/about-journey-healing-watercolor.png";
-import aboutJourneyAwareness from "../assets/about/about-journey-awareness-watercolor.png";
-import aboutJourneyPurpose from "../assets/about/about-journey-purpose-watercolor.png";
-import yogaHeroWatercolorMobile from "../assets/yoga/yoga-hero-watercolor-mobile.png";
-import yogaHeroWatercolorDesktop from "../assets/yoga/yoga-hero-watercolor-desktop.png";
-import nutritionHeroWatercolorMobile from "../assets/nutrition/nutrition-hero-watercolor-mobile.png";
-import nutritionHeroWatercolorDesktop from "../assets/nutrition/nutrition-hero-watercolor-desktop.png";
-import ayurvedaHeroWatercolorMobile from "../assets/ayurveda/ayurveda-hero-watercolor-mobile.png";
-import ayurvedaHeroWatercolorDesktop from "../assets/ayurveda/ayurveda-hero-watercolor-desktop.png";
+import homeHeroWatercolorDesktop from "../assets/home/home-hero-watercolor-desktop.webp";
+import homeHeroWatercolorMobile from "../assets/home/home-hero-watercolor-mobile.webp";
+import homeAboutDhanashree from "../assets/home/home-about-dhanashree.webp";
+import homeYogaServiceWatercolor from "../assets/home/home-yoga-service-watercolor-2.webp";
+import homeNutritionBowlWatercolor from "../assets/home/home-nutrition-bowl-watercolor.webp";
+import homeAyurvedaMortarWatercolor from "../assets/home/home-ayurveda-mortar-watercolor.webp";
+import aboutJourneyBeginning from "../assets/about/about-journey-beginning-watercolor.webp";
+import aboutJourneyWakeup from "../assets/about/about-journey-wakeup-watercolor.webp";
+import aboutJourneyHealing from "../assets/about/about-journey-healing-watercolor.webp";
+import aboutJourneyAwareness from "../assets/about/about-journey-awareness-watercolor.webp";
+import aboutJourneyPurpose from "../assets/about/about-journey-purpose-watercolor.webp";
+import yogaHeroWatercolorMobile from "../assets/yoga/yoga-hero-watercolor-mobile.webp";
+import yogaHeroWatercolorDesktop from "../assets/yoga/yoga-hero-watercolor-desktop.webp";
+import nutritionHeroWatercolorMobile from "../assets/nutrition/nutrition-hero-watercolor-mobile.webp";
+import nutritionHeroWatercolorDesktop from "../assets/nutrition/nutrition-hero-watercolor-desktop.webp";
+import ayurvedaHeroWatercolorMobile from "../assets/Ayurveda/ayurveda-hero-watercolor-mobile.webp";
+import ayurvedaHeroWatercolorDesktop from "../assets/Ayurveda/ayurveda-hero-watercolor-desktop.webp";
+import reviewHarshadaDeo from "../assets/reviews/review-harshada-deo.JPG";
+import reviewKavitaPatel from "../assets/reviews/review-kavita-patel.JPG";
+import reviewMohiniSonak from "../assets/reviews/review-mohini-sonak.JPG";
+import degreeCertificateDhanashree from "../assets/certificates/degree-certificate-dhanashree.webp";
+
+const clientReviewVideo1 = {
+  id: "client-review-video-1",
+  title: "Client Review",
+  type: "video",
+  src: "https://res.cloudinary.com/drjzugsyo/video/upload/v1780652409/new_client-review-video-1_c24p5j.mp4",
+  poster:
+    "https://res.cloudinary.com/drjzugsyo/video/upload/so_0/v1780652409/new_client-review-video-1_c24p5j.jpg",
+  alt: "Client video review for Balance with Shree",
+} as const;
 
 /*
  * Centralized media map for the current production-safe assets.
@@ -91,9 +105,26 @@ export const siteMedia = {
         "https://res.cloudinary.com/drjzugsyo/image/upload/f_auto,q_auto,w_600/self3_ml3idz.jpg",
     },
     certifications: [
-      "https://res.cloudinary.com/drjzugsyo/image/upload/v1771263583/certificate_carousel_1_bsfcoq.jpg",
-      "https://res.cloudinary.com/drjzugsyo/image/upload/v1771263574/certificate2_wl3vy9.jpg",
-      "https://res.cloudinary.com/drjzugsyo/image/upload/v1771263573/certificate3_lkbzmr.jpg",
+      {
+        src: "https://res.cloudinary.com/drjzugsyo/image/upload/v1771263583/certificate_carousel_1_bsfcoq.jpg",
+        title: "Medical Yoga Teacher Certification",
+        alt: "Medical yoga teacher certification for Balance with Shree",
+      },
+      {
+        src: "https://res.cloudinary.com/drjzugsyo/image/upload/v1771263574/certificate2_wl3vy9.jpg",
+        title: "Parental Yoga Certification",
+        alt: "Parental yoga certification for Balance with Shree",
+      },
+      {
+        src: "https://res.cloudinary.com/drjzugsyo/image/upload/v1771263573/certificate3_lkbzmr.jpg",
+        title: "Hatha and Ashtanga Yoga Certification",
+        alt: "Hatha and Ashtanga Yoga certification for Balance with Shree",
+      },
+      {
+        src: degreeCertificateDhanashree,
+        title: "Master of Science in Nutrition and Dietetics",
+        alt: "Degree certificate for Master of Science in Nutrition and Dietetics",
+      },
     ],
   },
   yoga: {
@@ -115,8 +146,25 @@ export const siteMedia = {
       "https://res.cloudinary.com/drjzugsyo/image/upload/v1771263573/transform3_bzxtx8.jpg",
     ],
     videos: [
-      "https://res.cloudinary.com/drjzugsyo/video/upload/v1770745584/IMG_7633_1_qooflf.mp4",
-      "https://res.cloudinary.com/drjzugsyo/video/upload/v1770745298/IMG_7634_kapmzh.mp4",
+      clientReviewVideo1,
+      {
+        id: "client-review-video-2",
+        title: "Client Story",
+        type: "video",
+        src: "https://res.cloudinary.com/drjzugsyo/video/upload/v1770745584/IMG_7633_1_qooflf.mp4",
+        poster:
+          "https://res.cloudinary.com/drjzugsyo/video/upload/so_0/v1770745584/IMG_7633_1_qooflf.jpg",
+        alt: "Client story video for Balance with Shree",
+      },
+      {
+        id: "client-review-video-3",
+        title: "Client Story",
+        type: "video",
+        src: "https://res.cloudinary.com/drjzugsyo/video/upload/v1770745298/IMG_7634_kapmzh.mp4",
+        poster:
+          "https://res.cloudinary.com/drjzugsyo/video/upload/so_0/v1770745298/IMG_7634_kapmzh.jpg",
+        alt: "Client story video for Balance with Shree",
+      },
     ],
   },
   nutrition: {
@@ -135,6 +183,23 @@ export const siteMedia = {
       mobile: ayurvedaHeroWatercolorMobile,
       desktop: ayurvedaHeroWatercolorDesktop,
       alt: "Watercolor illustration of Ayurvedic herbs, oils, and traditional wellness elements in a calm natural setting",
+    },
+  },
+  reviews: {
+    clientReviewVideo1,
+    clientPhotos: {
+      harshadaDeo: {
+        src: reviewHarshadaDeo,
+        alt: "Client review photo of Harshada Deo",
+      },
+      kavitaPatel: {
+        src: reviewKavitaPatel,
+        alt: "Client review photo of Kavita Patel",
+      },
+      mohiniSonak: {
+        src: reviewMohiniSonak,
+        alt: "Client review photo of Mohini Sonak",
+      },
     },
   },
   testimonials: {

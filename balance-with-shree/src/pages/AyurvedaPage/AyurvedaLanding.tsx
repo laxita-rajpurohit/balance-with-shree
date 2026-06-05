@@ -114,7 +114,6 @@ export const AyurvedaLanding = () => {
                   alt={heroWatercolor.alt}
                   loading="eager"
                   decoding="async"
-                  fetchPriority="high"
                 />
               </HeroPicture>
               <HeroWash />

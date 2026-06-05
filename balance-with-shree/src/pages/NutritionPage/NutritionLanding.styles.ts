@@ -381,15 +381,15 @@ export const TestimonialCard = styled.div`
   box-shadow: 0 14px 28px rgba(15, 60, 40, 0.07);
 
   @media (min-width: 640px) {
-    grid-template-columns: 88px 1fr;
-    align-items: center;
+    grid-template-columns: 112px 1fr;
+    align-items: start;
   }
 `;
 
 export const TestimonialAvatar = styled.div`
-  width: 76px;
-  height: 76px;
-  border-radius: 50%;
+  width: 112px;
+  height: 132px;
+  border-radius: 24px;
   padding: 6px;
   background: #ffffff;
   box-shadow: 0 12px 24px rgba(15, 60, 40, 0.1);
@@ -398,8 +398,9 @@ export const TestimonialAvatar = styled.div`
   img {
     width: 100%;
     height: 100%;
-    border-radius: 50%;
+    border-radius: 18px;
     object-fit: cover;
+    object-position: center top;
     display: block;
   }
 

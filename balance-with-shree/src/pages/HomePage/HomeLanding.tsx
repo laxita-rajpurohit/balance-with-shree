@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useRef, useState, type MouseEvent, type TouchEvent } from "react";
 import {
   Apple,
   ArrowRight,
   CalendarDays,
+  ChevronLeft,
+  ChevronRight,
   Flower2,
   HeartHandshake,
   HeartPulse,
@@ -12,6 +14,8 @@ import {
   Sparkles,
   SunMedium,
   Waves,
+  ZoomIn,
+  ZoomOut,
 } from "lucide-react";
 import { Button } from "../../components/Button";
 import { Modal } from "../../components/Modal";
@@ -19,6 +23,7 @@ import { PackageDetails } from "../../components/PackageDetails";
 import { SessionSelector } from "../../components/SessionSelector";
 import { buildWhatsAppUrl, contactMessages } from "../../data/contact";
 import { siteMedia } from "../../data/media";
+import { nutritionTestimonials } from "../../data/reviews";
 import {
   AboutCard,
   AboutContent,
@@ -31,6 +36,17 @@ import {
   BenefitItem,
   BenefitStrip,
   BenefitText,
+  CarouselButton,
+  CarouselControls,
+  CarouselDot,
+  CarouselDots,
+  CertCaption,
+  CertFrame,
+  CertImage,
+  CertImageWrap,
+  CertSlide,
+  CertTrack,
+  CertViewport,
   Column,
   DecorativeDivider,
   FinalCta,
@@ -64,10 +80,26 @@ import {
   PackageLabel,
   PackagesCard,
   Page,
+  QuoteMark,
   SectionBody,
   SectionEyebrow,
   SectionTitle,
   Stack,
+  MediaHeader,
+  MediaSection,
+  TestimonialAvatar,
+  TestimonialCard,
+  TestimonialContent,
+  TestimonialHandle,
+  TestimonialHeader,
+  TestimonialName,
+  TestimonialSection,
+  TestimonialText,
+  VideoCard,
+  VideoPlayer,
+  VideoSlide,
+  VideoTrack,
+  VideoViewport,
 } from "./HomeLanding.styles";
 
 const packageItems = [
@@ -105,8 +137,22 @@ export const HomeLanding = () => {
   const [packagesOpen, setPackagesOpen] = useState(false);
   const [sessionOpen, setSessionOpen] = useState(false);
   const [useFallbackHero, setUseFallbackHero] = useState(false);
+  const [reviewIndex, setReviewIndex] = useState(0);
+  const [videoIndex, setVideoIndex] = useState(0);
+  const [certIndex, setCertIndex] = useState(0);
+  const [previewCertIndex, setPreviewCertIndex] = useState<number | null>(null);
+  const [previewZoom, setPreviewZoom] = useState(1);
 
   const watercolorHero = siteMedia.home.homeHeroWatercolorIllustration;
+  const testimonials = nutritionTestimonials;
+  const certificates = siteMedia.about.certifications;
+  const testimonialTouchStartX = useRef<number | null>(null);
+  const testimonialTouchStartY = useRef<number | null>(null);
+  const videoTouchStartX = useRef<number | null>(null);
+  const videoTouchStartY = useRef<number | null>(null);
+  const certificateTouchStartX = useRef<number | null>(null);
+  const certificateTouchStartY = useRef<number | null>(null);
+  const skipCertificateClick = useRef(false);
   const heroAlt =
     watercolorHero?.alt ??
     "Watercolor illustration of a woman meditating in front of mountains and a glowing moon";
@@ -118,6 +164,168 @@ export const HomeLanding = () => {
     !useFallbackHero && watercolorHero
       ? watercolorHero.desktop
       : siteMedia.home.heroSlides[0];
+
+  const showPreviousReview = () =>
+    setReviewIndex((current) =>
+      current === 0 ? testimonials.length - 1 : current - 1,
+    );
+
+  const showNextReview = () =>
+    setReviewIndex((current) =>
+      current === testimonials.length - 1 ? 0 : current + 1,
+    );
+
+  const handleTestimonialTouchStart = (
+    event: TouchEvent<HTMLDivElement>,
+  ) => {
+    const touch = event.touches[0];
+    testimonialTouchStartX.current = touch.clientX;
+    testimonialTouchStartY.current = touch.clientY;
+  };
+
+  const handleTestimonialTouchEnd = (event: TouchEvent<HTMLDivElement>) => {
+    if (
+      testimonialTouchStartX.current === null ||
+      testimonialTouchStartY.current === null
+    ) {
+      return;
+    }
+
+    const touch = event.changedTouches[0];
+    const deltaX = touch.clientX - testimonialTouchStartX.current;
+    const deltaY = touch.clientY - testimonialTouchStartY.current;
+
+    testimonialTouchStartX.current = null;
+    testimonialTouchStartY.current = null;
+
+    if (Math.abs(deltaX) < 42 || Math.abs(deltaX) <= Math.abs(deltaY)) {
+      return;
+    }
+
+    if (deltaX > 0) {
+      showPreviousReview();
+      return;
+    }
+
+    showNextReview();
+  };
+
+  const showPreviousVideo = () =>
+    setVideoIndex((current) =>
+      current === 0 ? siteMedia.yoga.videos.length - 1 : current - 1,
+    );
+
+  const showNextVideo = () =>
+    setVideoIndex((current) =>
+      current === siteMedia.yoga.videos.length - 1 ? 0 : current + 1,
+    );
+
+  const handleVideoTouchStart = (event: TouchEvent<HTMLDivElement>) => {
+    const touch = event.touches[0];
+    videoTouchStartX.current = touch.clientX;
+    videoTouchStartY.current = touch.clientY;
+  };
+
+  const handleVideoTouchEnd = (event: TouchEvent<HTMLDivElement>) => {
+    if (videoTouchStartX.current === null || videoTouchStartY.current === null) {
+      return;
+    }
+
+    const touch = event.changedTouches[0];
+    const deltaX = touch.clientX - videoTouchStartX.current;
+    const deltaY = touch.clientY - videoTouchStartY.current;
+
+    videoTouchStartX.current = null;
+    videoTouchStartY.current = null;
+
+    if (Math.abs(deltaX) < 42 || Math.abs(deltaX) <= Math.abs(deltaY)) {
+      return;
+    }
+
+    if (deltaX > 0) {
+      showPreviousVideo();
+      return;
+    }
+
+    showNextVideo();
+  };
+
+  const showPreviousCertificate = () =>
+    setCertIndex((current) =>
+      current === 0 ? certificates.length - 1 : current - 1,
+    );
+
+  const showNextCertificate = () =>
+    setCertIndex((current) =>
+      current === certificates.length - 1 ? 0 : current + 1,
+    );
+
+  const openCertificatePreview = (index: number) => {
+    setPreviewCertIndex(index);
+    setPreviewZoom(1);
+  };
+
+  const closeCertificatePreview = () => {
+    setPreviewCertIndex(null);
+    setPreviewZoom(1);
+  };
+
+  const zoomPreviewIn = () => {
+    setPreviewZoom((current) => Math.min(3, Number((current + 0.25).toFixed(2))));
+  };
+
+  const zoomPreviewOut = () => {
+    setPreviewZoom((current) => Math.max(1, Number((current - 0.25).toFixed(2))));
+  };
+
+  const handleCertificateTouchStart = (event: TouchEvent<HTMLDivElement>) => {
+    const touch = event.touches[0];
+    certificateTouchStartX.current = touch.clientX;
+    certificateTouchStartY.current = touch.clientY;
+    skipCertificateClick.current = false;
+  };
+
+  const handleCertificateTouchEnd = (event: TouchEvent<HTMLDivElement>) => {
+    if (
+      certificateTouchStartX.current === null ||
+      certificateTouchStartY.current === null
+    ) {
+      return;
+    }
+
+    const touch = event.changedTouches[0];
+    const deltaX = touch.clientX - certificateTouchStartX.current;
+    const deltaY = touch.clientY - certificateTouchStartY.current;
+
+    certificateTouchStartX.current = null;
+    certificateTouchStartY.current = null;
+
+    if (Math.abs(deltaX) < 42 || Math.abs(deltaX) <= Math.abs(deltaY)) {
+      return;
+    }
+
+    skipCertificateClick.current = true;
+
+    if (deltaX > 0) {
+      showPreviousCertificate();
+      return;
+    }
+
+    showNextCertificate();
+  };
+
+  const handleCertificateClick = (
+    event: MouseEvent<HTMLDivElement>,
+    index: number,
+  ) => {
+    if (skipCertificateClick.current) {
+      skipCertificateClick.current = false;
+      event.preventDefault();
+      return;
+    }
+
+    openCertificatePreview(index);
+  };
 
   return (
     <Page>
@@ -134,7 +342,6 @@ export const HomeLanding = () => {
                   alt={heroAlt}
                   loading="eager"
                   decoding="async"
-                  fetchPriority="high"
                   onError={() => setUseFallbackHero(true)}
                 />
               </HeroPicture>
@@ -331,6 +538,201 @@ export const HomeLanding = () => {
             ))}
           </BenefitStrip>
 
+          <TestimonialSection>
+            <TestimonialHeader>
+              <SectionEyebrow>Client Love</SectionEyebrow>
+              <SectionTitle as="h2">Real stories. Real support.</SectionTitle>
+            </TestimonialHeader>
+
+            <TestimonialCard
+              onTouchStart={handleTestimonialTouchStart}
+              onTouchEnd={handleTestimonialTouchEnd}
+            >
+              <TestimonialAvatar>
+                <img
+                  src={testimonials[reviewIndex].image}
+                  alt={testimonials[reviewIndex].alt}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </TestimonialAvatar>
+
+              <TestimonialContent>
+                <QuoteMark>“</QuoteMark>
+                <TestimonialText>
+                  {testimonials[reviewIndex].text}
+                </TestimonialText>
+                <TestimonialName>{testimonials[reviewIndex].name}</TestimonialName>
+                {testimonials[reviewIndex].handle ? (
+                  <TestimonialHandle>
+                    {testimonials[reviewIndex].handle}
+                  </TestimonialHandle>
+                ) : null}
+              </TestimonialContent>
+            </TestimonialCard>
+
+            <CarouselControls>
+              <CarouselButton
+                type="button"
+                onClick={showPreviousReview}
+                aria-label="Show previous testimonial"
+              >
+                <ChevronLeft size={18} />
+              </CarouselButton>
+
+              <CarouselDots>
+                {testimonials.map((item, index) => (
+                  <CarouselDot
+                    key={item.name}
+                    type="button"
+                    onClick={() => setReviewIndex(index)}
+                    aria-label={`Show home testimonial ${index + 1}`}
+                    $active={reviewIndex === index}
+                  />
+                ))}
+              </CarouselDots>
+
+              <CarouselButton
+                type="button"
+                onClick={showNextReview}
+                aria-label="Show next testimonial"
+              >
+                <ChevronRight size={18} />
+              </CarouselButton>
+            </CarouselControls>
+          </TestimonialSection>
+
+          <MediaSection>
+            <MediaHeader>
+              <SectionEyebrow>Client Stories</SectionEyebrow>
+              <SectionTitle as="h2">Video reviews from real clients</SectionTitle>
+            </MediaHeader>
+
+            <VideoViewport>
+              <VideoTrack $index={videoIndex}>
+                {siteMedia.yoga.videos.map((video) => (
+                  <VideoSlide key={video.id}>
+                    <VideoCard
+                      onTouchStart={handleVideoTouchStart}
+                      onTouchEnd={handleVideoTouchEnd}
+                    >
+                      <VideoPlayer
+                        controls
+                        playsInline
+                        preload="metadata"
+                        poster={video.poster}
+                        aria-label={video.alt}
+                      >
+                        <source src={video.src} type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </VideoPlayer>
+                    </VideoCard>
+                  </VideoSlide>
+                ))}
+              </VideoTrack>
+            </VideoViewport>
+
+            <CarouselControls>
+              <CarouselButton
+                type="button"
+                onClick={showPreviousVideo}
+                aria-label="Show previous video review"
+              >
+                <ChevronLeft size={18} />
+              </CarouselButton>
+
+              <CarouselDots>
+                {siteMedia.yoga.videos.map((video, index) => (
+                  <CarouselDot
+                    key={video.id}
+                    type="button"
+                    onClick={() => setVideoIndex(index)}
+                    aria-label={`Show home video review ${index + 1}`}
+                    $active={videoIndex === index}
+                  />
+                ))}
+              </CarouselDots>
+
+              <CarouselButton
+                type="button"
+                onClick={showNextVideo}
+                aria-label="Show next video review"
+              >
+                <ChevronRight size={18} />
+              </CarouselButton>
+            </CarouselControls>
+          </MediaSection>
+
+          <MediaSection>
+            <MediaHeader>
+              <SectionEyebrow>Experience & Learning</SectionEyebrow>
+              <SectionTitle as="h2">Professional Certifications</SectionTitle>
+            </MediaHeader>
+
+            <CertViewport>
+              <CertTrack $index={certIndex}>
+                {certificates.map((certificate, index) => (
+                  <CertSlide key={certificate.title}>
+                    <CertFrame
+                      role="button"
+                      tabIndex={0}
+                      onClick={(event) => handleCertificateClick(event, index)}
+                      onTouchStart={handleCertificateTouchStart}
+                      onTouchEnd={handleCertificateTouchEnd}
+                      onKeyDown={(event) => {
+                        if (event.key === "Enter" || event.key === " ") {
+                          event.preventDefault();
+                          openCertificatePreview(index);
+                        }
+                      }}
+                      aria-label={`Preview ${certificate.title}`}
+                    >
+                      <CertImageWrap>
+                        <CertImage
+                          src={certificate.src}
+                          alt={certificate.alt}
+                          loading="lazy"
+                          decoding="async"
+                        />
+                      </CertImageWrap>
+                      <CertCaption>{certificate.title}</CertCaption>
+                    </CertFrame>
+                  </CertSlide>
+                ))}
+              </CertTrack>
+            </CertViewport>
+
+            <CarouselControls>
+              <CarouselButton
+                type="button"
+                onClick={showPreviousCertificate}
+                aria-label="Show previous home certificate"
+              >
+                <ChevronLeft size={18} />
+              </CarouselButton>
+
+              <CarouselDots>
+                {certificates.map((certificate, index) => (
+                  <CarouselDot
+                    key={certificate.title}
+                    type="button"
+                    onClick={() => setCertIndex(index)}
+                    aria-label={`Show home certificate ${index + 1}`}
+                    $active={certIndex === index}
+                  />
+                ))}
+              </CarouselDots>
+
+              <CarouselButton
+                type="button"
+                onClick={showNextCertificate}
+                aria-label="Show next home certificate"
+              >
+                <ChevronRight size={18} />
+              </CarouselButton>
+            </CarouselControls>
+          </MediaSection>
+
           <FinalCta>
             <FinalCtaTitle>Ready to begin your wellness journey?</FinalCtaTitle>
             <FinalCtaText>
@@ -383,6 +785,49 @@ export const HomeLanding = () => {
 
       <Modal isOpen={sessionOpen} onClose={() => setSessionOpen(false)}>
         <SessionSelector onSelect={() => setSessionOpen(false)} />
+      </Modal>
+
+      <Modal isOpen={previewCertIndex !== null} onClose={closeCertificatePreview}>
+        {previewCertIndex !== null ? (
+          <>
+            <SectionTitle as="h2">
+              {certificates[previewCertIndex].title}
+            </SectionTitle>
+            <CarouselControls>
+              <CarouselButton
+                type="button"
+                onClick={zoomPreviewOut}
+                aria-label="Zoom out certificate"
+              >
+                <ZoomOut size={18} />
+              </CarouselButton>
+              <SectionBody>Zoom {Math.round(previewZoom * 100)}%</SectionBody>
+              <CarouselButton
+                type="button"
+                onClick={zoomPreviewIn}
+                aria-label="Zoom in certificate"
+              >
+                <ZoomIn size={18} />
+              </CarouselButton>
+            </CarouselControls>
+            <CertViewport>
+              <CertFrame>
+                <CertImageWrap
+                  $preview
+                  onDoubleClick={() =>
+                    setPreviewZoom((current) => (current > 1 ? 1 : 2))
+                  }
+                >
+                  <CertImage
+                    src={certificates[previewCertIndex].src}
+                    alt={certificates[previewCertIndex].alt}
+                    $zoom={previewZoom}
+                  />
+                </CertImageWrap>
+              </CertFrame>
+            </CertViewport>
+          </>
+        ) : null}
       </Modal>
     </Page>
   );

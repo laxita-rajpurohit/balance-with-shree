@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState, type MouseEvent, type TouchEvent } from "react";
 import {
   Check,
   ChevronLeft,
@@ -9,6 +9,8 @@ import {
   MessageCircleMore,
   Sparkles,
   Waves,
+  ZoomIn,
+  ZoomOut,
 } from "lucide-react";
 import { Button } from "../../components/Button";
 import { Modal } from "../../components/Modal";
@@ -229,6 +231,15 @@ export const YogaLanding = () => {
   const [transformIndex, setTransformIndex] = useState(0);
   const [videoIndex, setVideoIndex] = useState(0);
   const [certIndex, setCertIndex] = useState(0);
+  const [previewCertIndex, setPreviewCertIndex] = useState<number | null>(null);
+  const [previewZoom, setPreviewZoom] = useState(1);
+  const transformTouchStartX = useRef<number | null>(null);
+  const transformTouchStartY = useRef<number | null>(null);
+  const videoTouchStartX = useRef<number | null>(null);
+  const videoTouchStartY = useRef<number | null>(null);
+  const certificateTouchStartX = useRef<number | null>(null);
+  const certificateTouchStartY = useRef<number | null>(null);
+  const skipCertificateClick = useRef(false);
 
   const heroWatercolor = siteMedia.yoga.heroWatercolor;
 
@@ -259,6 +270,170 @@ export const YogaLanding = () => {
     window.open(buildWhatsAppUrl(message), "_blank");
   };
 
+  const showPreviousTransformation = () =>
+    setTransformIndex((current) =>
+      current === 0 ? siteMedia.yoga.transformations.length - 1 : current - 1,
+    );
+
+  const showNextTransformation = () =>
+    setTransformIndex((current) =>
+      current === siteMedia.yoga.transformations.length - 1 ? 0 : current + 1,
+    );
+
+  const handleTransformationTouchStart = (
+    event: TouchEvent<HTMLDivElement>,
+  ) => {
+    const touch = event.touches[0];
+    transformTouchStartX.current = touch.clientX;
+    transformTouchStartY.current = touch.clientY;
+  };
+
+  const handleTransformationTouchEnd = (
+    event: TouchEvent<HTMLDivElement>,
+  ) => {
+    if (
+      transformTouchStartX.current === null ||
+      transformTouchStartY.current === null
+    ) {
+      return;
+    }
+
+    const touch = event.changedTouches[0];
+    const deltaX = touch.clientX - transformTouchStartX.current;
+    const deltaY = touch.clientY - transformTouchStartY.current;
+
+    transformTouchStartX.current = null;
+    transformTouchStartY.current = null;
+
+    if (Math.abs(deltaX) < 42 || Math.abs(deltaX) <= Math.abs(deltaY)) {
+      return;
+    }
+
+    if (deltaX > 0) {
+      showPreviousTransformation();
+      return;
+    }
+
+    showNextTransformation();
+  };
+
+  const showPreviousVideo = () =>
+    setVideoIndex((current) =>
+      current === 0 ? siteMedia.yoga.videos.length - 1 : current - 1,
+    );
+
+  const showNextVideo = () =>
+    setVideoIndex((current) =>
+      current === siteMedia.yoga.videos.length - 1 ? 0 : current + 1,
+    );
+
+  const handleVideoTouchStart = (event: TouchEvent<HTMLDivElement>) => {
+    const touch = event.touches[0];
+    videoTouchStartX.current = touch.clientX;
+    videoTouchStartY.current = touch.clientY;
+  };
+
+  const handleVideoTouchEnd = (event: TouchEvent<HTMLDivElement>) => {
+    if (videoTouchStartX.current === null || videoTouchStartY.current === null) {
+      return;
+    }
+
+    const touch = event.changedTouches[0];
+    const deltaX = touch.clientX - videoTouchStartX.current;
+    const deltaY = touch.clientY - videoTouchStartY.current;
+
+    videoTouchStartX.current = null;
+    videoTouchStartY.current = null;
+
+    if (Math.abs(deltaX) < 42 || Math.abs(deltaX) <= Math.abs(deltaY)) {
+      return;
+    }
+
+    if (deltaX > 0) {
+      showPreviousVideo();
+      return;
+    }
+
+    showNextVideo();
+  };
+
+  const showPreviousCertificate = () =>
+    setCertIndex((current) =>
+      current === 0 ? certificates.length - 1 : current - 1,
+    );
+
+  const showNextCertificate = () =>
+    setCertIndex((current) =>
+      current === certificates.length - 1 ? 0 : current + 1,
+    );
+
+  const openCertificatePreview = (index: number) => {
+    setPreviewCertIndex(index);
+    setPreviewZoom(1);
+  };
+
+  const closeCertificatePreview = () => {
+    setPreviewCertIndex(null);
+    setPreviewZoom(1);
+  };
+
+  const zoomPreviewIn = () => {
+    setPreviewZoom((current) => Math.min(3, Number((current + 0.25).toFixed(2))));
+  };
+
+  const zoomPreviewOut = () => {
+    setPreviewZoom((current) => Math.max(1, Number((current - 0.25).toFixed(2))));
+  };
+
+  const handleCertificateTouchStart = (event: TouchEvent<HTMLDivElement>) => {
+    const touch = event.touches[0];
+    certificateTouchStartX.current = touch.clientX;
+    certificateTouchStartY.current = touch.clientY;
+    skipCertificateClick.current = false;
+  };
+
+  const handleCertificateTouchEnd = (event: TouchEvent<HTMLDivElement>) => {
+    if (
+      certificateTouchStartX.current === null ||
+      certificateTouchStartY.current === null
+    ) {
+      return;
+    }
+
+    const touch = event.changedTouches[0];
+    const deltaX = touch.clientX - certificateTouchStartX.current;
+    const deltaY = touch.clientY - certificateTouchStartY.current;
+
+    certificateTouchStartX.current = null;
+    certificateTouchStartY.current = null;
+
+    if (Math.abs(deltaX) < 42 || Math.abs(deltaX) <= Math.abs(deltaY)) {
+      return;
+    }
+
+    skipCertificateClick.current = true;
+
+    if (deltaX > 0) {
+      showPreviousCertificate();
+      return;
+    }
+
+    showNextCertificate();
+  };
+
+  const handleCertificateClick = (
+    event: MouseEvent<HTMLDivElement>,
+    index: number,
+  ) => {
+    if (skipCertificateClick.current) {
+      skipCertificateClick.current = false;
+      event.preventDefault();
+      return;
+    }
+
+    openCertificatePreview(index);
+  };
+
   return (
     <Page>
       <Column>
@@ -275,7 +450,6 @@ export const YogaLanding = () => {
                   alt={heroWatercolor.alt}
                   loading="eager"
                   decoding="async"
-                  fetchPriority="high"
                 />
               </HeroPicture>
               <HeroShade />
@@ -571,7 +745,10 @@ export const YogaLanding = () => {
               <SectionEyebrow>Real Proof</SectionEyebrow>
               <SectionTitle>Real Transformations</SectionTitle>
             </MediaHeader>
-            <TransformViewport>
+            <TransformViewport
+              onTouchStart={handleTransformationTouchStart}
+              onTouchEnd={handleTransformationTouchEnd}
+            >
               <TransformTrack $index={transformIndex}>
                 {siteMedia.yoga.transformations.map((image, index) => (
                   <TransformSlide key={image}>
@@ -596,13 +773,7 @@ export const YogaLanding = () => {
             <CarouselControls>
               <CarouselButton
                 type="button"
-                onClick={() =>
-                  setTransformIndex((current) =>
-                    current === 0
-                      ? siteMedia.yoga.transformations.length - 1
-                      : current - 1,
-                  )
-                }
+                onClick={showPreviousTransformation}
                 aria-label="Show previous transformation"
               >
                 <ChevronLeft size={18} />
@@ -620,13 +791,7 @@ export const YogaLanding = () => {
               </CarouselDots>
               <CarouselButton
                 type="button"
-                onClick={() =>
-                  setTransformIndex((current) =>
-                    current === siteMedia.yoga.transformations.length - 1
-                      ? 0
-                      : current + 1,
-                  )
-                }
+                onClick={showNextTransformation}
                 aria-label="Show next transformation"
               >
                 <ChevronRight size={18} />
@@ -641,14 +806,21 @@ export const YogaLanding = () => {
             <VideoViewport>
               <VideoTrack $index={videoIndex}>
                 {siteMedia.yoga.videos.map((video) => (
-                  <VideoSlide key={video}>
-                    <VideoCard>
+                  <VideoSlide key={video.id}>
+                    <VideoCard
+                      onTouchStart={handleVideoTouchStart}
+                      onTouchEnd={handleVideoTouchEnd}
+                    >
                       <VideoPlayer
-                        src={video}
                         controls
                         playsInline
                         preload="metadata"
-                      />
+                        poster={video.poster}
+                        aria-label={video.alt}
+                      >
+                        <source src={video.src} type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </VideoPlayer>
                     </VideoCard>
                   </VideoSlide>
                 ))}
@@ -657,11 +829,7 @@ export const YogaLanding = () => {
             <CarouselControls>
               <CarouselButton
                 type="button"
-                onClick={() =>
-                  setVideoIndex((current) =>
-                    current === 0 ? siteMedia.yoga.videos.length - 1 : current - 1,
-                  )
-                }
+                onClick={showPreviousVideo}
                 aria-label="Show previous client story"
               >
                 <ChevronLeft size={18} />
@@ -669,7 +837,7 @@ export const YogaLanding = () => {
               <CarouselDots>
                 {siteMedia.yoga.videos.map((video, index) => (
                   <CarouselDot
-                    key={video}
+                    key={video.id}
                     type="button"
                     onClick={() => setVideoIndex(index)}
                     aria-label={`Show client story ${index + 1}`}
@@ -679,11 +847,7 @@ export const YogaLanding = () => {
               </CarouselDots>
               <CarouselButton
                 type="button"
-                onClick={() =>
-                  setVideoIndex((current) =>
-                    current === siteMedia.yoga.videos.length - 1 ? 0 : current + 1,
-                  )
-                }
+                onClick={showNextVideo}
                 aria-label="Show next client story"
               >
                 <ChevronRight size={18} />
@@ -697,13 +861,26 @@ export const YogaLanding = () => {
             </MediaHeader>
             <CertViewport>
               <CertTrack $index={certIndex}>
-                {certificates.map((image, index) => (
-                  <CertSlide key={image}>
-                    <CertFrame>
+                {certificates.map((certificate, index) => (
+                  <CertSlide key={certificate.src}>
+                    <CertFrame
+                      role="button"
+                      tabIndex={0}
+                      onClick={(event) => handleCertificateClick(event, index)}
+                      onTouchStart={handleCertificateTouchStart}
+                      onTouchEnd={handleCertificateTouchEnd}
+                      onKeyDown={(event) => {
+                        if (event.key === "Enter" || event.key === " ") {
+                          event.preventDefault();
+                          openCertificatePreview(index);
+                        }
+                      }}
+                      aria-label={`Preview ${certificate.title}`}
+                    >
                       <CertImageWrap>
                         <CertImage
-                          src={image}
-                          alt={`Professional yoga certificate ${index + 1}`}
+                          src={certificate.src}
+                          alt={certificate.alt}
                           loading="lazy"
                           decoding="async"
                         />
@@ -716,19 +893,15 @@ export const YogaLanding = () => {
             <CarouselControls>
               <CarouselButton
                 type="button"
-                onClick={() =>
-                  setCertIndex((current) =>
-                    current === 0 ? certificates.length - 1 : current - 1,
-                  )
-                }
+                onClick={showPreviousCertificate}
                 aria-label="Show previous certificate"
               >
                 <ChevronLeft size={18} />
               </CarouselButton>
               <CarouselDots>
-                {certificates.map((image, index) => (
+                {certificates.map((certificate, index) => (
                   <CarouselDot
-                    key={image}
+                    key={certificate.src}
                     type="button"
                     onClick={() => setCertIndex(index)}
                     aria-label={`Show certificate ${index + 1}`}
@@ -738,11 +911,7 @@ export const YogaLanding = () => {
               </CarouselDots>
               <CarouselButton
                 type="button"
-                onClick={() =>
-                  setCertIndex((current) =>
-                    current === certificates.length - 1 ? 0 : current + 1,
-                  )
-                }
+                onClick={showNextCertificate}
                 aria-label="Show next certificate"
               >
                 <ChevronRight size={18} />
@@ -777,6 +946,49 @@ export const YogaLanding = () => {
 
       <Modal isOpen={sessionOpen} onClose={() => setSessionOpen(false)}>
         <SessionSelector onSelect={() => setSessionOpen(false)} />
+      </Modal>
+
+      <Modal isOpen={previewCertIndex !== null} onClose={closeCertificatePreview}>
+        {previewCertIndex !== null ? (
+          <>
+            <SectionTitle as="h2">
+              {certificates[previewCertIndex].title}
+            </SectionTitle>
+            <CarouselControls>
+              <CarouselButton
+                type="button"
+                onClick={zoomPreviewOut}
+                aria-label="Zoom out certificate"
+              >
+                <ZoomOut size={18} />
+              </CarouselButton>
+              <SectionBody>Zoom {Math.round(previewZoom * 100)}%</SectionBody>
+              <CarouselButton
+                type="button"
+                onClick={zoomPreviewIn}
+                aria-label="Zoom in certificate"
+              >
+                <ZoomIn size={18} />
+              </CarouselButton>
+            </CarouselControls>
+            <CertViewport>
+              <CertFrame>
+                <CertImageWrap
+                  $preview
+                  onDoubleClick={() =>
+                    setPreviewZoom((current) => (current > 1 ? 1 : 2))
+                  }
+                >
+                  <CertImage
+                    src={certificates[previewCertIndex].src}
+                    alt={certificates[previewCertIndex].alt}
+                    $zoom={previewZoom}
+                  />
+                </CertImageWrap>
+              </CertFrame>
+            </CertViewport>
+          </>
+        ) : null}
       </Modal>
     </Page>
   );

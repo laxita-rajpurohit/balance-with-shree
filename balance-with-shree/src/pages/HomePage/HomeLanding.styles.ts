@@ -52,17 +52,18 @@ export const HeroVisual = styled.div`
   overflow: hidden;
   border-radius: 0 0 24px 24px;
   background: #edf6f1;
-  min-height: 358px;
+  aspect-ratio: 0.8;
   box-shadow: 0 18px 40px rgba(15, 60, 40, 0.08);
 
   @media (min-width: 769px) {
     ${surfaceCard};
-    min-height: 600px;
+    aspect-ratio: auto;
+    min-height: 560px;
     border-radius: 30px;
   }
 
   @media (max-width: 420px) {
-    min-height: 348px;
+    aspect-ratio: 0.79;
   }
 `;
 
@@ -79,7 +80,7 @@ export const HeroImage = styled.img`
   height: 100%;
   min-height: inherit;
   object-fit: cover;
-  object-position: center 58%;
+  object-position: center 54%;
 
   @media (min-width: 769px) {
     object-position: center 54%;
@@ -582,6 +583,256 @@ export const BenefitText = styled.span`
   @media (max-width: 768px) {
     font-size: 13px;
   }
+`;
+
+export const TestimonialSection = styled.section`
+  ${surfaceCard};
+  padding: 18px 16px;
+  background:
+    radial-gradient(circle at right top, rgba(221, 234, 225, 0.52), transparent 26%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(244, 250, 246, 0.96));
+
+  @media (min-width: 769px) {
+    padding: 24px;
+  }
+`;
+
+export const TestimonialHeader = styled.div`
+  text-align: center;
+  max-width: 560px;
+  margin: 0 auto 18px;
+`;
+
+export const TestimonialCard = styled.div`
+  ${surfaceCard};
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 14px 28px rgba(15, 60, 40, 0.06);
+  touch-action: pan-y;
+  -webkit-user-select: none;
+  user-select: none;
+
+  @media (min-width: 640px) {
+    grid-template-columns: 112px 1fr;
+    align-items: start;
+  }
+`;
+
+export const TestimonialAvatar = styled.div`
+  width: 112px;
+  height: 132px;
+  border-radius: 24px;
+  overflow: hidden;
+  background: #edf3ed;
+  justify-self: center;
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+  }
+`;
+
+export const TestimonialContent = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+`;
+
+export const QuoteMark = styled.span`
+  color: ${({ theme }) => theme.colors.primary};
+  font-size: 2.75rem;
+  line-height: 0.9;
+  opacity: 0.24;
+`;
+
+export const TestimonialText = styled.p`
+  margin: 2px 0 0;
+  color: ${({ theme }) => theme.colors.textSecondary};
+  font-size: 15px;
+  line-height: 1.65;
+`;
+
+export const TestimonialName = styled.h3`
+  margin: 14px 0 0;
+  color: ${({ theme }) => theme.colors.textPrimary};
+  font-size: 1rem;
+  line-height: 1.3;
+`;
+
+export const TestimonialHandle = styled.p`
+  margin: 4px 0 0;
+  color: ${({ theme }) => theme.colors.textMuted};
+  font-size: 13px;
+  line-height: 1.4;
+`;
+
+export const MediaSection = styled.section`
+  ${surfaceCard};
+  padding: 18px 16px;
+  background:
+    radial-gradient(circle at right top, rgba(221, 234, 225, 0.52), transparent 26%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(244, 250, 246, 0.96));
+
+  @media (min-width: 769px) {
+    padding: 24px;
+  }
+`;
+
+export const MediaHeader = styled.div`
+  text-align: center;
+  max-width: 620px;
+  margin: 0 auto 18px;
+`;
+
+export const CarouselControls = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 14px;
+`;
+
+export const CarouselButton = styled.button`
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid rgba(122, 160, 143, 0.18);
+  background: rgba(255, 255, 255, 0.88);
+  color: ${({ theme }) => theme.colors.primary};
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(15, 60, 40, 0.06);
+`;
+
+export const CarouselDots = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+`;
+
+export const CarouselDot = styled.button<{ $active: boolean }>`
+  width: ${({ $active }) => ($active ? "18px" : "8px")};
+  height: 8px;
+  border-radius: 999px;
+  border: none;
+  background: ${({ theme, $active }) =>
+    $active ? theme.colors.primary : "rgba(122, 160, 143, 0.28)"};
+  transition: width 180ms ease, background 180ms ease;
+  cursor: pointer;
+`;
+
+export const VideoViewport = styled.div`
+  overflow: hidden;
+  border-radius: 24px;
+`;
+
+export const VideoTrack = styled.div<{ $index: number }>`
+  display: flex;
+  transform: translateX(${({ $index }) => `-${$index * 100}%`});
+  transition: transform 320ms ease;
+`;
+
+export const VideoSlide = styled.div`
+  min-width: 100%;
+`;
+
+export const VideoCard = styled.div`
+  ${surfaceCard};
+  padding: 10px;
+  touch-action: pan-y;
+`;
+
+export const VideoPlayer = styled.video`
+  display: block;
+  width: 100%;
+  aspect-ratio: 0.68;
+  object-fit: cover;
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at top center, rgba(240, 245, 239, 0.92), rgba(217, 231, 223, 0.84)),
+    #dbe7df;
+`;
+
+export const CertViewport = styled.div`
+  overflow: hidden;
+  border-radius: 24px;
+`;
+
+export const CertTrack = styled.div<{ $index: number }>`
+  display: flex;
+  transform: translateX(${({ $index }) => `-${$index * 100}%`});
+  transition: transform 320ms ease;
+`;
+
+export const CertSlide = styled.div`
+  min-width: 100%;
+`;
+
+export const CertFrame = styled.div`
+  ${surfaceCard};
+  padding: 14px;
+  border-radius: 24px;
+  cursor: pointer;
+
+  &:focus-visible {
+    outline: 2px solid rgba(31, 95, 74, 0.72);
+    outline-offset: 3px;
+  }
+`;
+
+export const CertImageWrap = styled.div<{ $preview?: boolean }>`
+  width: 100%;
+  aspect-ratio: ${({ $preview }) => ($preview ? "auto" : "0.78")};
+  max-height: ${({ $preview }) => ($preview ? "72vh" : "none")};
+  overflow: hidden;
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(240, 245, 239, 0.92), rgba(255, 255, 255, 0.96));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  ${({ $preview }) =>
+    $preview
+      ? css`
+          overflow: auto;
+          padding: 10px;
+          touch-action: pan-x pan-y;
+        `
+      : ""}
+`;
+
+export const CertImage = styled.img<{ $zoom?: number }>`
+  display: block;
+  width: ${({ $zoom = 1 }) => `${$zoom * 100}%`};
+  height: auto;
+  object-fit: contain;
+  background: #ffffff;
+  transition: width 180ms ease;
+
+  ${({ $zoom = 1 }) =>
+    $zoom > 1
+      ? css`
+          max-width: none;
+        `
+      : ""}
+`;
+
+export const CertCaption = styled.p`
+  margin: 12px 0 0;
+  color: ${({ theme }) => theme.colors.textPrimary};
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.45;
+  text-align: center;
 `;
 
 export const FinalCta = styled.section`

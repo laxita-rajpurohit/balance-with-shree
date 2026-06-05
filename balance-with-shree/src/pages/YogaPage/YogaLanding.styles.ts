@@ -574,6 +574,7 @@ export const GalleryImage = styled.img`
 export const TransformViewport = styled.div`
   overflow: hidden;
   border-radius: 24px;
+  touch-action: pan-y;
 `;
 
 export const TransformTrack = styled.div<{ $index: number }>`
@@ -658,6 +659,7 @@ export const VideoSlide = styled.div`
 export const VideoCard = styled.div`
   ${surfaceCard};
   padding: 10px;
+  touch-action: pan-y;
 `;
 
 export const VideoPlayer = styled.video`
@@ -666,7 +668,9 @@ export const VideoPlayer = styled.video`
   aspect-ratio: 0.68;
   object-fit: cover;
   border-radius: 18px;
-  background: #dbe7df;
+  background:
+    radial-gradient(circle at top center, rgba(240, 245, 239, 0.92), rgba(217, 231, 223, 0.84)),
+    #dbe7df;
 `;
 
 export const CertViewport = styled.div`
@@ -688,22 +692,49 @@ export const CertFrame = styled.div`
   ${surfaceCard};
   padding: 14px;
   border-radius: 24px;
+  cursor: pointer;
+
+  &:focus-visible {
+    outline: 2px solid rgba(31, 95, 74, 0.72);
+    outline-offset: 3px;
+  }
 `;
 
-export const CertImageWrap = styled.div`
+export const CertImageWrap = styled.div<{ $preview?: boolean }>`
   width: 100%;
-  aspect-ratio: 0.78;
+  aspect-ratio: ${({ $preview }) => ($preview ? "auto" : "0.78")};
+  max-height: ${({ $preview }) => ($preview ? "72vh" : "none")};
   overflow: hidden;
   border-radius: 18px;
   background: linear-gradient(180deg, rgba(240, 245, 239, 0.92), rgba(255, 255, 255, 0.96));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  ${({ $preview }) =>
+    $preview
+      ? css`
+          overflow: auto;
+          padding: 10px;
+          touch-action: pan-x pan-y;
+        `
+      : ""}
 `;
 
-export const CertImage = styled.img`
+export const CertImage = styled.img<{ $zoom?: number }>`
   display: block;
-  width: 100%;
-  height: 100%;
+  width: ${({ $zoom = 1 }) => `${$zoom * 100}%`};
+  height: auto;
   object-fit: contain;
   background: #ffffff;
+  transition: width 180ms ease;
+
+  ${({ $zoom = 1 }) =>
+    $zoom > 1
+      ? css`
+          max-width: none;
+        `
+      : ""}
 `;
 
 export const FinalCta = styled(CardSection)`

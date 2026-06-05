@@ -1,8 +1,5 @@
-import { useState } from "react";
 import {
   Check,
-  ChevronLeft,
-  ChevronRight,
   Heart,
   Leaf,
   MessageCircleMore,
@@ -17,10 +14,6 @@ import {
   ApproachGrid,
   ApproachImage,
   ApproachImageWrap,
-  CarouselButton,
-  CarouselControls,
-  CarouselDot,
-  CarouselDots,
   Checklist,
   ChecklistIcon,
   ChecklistItem,
@@ -51,15 +44,6 @@ import {
   SupportGrid,
   SupportText,
   SupportTitle,
-  TestimonialAvatar,
-  TestimonialCard,
-  TestimonialContent,
-  TestimonialHandle,
-  TestimonialHeader,
-  TestimonialName,
-  TestimonialSection,
-  TestimonialText,
-  QuoteMark,
 } from "./NutritionLanding.styles";
 
 const supportCards = [
@@ -96,35 +80,7 @@ const planChecklist = [
   "Indian home-food focused diets (no exotic foods)",
 ] as const;
 
-const testimonials = [
-  {
-    name: "Mandar Athavale",
-    handle: "@athavalemandar",
-    image: "/reviews/mander.jpeg",
-    text: "Everyday yoga practice for the last 03 months has improved my body flexibility and concentration. Dhanashree guides well and helps improve each asana. I highly recommend her yoga sessions.",
-  },
-  {
-    name: "Harshada Deo",
-    handle: "@deoharshada",
-    image: "/reviews/mander.jpeg",
-    text: "Practicing yoga with Dhanashree has been an incredible experience. She ensures every asana is done comfortably and perfectly. Her sessions have helped me balance my PCOD problem and spondylitis.",
-  },
-  {
-    name: "Mohini Sonak",
-    handle: "@mohinisonak",
-    image: "/reviews/mander.jpeg",
-    text: "Daily yoga sessions have relieved my back pain and improved my flexibility. After yoga, my body feels energetic and I stay mentally fit throughout the day.",
-  },
-  {
-    name: "Kavita Patel",
-    handle: "",
-    image: "/reviews/mander.jpeg",
-    text: "Grateful for the incredible transformation in my health. After struggling with PCOD and medication, her personalized diet and yoga sessions worked wonders. In just 3 months, my cycle is back on track.",
-  },
-] as const;
-
 export const NutritionLanding = () => {
-  const [reviewIndex, setReviewIndex] = useState(0);
   const heroWatercolor = siteMedia.nutrition.heroWatercolor;
 
   return (
@@ -143,7 +99,6 @@ export const NutritionLanding = () => {
                   alt={heroWatercolor.alt}
                   loading="eager"
                   decoding="async"
-                  fetchPriority="high"
                 />
               </HeroPicture>
               <HeroShade />
@@ -215,75 +170,6 @@ export const NutritionLanding = () => {
               </div>
             </ApproachGrid>
           </ApproachCard>
-
-          <TestimonialSection>
-            <TestimonialHeader>
-              <SectionEyebrow>Client Love</SectionEyebrow>
-              <SectionTitle>Real stories. Real transformations.</SectionTitle>
-            </TestimonialHeader>
-
-            <TestimonialCard>
-              <TestimonialAvatar>
-                <img
-                  src={testimonials[reviewIndex].image}
-                  alt={testimonials[reviewIndex].name}
-                  loading="lazy"
-                  decoding="async"
-                />
-              </TestimonialAvatar>
-
-              <TestimonialContent>
-                <QuoteMark>“</QuoteMark>
-                <TestimonialText>
-                  {testimonials[reviewIndex].text}
-                </TestimonialText>
-                <TestimonialName>{testimonials[reviewIndex].name}</TestimonialName>
-                {testimonials[reviewIndex].handle ? (
-                  <TestimonialHandle>
-                    {testimonials[reviewIndex].handle}
-                  </TestimonialHandle>
-                ) : null}
-              </TestimonialContent>
-            </TestimonialCard>
-
-            <CarouselControls>
-              <CarouselButton
-                type="button"
-                onClick={() =>
-                  setReviewIndex((current) =>
-                    current === 0 ? testimonials.length - 1 : current - 1,
-                  )
-                }
-                aria-label="Show previous testimonial"
-              >
-                <ChevronLeft size={18} />
-              </CarouselButton>
-
-              <CarouselDots>
-                {testimonials.map((item, index) => (
-                  <CarouselDot
-                    key={item.name}
-                    type="button"
-                    onClick={() => setReviewIndex(index)}
-                    aria-label={`Show testimonial ${index + 1}`}
-                    $active={reviewIndex === index}
-                  />
-                ))}
-              </CarouselDots>
-
-              <CarouselButton
-                type="button"
-                onClick={() =>
-                  setReviewIndex((current) =>
-                    current === testimonials.length - 1 ? 0 : current + 1,
-                  )
-                }
-                aria-label="Show next testimonial"
-              >
-                <ChevronRight size={18} />
-              </CarouselButton>
-            </CarouselControls>
-          </TestimonialSection>
 
           <DiscoverySection id="pricing-section">
             <SectionTitle>Start Your Journey</SectionTitle>

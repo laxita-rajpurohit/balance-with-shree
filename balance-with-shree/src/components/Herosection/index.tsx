@@ -54,7 +54,6 @@ export const Hero = () => {
             alt={heroAlt}
             loading="eager"
             decoding="async"
-            fetchPriority="high"
             onError={() => setUseFallbackHero(true)}
           />
         </HeroPicture>
