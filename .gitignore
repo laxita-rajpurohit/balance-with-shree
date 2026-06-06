@@ -1,0 +1,13 @@
+# Build output
+dist/
+
+# Dependencies
+node_modules/
+
+# OS metadata
+.DS_Store
+
+# Environment variables
+.env
+.env.*
+!.env.example
