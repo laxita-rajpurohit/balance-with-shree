@@ -79,7 +79,7 @@ export const HomeLanding = () => {
             onBookSession={() => setSessionOpen(true)}
           />
 
-          <PackagesSummary packageItems={packageItems} />
+          <AboutPreview />
 
           <ServicesOverview
             yogaRows={yogaRows}
@@ -87,7 +87,7 @@ export const HomeLanding = () => {
             ayurvedaRows={ayurvedaRows}
           />
 
-          <AboutPreview />
+          <PackagesSummary packageItems={packageItems} />
 
           <BenefitStrip benefits={benefits} />
 
