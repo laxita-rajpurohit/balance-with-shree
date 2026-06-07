@@ -41,7 +41,14 @@ export const SectionTitle = styled.h2`
   line-height: 1.08;
 `;
 
-export const GalleryScroll = styled.div`
+export const GalleryViewport = styled.div`
+  @media (min-width: 769px) {
+    overflow: hidden;
+    width: 100%;
+  }
+`;
+
+export const GalleryTrack = styled.div<{ $index: number }>`
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: minmax(78%, 1fr);
@@ -60,10 +67,13 @@ export const GalleryScroll = styled.div`
   }
 
   @media (min-width: 769px) {
-    grid-auto-flow: initial;
-    grid-auto-columns: auto;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    overflow: visible;
+    display: flex;
+    gap: 16px;
+    overflow-x: visible;
+    padding-bottom: 0;
+    scroll-snap-type: none;
+    transition: transform 320ms ease;
+    transform: ${({ $index }) => `translateX(calc(-${$index} * (100% + 16px) / 3))`};
   }
 `;
 
@@ -71,6 +81,10 @@ export const GalleryCard = styled.div`
   ${surfaceCard};
   padding: 10px;
   scroll-snap-align: start;
+
+  @media (min-width: 769px) {
+    flex: 0 0 calc((100% - 32px) / 3);
+  }
 `;
 
 export const GalleryImage = styled.img`
@@ -81,4 +95,36 @@ export const GalleryImage = styled.img`
   object-position: center;
   border-radius: 18px;
   background: #eef2ef;
+`;
+
+export const GalleryControls = styled.div`
+  display: none;
+
+  @media (min-width: 769px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 20px;
+  }
+`;
+
+export const CarouselButton = styled.button`
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid rgba(122, 160, 143, 0.18);
+  background: rgba(255, 255, 255, 0.88);
+  color: ${({ theme }) => theme.colors.primary};
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(15, 60, 40, 0.06);
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: ${({ theme }) => theme.colors.primary};
+    color: white;
+  }
 `;

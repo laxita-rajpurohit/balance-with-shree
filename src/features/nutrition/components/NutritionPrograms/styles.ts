@@ -74,7 +74,6 @@ export const ApproachGrid = styled.div`
   @media (min-width: 900px) {
     grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
     gap: 24px;
-    align-items: start;
   }
 `;
 
@@ -83,9 +82,10 @@ export const ApproachImageWrap = styled.div`
   overflow: hidden;
   min-height: 254px;
   background: #e8f1eb;
+  position: relative;
 
   @media (min-width: 900px) {
-    min-height: 100%;
+    height: 100%;
   }
 `;
 
@@ -95,6 +95,11 @@ export const ApproachImage = styled.img`
   height: 100%;
   object-fit: cover;
   object-position: center;
+
+  @media (min-width: 900px) {
+    position: absolute;
+    inset: 0;
+  }
 `;
 
 export const Checklist = styled.div`
