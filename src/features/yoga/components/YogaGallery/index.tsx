@@ -15,7 +15,7 @@ export const YogaGallery = ({ gallery }: YogaGalleryProps) => {
   return (
     <MediaSection>
       <MediaHeader>
-        <SectionTitle>Practice Gallery</SectionTitle>
+        <SectionTitle>Gallery</SectionTitle>
       </MediaHeader>
       <GalleryScroll>
         {gallery.map((image, index) => (

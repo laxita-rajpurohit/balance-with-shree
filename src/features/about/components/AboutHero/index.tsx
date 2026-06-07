@@ -48,20 +48,22 @@ export const AboutHero = ({
             <span>✦</span>
           </Divider>
           <SectionBody>
-            I help people build a healthy relationship with food, movement,
-            and their bodies — not through extreme diets or quick fixes, but
-            through simple, sustainable, and mindful lifestyle changes.
+            I am passionate about helping people build a healthier relationship
+            with food, movement, and their bodies—not through restrictive diets
+            or quick fixes, but through sustainable habits that support
+            long-term well-being.
           </SectionBody>
           <SectionBody>
-            From dance and acrobatics to yoga and mindful living, movement
-            has always been my way of connecting with myself. During a pause
-            in life, I found clarity through yoga and nutrition—building
-            strength, balance, and discipline from within.
+            Over the past 5+ years, I have had the privilege of guiding 1000+
+            individuals on their wellness journeys. With a Master’s degree in
+            Clinical Nutrition & Dietetics and training in yoga and yoga
+            therapy, I take a holistic approach that combines nutrition,
+            movement, and mindful living.
           </SectionBody>
           <SectionBody>
-            Balance with Shree was born from this personal transformation—a
-            space where yoga, nutrition, and mindful living come together in
-            a practical, sustainable way.
+            Through Balance With Shree, I aim to make healthy living practical,
+            enjoyable, and sustainable, helping individuals create positive
+            changes that last a lifetime.
           </SectionBody>
 
           <HeroActions>

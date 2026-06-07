@@ -29,7 +29,7 @@ const plans = [
   {
     id: "foundation",
     name: "Group Session Plan",
-    monthly: 1500,
+    monthly: 2000,
     quarterly: 1500 * 3,
     highlight: false,
     meta: {

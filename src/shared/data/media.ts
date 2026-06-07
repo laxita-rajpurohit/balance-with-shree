@@ -113,8 +113,8 @@ export const siteMedia = {
       },
       {
         src: "https://res.cloudinary.com/drjzugsyo/image/upload/v1771263574/certificate2_wl3vy9.jpg",
-        title: "Parental Yoga Certification",
-        alt: "Parental yoga certification for Balance with Shree",
+        title: "Prenatal  Yoga Certification",
+        alt: "Prenatal  yoga certification for Balance with Shree",
       },
       {
         src: "https://res.cloudinary.com/drjzugsyo/image/upload/v1771263573/certificate3_lkbzmr.jpg",
@@ -140,11 +140,19 @@ export const siteMedia = {
       "https://res.cloudinary.com/drjzugsyo/image/upload/v1771263837/yogaimage1_t1hgpj.jpg",
       "https://res.cloudinary.com/drjzugsyo/image/upload/v1771264338/shree2_i3c9mu.jpg",
       "https://res.cloudinary.com/drjzugsyo/image/upload/v1771263548/shree3_gveuvh.jpg",
+      "https://res.cloudinary.com/drjzugsyo/image/upload/v1780828350/IMG_9945_1_vzt5hd.jpg",
+      "https://res.cloudinary.com/drjzugsyo/image/upload/v1780828352/IMG_5238_1_dsrcky.jpg",
+      "https://res.cloudinary.com/drjzugsyo/image/upload/v1780828353/IMG_2802_ngxcto.jpg",
+      "https://res.cloudinary.com/drjzugsyo/image/upload/v1780828352/IMG_2788_wqaxaj.jpg",
+      "https://res.cloudinary.com/drjzugsyo/image/upload/v1780828357/IMG_1471_ncj2xz.jpg",
+      "https://res.cloudinary.com/drjzugsyo/image/upload/v1780829437/IMG_9805_mhapr9.jpg",
+      "https://res.cloudinary.com/drjzugsyo/image/upload/v1780829728/IMG_9635_gekyfq.jpg",
     ],
     transformations: [
       "https://res.cloudinary.com/drjzugsyo/image/upload/v1771263544/transform4_uqtnrd.jpg",
       "https://res.cloudinary.com/drjzugsyo/image/upload/v1771263547/transform2_zlouig.jpg",
       "https://res.cloudinary.com/drjzugsyo/image/upload/v1771263573/transform3_bzxtx8.jpg",
+      "https://res.cloudinary.com/drjzugsyo/image/upload/v1780827816/WhatsApp_Image_2026-06-05_at_21.43.34_quordx.jpg",
     ],
     videos: [
       clientReviewVideo1,
