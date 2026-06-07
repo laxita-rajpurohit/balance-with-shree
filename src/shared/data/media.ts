@@ -11,8 +11,7 @@ import aboutJourneyWakeup from "../../assets/about/about-journey-wakeup-watercol
 import aboutJourneyHealing from "../../assets/about/about-journey-healing-watercolor.webp";
 import aboutJourneyAwareness from "../../assets/about/about-journey-awareness-watercolor.webp";
 import aboutJourneyPurpose from "../../assets/about/about-journey-purpose-watercolor.webp";
-import yogaHeroWatercolorMobile from "../../assets/yoga/yoga-hero-watercolor-mobile.webp";
-import yogaHeroWatercolorDesktop from "../../assets/yoga/yoga-hero-watercolor-desktop.webp";
+import yogaHeroNew from "../../assets/yoga/IMG_2522.PNG";
 import nutritionHeroWatercolorMobile from "../../assets/nutrition/nutrition-hero-watercolor-mobile.webp";
 import nutritionHeroWatercolorDesktop from "../../assets/nutrition/nutrition-hero-watercolor-desktop.webp";
 import ayurvedaHeroWatercolorMobile from "../../assets/Ayurveda/ayurveda-hero-watercolor-mobile.webp";
@@ -132,9 +131,9 @@ export const siteMedia = {
   yoga: {
     illustration: null,
     heroWatercolor: {
-      mobile: yogaHeroWatercolorMobile,
-      desktop: yogaHeroWatercolorDesktop,
-      alt: "Watercolor illustration of a woman practicing yoga in a calm natural setting",
+      mobile: yogaHeroNew,
+      desktop: yogaHeroNew,
+      alt: "Yoga practice in a calm setting",
     } as ResponsiveImageAsset,
     hero: "https://res.cloudinary.com/drjzugsyo/image/upload/v1771264109/yogaimage2_vid0yc.jpg",
     gallery: [

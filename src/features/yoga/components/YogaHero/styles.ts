@@ -50,7 +50,7 @@ export const HeroImage = styled.img`
   object-position: center 54%;
 
   @media (min-width: 769px) {
-    object-position: center 52%;
+    object-position: center 90%;
   }
 `;
 
